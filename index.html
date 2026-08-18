@@ -54,15 +54,15 @@
   <div id="adminBar" class="hidden bg-slate-900 text-white px-4 py-2 text-xs font-semibold flex justify-between items-center z-50 sticky top-0 border-b border-slate-700 shadow-md">
     <div class="flex items-center space-x-2">
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-      <span class="text-emerald-400 font-bold">LİDER YÖNETİCİ PANELİ AKTİF</span>
-      <span class="hidden sm:inline text-gray-400">| Yeni duyuru/sporcu ekleyebilir, puanları yönetebilir ve başvuruları inceleyebilirsiniz.</span>
+      <span class="text-emerald-400 font-bold">LİDER CANLI YÖNETİM PANELİ</span>
+      <span class="hidden sm:inline text-gray-400">| Anlık canlı puan güncelleyebilir, yeni duyuru ekleyebilir ve gelen başvuruları görebilirsiniz.</span>
     </div>
     <div class="flex items-center space-x-3">
       <button onclick="openApplicationsModal()" class="px-3 py-1 bg-brandBlue hover:bg-blue-600 rounded-lg text-white font-bold transition flex items-center">
-        <i class="fa-solid fa-inbox mr-1.5"></i> Gelen Başvurular (<span id="appCountBadge">0</span>)
+        <i class="fa-solid fa-inbox mr-1.5"></i> Başvurular (<span id="appCountBadge">0</span>)
       </button>
       <button onclick="logoutAdmin()" class="px-2.5 py-1 bg-red-600/80 hover:bg-red-600 rounded-lg text-white transition">
-        <i class="fa-solid fa-right-from-bracket mr-1"></i> Çıkış Yap
+        <i class="fa-solid fa-right-from-bracket mr-1"></i> Çıkış
       </button>
     </div>
   </div>
@@ -297,7 +297,7 @@
           <i class="fa-solid fa-trophy mr-2 text-yellow-400"></i> Tatlı Rekabet & Liderlik
         </span>
         <h2 class="text-3xl sm:text-4xl font-black">Ekip Puan Durumu & Haftanın Şampiyonları</h2>
-        <p class="text-gray-300 text-xs sm:text-sm mt-3">Etkinlik katılımı, kamp görevleri ve turnuva derecelerine göre oluşan güncel sıralama.</p>
+        <p class="text-gray-300 text-xs sm:text-sm mt-3">Etkinlik katılımı, kamp görevleri ve turnuva derecelerine göre oluşan güncel canlı sıralama.</p>
       </div>
 
       <!-- HAFTANIN BİRİNCİSİ ÖZEL VİTRİNİ -->
@@ -698,11 +698,11 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      <p class="text-xs text-gray-500 mb-4">Etkinlikler, puanlama, sporcu listesi ve başvuru takibini yönetmek için şifrenizi giriniz.</p>
+      <p class="text-xs text-gray-500 mb-4">Etkinlikler, canlı puanlama, sporcu listesi ve başvuru takibini yönetmek için şifrenizi giriniz.</p>
       <form onsubmit="handleAdminLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Yönetici Şifresi</label>
-          <input type="password" id="adminPasswordInput" required placeholder="Giriş Şifresi (Örn: 1234)" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-brandBlue focus:outline-none">
+          <input type="password" id="adminPasswordInput" required placeholder="Giriş Şifresi (1234 veya aktif2026)" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-brandBlue focus:outline-none">
         </div>
         <div id="loginErrorMsg" class="text-xs text-brandRed font-bold hidden">Girdiğiniz şifre hatalı!</div>
         <button type="submit" class="w-full py-3 bg-brandDarkBlue hover:bg-brandBlue text-white font-bold text-xs rounded-xl shadow-md transition-all">
@@ -930,4 +930,718 @@
           </div>
           <div>
             <label class="block text-xs font-bold text-gray-700 mb-1">Konum</label>
-            <input type="text" id="newEventLoc" required placeholder="Çankaya Spor Salonu" class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-brandBlue focus:
+            <input type="text" id="newEventLoc" required placeholder="Çankaya Spor Salonu" class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-brandBlue focus:outline-none">
+          </div>
+        </div>
+        <button type="submit" class="w-full py-3 bg-brandRed hover:bg-brandDarkRed text-white font-bold text-xs rounded-xl shadow-md transition-all mt-2">
+          Duyuruyu Yayınla
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast" class="fixed top-24 right-6 z-50 hidden px-5 py-3 rounded-2xl bg-gray-900 text-white text-xs font-bold shadow-2xl flex items-center space-x-2 border border-gray-800 transition-all">
+    <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+    <span id="toastMsg">İşlem başarılı!</span>
+  </div>
+
+  <!-- Firebase Cloud Sync Entegrasyonu -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'ankara-aktif-genc-app';
+    let firebaseConfig = null;
+    try {
+      if (typeof __firebase_config !== 'undefined') {
+        firebaseConfig = JSON.parse(__firebase_config);
+      }
+    } catch(e) {
+      console.log('Using standard local database persistence.');
+    }
+
+    if (firebaseConfig) {
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      async function initAuth() {
+        try {
+          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+          } else {
+            await signInAnonymously(auth);
+          }
+        } catch (e) {
+          console.log('Auth setup initialized');
+        }
+      }
+
+      initAuth();
+
+      onAuthStateChanged(auth, (user) => {
+        if (!user) return;
+
+        // Sync Athletes
+        const athletesCol = collection(db, 'artifacts', appId, 'public', 'data', 'athletes');
+        onSnapshot(athletesCol, (snapshot) => {
+          if (!snapshot.empty) {
+            const remoteAthletes = [];
+            snapshot.forEach(doc => remoteAthletes.push({ id: doc.id, ...doc.data() }));
+            window.initialAthletes = remoteAthletes;
+            window.renderAll();
+          }
+        }, (err) => console.log(err));
+
+        // Sync Events
+        const eventsCol = collection(db, 'artifacts', appId, 'public', 'data', 'events');
+        onSnapshot(eventsCol, (snapshot) => {
+          if (!snapshot.empty) {
+            const remoteEvents = [];
+            snapshot.forEach(doc => remoteEvents.push({ id: doc.id, ...doc.data() }));
+            window.initialEvents = remoteEvents;
+            window.renderAll();
+          }
+        }, (err) => console.log(err));
+
+        // Sync Applications
+        const appsCol = collection(db, 'artifacts', appId, 'public', 'data', 'applications');
+        onSnapshot(appsCol, (snapshot) => {
+          if (!snapshot.empty) {
+            const remoteApps = [];
+            snapshot.forEach(doc => remoteApps.push({ id: doc.id, ...doc.data() }));
+            window.applicationsList = remoteApps;
+            window.updateAppBadge();
+          }
+        }, (err) => console.log(err));
+
+        // Global save method override for cloud sync
+        window.cloudSaveAthlete = async function(athlete) {
+          const ref = doc(db, 'artifacts', appId, 'public', 'data', 'athletes', athlete.id);
+          await setDoc(ref, athlete, { merge: true });
+        };
+
+        window.cloudSaveEvent = async function(eventItem) {
+          const ref = doc(db, 'artifacts', appId, 'public', 'data', 'events', eventItem.id);
+          await setDoc(ref, eventItem, { merge: true });
+        };
+
+        window.cloudSaveApplication = async function(appItem) {
+          const ref = doc(db, 'artifacts', appId, 'public', 'data', 'applications', appItem.id);
+          await setDoc(ref, appItem, { merge: true });
+        };
+      });
+    }
+  </script>
+
+  <script>
+    let initialEvents = [
+      { id: 'ev1', category: 'turnuva', title: 'Ankara Gençlik Bilek Güreşi Şampiyonası', desc: 'Sporcularımızın sağ ve sol kol farklı sıkletlerde mücadele edeceği Gençlik Spor İl Müdürlüğü şampiyonası müsabakaları.', date: '25 Ekim 2026 - 10:00', loc: 'Atatürk Spor Salonu' },
+      { id: 'ev2', category: 'kamp', title: 'Kızılcahamam Doğa & Liderlik Kampı', desc: 'Gençlerimizin dayanıklılığını ve takım uyumunu artırmak amacıyla 2 günlük oryantiring ve çadır kampı düzenliyoruz.', date: '12 - 14 Kasım 2026', loc: 'Kızılcahamam Gençlik Kamp Alanı' },
+      { id: 'ev3', category: 'seminer', title: 'Sporcu Beslenmesi ve Motivasyon Semineri', desc: 'Uzman diyetisyenler ve spor liderleri eşliğinde genç sporculara ve velilere yönelik bilgilendirme semineri.', date: '30 Kasım 2026 - 14:00', loc: 'Kulüp Merkezi Konferans Salonu' }
+    ];
+
+    let initialAthletes = [
+      { id: 'ath1', name: 'Burak Kaya', team: 'Fırtına Ekibi', points: 320, branch: 'Bilek Güreşi (Gençler -70kg)', leader: 'Selin Demir', att: '%95', status: 'Turnuva Kadrosunda' },
+      { id: 'ath2', name: 'Zeynep Çelik', team: 'Parslar Ekibi', points: 345, branch: 'Doğa Kampı & Oryantiring', leader: 'Emre Kaya', att: '%92', status: 'Lider Sporcu' },
+      { id: 'ath3', name: 'Mert Öztürk', team: 'Fırtına Ekibi', points: 275, branch: 'Bilek Güreşi (Gençler +80kg)', leader: 'Selin Demir', att: '%85', status: 'Gelişim Seviyesinde' },
+      { id: 'ath4', name: 'Caner Şahin', team: 'Şahinler Ekibi', points: 310, branch: 'Bilek Güreşi (Gençler -70kg)', leader: 'Ahmet Yılmaz', att: '%88', status: 'Turnuva Kadrosunda' },
+      { id: 'ath5', name: 'Ayşe Doğan', team: 'Parslar Ekibi', points: 290, branch: 'Doğa Kampı & Oryantiring', leader: 'Emre Kaya', att: '%90', status: 'Lider Sporcu' }
+    ];
+
+    let applicationsList = [];
+
+    function loadLocalState() {
+      const storedEvents = localStorage.getItem('ankara_events');
+      if (storedEvents) initialEvents = JSON.parse(storedEvents);
+      const storedAthletes = localStorage.getItem('ankara_athletes');
+      if (storedAthletes) initialAthletes = JSON.parse(storedAthletes);
+      const storedApps = localStorage.getItem('ankara_applications');
+      if (storedApps) applicationsList = JSON.parse(storedApps);
+    }
+
+    function saveLocalState() {
+      localStorage.setItem('ankara_events', JSON.stringify(initialEvents));
+      localStorage.setItem('ankara_athletes', JSON.stringify(initialAthletes));
+      localStorage.setItem('ankara_applications', JSON.stringify(applicationsList));
+    }
+
+    loadLocalState();
+
+    window.renderAll = function() {
+      renderEvents();
+      renderAthletes();
+      renderLeaderboard();
+      updateAppBadge();
+    };
+
+    window.renderEvents = function() {
+      const grid = document.getElementById('eventGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const activeFilterBtn = document.querySelector('#eventFilters .filter-btn.active');
+      const filter = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+
+      initialEvents.forEach(item => {
+        if (filter !== 'all' && item.category !== filter) return;
+
+        let catBadge = "Turnuva";
+        let catBg = "bg-red-100 text-brandRed";
+        if (item.category === 'kamp') {
+          catBadge = "Kamp";
+          catBg = "bg-blue-100 text-brandBlue";
+        } else if (item.category === 'seminer') {
+          catBadge = "Seminer";
+          catBg = "bg-emerald-100 text-emerald-700";
+        }
+
+        const card = document.createElement('div');
+        card.className = "event-card bg-gray-50 rounded-2xl p-6 border border-gray-200 flex flex-col justify-between hover:shadow-lg transition-all relative group";
+
+        const deleteBtnHtml = window.isAdminLoggedIn ? `
+          <button onclick="deleteEvent('${item.id}')" class="absolute top-4 right-4 w-7 h-7 bg-red-100 text-red-600 rounded-lg flex items-center justify-center hover:bg-red-600 hover:text-white transition-colors">
+            <i class="fa-solid fa-trash text-xs"></i>
+          </button>
+        ` : '';
+
+        card.innerHTML = `
+          <div>
+            ${deleteBtnHtml}
+            <div class="flex justify-between items-center mb-4 pr-6">
+              <span class="px-3 py-1 ${catBg} text-xs font-bold rounded-full">${catBadge}</span>
+              <span class="text-xs font-semibold text-gray-400">Aktif</span>
+            </div>
+            <h3 class="font-bold text-xl text-brandDarkBlue mb-3">${item.title}</h3>
+            <p class="text-gray-600 text-xs mb-6 leading-relaxed">${item.desc}</p>
+          </div>
+          <div class="pt-4 border-t border-gray-200 text-xs text-gray-500 space-y-2">
+            <div class="flex items-center"><i class="fa-regular fa-calendar text-brandRed w-5"></i> <span>${item.date}</span></div>
+            <div class="flex items-center"><i class="fa-solid fa-location-dot text-brandRed w-5"></i> <span>${item.loc}</span></div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      document.getElementById('statEventsCount').innerText = `${initialEvents.length}+`;
+    };
+
+    window.renderAthletes = function() {
+      const tbody = document.getElementById('athleteTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const term = (document.getElementById('athleteSearch')?.value || '').toLowerCase();
+
+      initialAthletes.forEach(ath => {
+        if (term && !ath.name.toLowerCase().includes(term) && !ath.branch.toLowerCase().includes(term) && !(ath.team || '').toLowerCase().includes(term)) {
+          return;
+        }
+
+        const initials = ath.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        const tr = document.createElement('tr');
+        tr.className = 'athlete-row hover:bg-gray-50 transition-colors';
+
+        const deleteTd = window.isAdminLoggedIn ? `
+          <td class="px-4 py-4 text-center admin-only">
+            <button onclick="deleteAthlete('${ath.id}')" class="text-red-500 hover:text-red-700 p-1">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        ` : `<td class="px-4 py-4 text-center admin-only hidden"></td>`;
+
+        tr.innerHTML = `
+          <td class="px-6 py-4 font-bold text-gray-900 flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-blue-100 text-brandBlue flex items-center justify-center font-bold text-xs">${initials}</div>
+            <div>
+              <span class="athlete-name block">${ath.name}</span>
+              <span class="text-[10px] text-gray-400 font-semibold">${ath.team || 'Ekip Belirtilmemiş'}</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 athlete-branch">${ath.branch}</td>
+          <td class="px-6 py-4 athlete-leader">${ath.leader}</td>
+          <td class="px-6 py-4 text-center">
+            <div class="flex items-center justify-center space-x-2">
+              <div class="w-16 bg-gray-200 rounded-full h-2">
+                <div class="bg-emerald-500 h-2 rounded-full" style="width: ${ath.att.replace('%','')}%"></div>
+              </div>
+              <span class="font-bold text-emerald-600">${ath.att}</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-center">
+            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-full text-[11px]">${ath.status}</span>
+          </td>
+          <td class="px-6 py-4 text-center">
+            <button onclick="generateAiReport('${ath.name}', '${ath.branch}', '${ath.leader}', '${ath.att}', '${ath.status}')" class="px-3 py-1.5 rounded-lg bg-blue-50 text-brandBlue hover:bg-brandBlue hover:text-white font-bold text-[11px] border border-blue-200 transition-all flex items-center justify-center mx-auto">
+              <i class="fa-solid fa-wand-magic-sparkles mr-1 text-brandRed"></i> AI Rapor
+            </button>
+          </td>
+          ${deleteTd}
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('statAthletesCount').innerText = `${initialAthletes.length * 40}+`;
+    };
+
+    window.renderLeaderboard = function() {
+      if (initialAthletes.length === 0) return;
+
+      const sortedAthletes = [...initialAthletes].sort((a, b) => (b.points || 0) - (a.points || 0));
+
+      const topAth = sortedAthletes[0];
+      if (topAth) {
+        document.getElementById('topAthleteName').innerText = topAth.name;
+        document.getElementById('topAthleteDetails').innerText = `Ekip: ${topAth.team || 'Belirtilmemiş'} | Branş: ${topAth.branch} | Lider: ${topAth.leader}`;
+        document.getElementById('topAthletePoints').innerText = topAth.points || 0;
+      }
+
+      const teamsMap = {};
+      sortedAthletes.forEach(ath => {
+        const teamName = ath.team || 'Genel Ekip';
+        if (!teamsMap[teamName]) {
+          teamsMap[teamName] = {
+            name: teamName,
+            totalPoints: 0,
+            membersCount: 0,
+            topMember: ath
+          };
+        }
+        teamsMap[teamName].totalPoints += (ath.points || 0);
+        teamsMap[teamName].membersCount += 1;
+      });
+
+      const teamsGrid = document.getElementById('teamsOverviewGrid');
+      if (teamsGrid) {
+        teamsGrid.innerHTML = '';
+        Object.values(teamsMap).forEach(team => {
+          const card = document.createElement('div');
+          card.className = "bg-slate-950 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between hover:border-yellow-500/50 transition-all";
+          card.innerHTML = `
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[11px] font-bold rounded-full">
+                  <i class="fa-solid fa-users text-xs mr-1"></i> ${team.membersCount} Sporcu
+                </span>
+                <span class="text-xs font-black text-yellow-400">${team.totalPoints} Puan</span>
+              </div>
+              <h4 class="text-lg font-black text-white mb-2">${team.name}</h4>
+              <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs">
+                <div class="text-[10px] text-gray-400 uppercase font-bold mb-1">Ekip Birincisi 🥇</div>
+                <div class="font-bold text-yellow-300">${team.topMember.name}</div>
+                <div class="text-[11px] text-gray-400 mt-0.5">${team.topMember.points} Puan</div>
+              </div>
+            </div>
+          `;
+          teamsGrid.appendChild(card);
+        });
+      }
+
+      const lbBody = document.getElementById('leaderboardTableBody');
+      if (lbBody) {
+        lbBody.innerHTML = '';
+        sortedAthletes.forEach((ath, index) => {
+          const tr = document.createElement('tr');
+          tr.className = "hover:bg-slate-900/60 transition-colors";
+
+          let rankBadge = `<span class="font-bold text-gray-400">${index + 1}</span>`;
+          if (index === 0) rankBadge = `<span class="text-lg">🥇</span>`;
+          else if (index === 1) rankBadge = `<span class="text-lg">🥈</span>`;
+          else if (index === 2) rankBadge = `<span class="text-lg">🥉</span>`;
+
+          let titleBadge = "Sporcu";
+          if (index === 0) titleBadge = "Haftanın Şampiyonu";
+          else if (index < 3) titleBadge = "Derece Takımında";
+
+          const adminTd = window.isAdminLoggedIn ? `
+            <td class="px-4 py-3 text-center admin-only">
+              <button onclick="openPointModal('${ath.id}', '${ath.name}', ${ath.points || 0})" class="px-3 py-1 bg-yellow-500/20 hover:bg-yellow-500 hover:text-slate-950 text-yellow-400 border border-yellow-500/30 font-bold text-[11px] rounded-lg transition-all flex items-center justify-center mx-auto">
+                <i class="fa-solid fa-plus-minus mr-1"></i> Puan Düzenle
+              </button>
+            </td>
+          ` : `<td class="px-4 py-3 text-center admin-only hidden"></td>`;
+
+          tr.innerHTML = `
+            <td class="px-6 py-3 text-center font-bold">${rankBadge}</td>
+            <td class="px-6 py-3 font-bold text-white">${ath.name}</td>
+            <td class="px-6 py-3 text-gray-300">${ath.team || 'Genel Ekip'}</td>
+            <td class="px-6 py-3 text-gray-400">${ath.leader}</td>
+            <td class="px-6 py-3 text-center">
+              <span class="px-2.5 py-0.5 bg-slate-800 text-yellow-300 rounded-full text-[10px] font-bold border border-slate-700">${titleBadge}</span>
+            </td>
+            <td class="px-6 py-3 text-center font-black text-yellow-400 text-sm">${ath.points || 0}</td>
+            ${adminTd}
+          `;
+          lbBody.appendChild(tr);
+        });
+      }
+    };
+
+    window.updateAppBadge = function() {
+      const badge = document.getElementById('appCountBadge');
+      if (badge) badge.innerText = applicationsList.length;
+    };
+
+    // Session Admin State
+    window.isAdminLoggedIn = localStorage.getItem('ankara_admin_active') === 'true';
+
+    window.openAdminLoginModal = function() {
+      document.getElementById('adminLoginModal').classList.remove('hidden');
+    };
+    window.closeAdminLoginModal = function() {
+      document.getElementById('adminLoginModal').classList.add('hidden');
+      document.getElementById('loginErrorMsg').classList.add('hidden');
+    };
+
+    window.handleAdminLogin = function(e) {
+      e.preventDefault();
+      const pwd = document.getElementById('adminPasswordInput').value;
+      if (pwd === '1234' || pwd === 'aktif2026') {
+        window.isAdminLoggedIn = true;
+        localStorage.setItem('ankara_admin_active', 'true');
+        closeAdminLoginModal();
+        activateAdminUI();
+        showToast('Lider Girişi Başarılı! Canlı puanlama yetkileriniz tanımlandı.');
+        renderAll();
+      } else {
+        document.getElementById('loginErrorMsg').classList.remove('hidden');
+      }
+    };
+
+    function activateAdminUI() {
+      document.getElementById('adminBar').classList.remove('hidden');
+      document.getElementById('addEventAdminBtn').classList.remove('hidden');
+      document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('hidden'));
+    }
+
+    window.logoutAdmin = function() {
+      window.isAdminLoggedIn = false;
+      localStorage.removeItem('ankara_admin_active');
+      document.getElementById('adminBar').classList.add('hidden');
+      document.getElementById('addEventAdminBtn').classList.add('hidden');
+      document.querySelectorAll('.admin-only').forEach(el => el.classList.add('hidden'));
+      showToast('Oturum kapatıldı.');
+      renderAll();
+    };
+
+    window.openPointModal = function(athId, athName, currentPts) {
+      document.getElementById('pointTargetAthId').value = athId;
+      document.getElementById('pointModalTitle').innerText = `${athName} - Puan Düzenle (Mevcut: ${currentPts})`;
+      document.getElementById('pointModal').classList.remove('hidden');
+    };
+
+    window.closePointModal = function() {
+      document.getElementById('pointModal').classList.add('hidden');
+    };
+
+    window.saveAthletePoints = function(e) {
+      e.preventDefault();
+      const athId = document.getElementById('pointTargetAthId').value;
+      const addAmount = parseInt(document.getElementById('pointAmountInput').value) || 0;
+      const reason = document.getElementById('pointReasonSelect').value;
+
+      const athIndex = initialAthletes.findIndex(a => a.id === athId);
+      if (athIndex !== -1) {
+        const oldPts = initialAthletes[athIndex].points || 0;
+        const newPts = Math.max(0, oldPts + addAmount);
+        initialAthletes[athIndex].points = newPts;
+
+        saveLocalState();
+        if (window.cloudSaveAthlete) window.cloudSaveAthlete(initialAthletes[athIndex]);
+
+        renderLeaderboard();
+        renderAthletes();
+        closePointModal();
+        showToast(`${initialAthletes[athIndex].name} için puan güncellendi (${newPts} Puan). Gerekçe: ${reason}`);
+      }
+    };
+
+    window.saveNewEvent = function(e) {
+      e.preventDefault();
+      const newEv = {
+        id: 'ev_' + Date.now(),
+        title: document.getElementById('newEventTitle').value,
+        category: document.getElementById('newEventCategory').value,
+        desc: document.getElementById('newEventDesc').value,
+        date: document.getElementById('newEventDate').value,
+        loc: document.getElementById('newEventLoc').value
+      };
+
+      initialEvents.unshift(newEv);
+      saveLocalState();
+      if (window.cloudSaveEvent) window.cloudSaveEvent(newEv);
+      renderEvents();
+
+      closeAddEventModal();
+      document.getElementById('addEventForm').reset();
+      showToast('Yeni duyuru canlı olarak yayınlandı!');
+    };
+
+    window.deleteEvent = function(eventId) {
+      if (!confirm('Bu duyuruyu silmek istediğinize emin misiniz?')) return;
+      initialEvents = initialEvents.filter(e => e.id !== eventId);
+      saveLocalState();
+      renderEvents();
+      showToast('Duyuru silindi.');
+    };
+
+    window.saveNewAthlete = function(e) {
+      e.preventDefault();
+      const newAth = {
+        id: 'ath_' + Date.now(),
+        name: document.getElementById('newAthName').value,
+        team: document.getElementById('newAthTeam').value,
+        points: parseInt(document.getElementById('newAthPoints').value) || 100,
+        branch: document.getElementById('newAthBranch').value,
+        leader: document.getElementById('newAthLeader').value,
+        att: document.getElementById('newAthAtt').value,
+        status: document.getElementById('newAthStatus').value
+      };
+
+      initialAthletes.push(newAth);
+      saveLocalState();
+      if (window.cloudSaveAthlete) window.cloudSaveAthlete(newAth);
+
+      renderAthletes();
+      renderLeaderboard();
+
+      closeAddAthleteModal();
+      document.getElementById('addAthleteForm').reset();
+      showToast(`${newAth.name} ekibe eklendi!`);
+    };
+
+    window.deleteAthlete = function(athId) {
+      if (!confirm('Bu sporcuyu kayıtlardan silmek istediğinize emin misiniz?')) return;
+      initialAthletes = initialAthletes.filter(a => a.id !== athId);
+      saveLocalState();
+      renderAthletes();
+      renderLeaderboard();
+      showToast('Sporcu kaydı silindi.');
+    };
+
+    window.handleFormSubmission = function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('formSubmitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin mr-2"></i> Gönderiliyor...`;
+
+      const appData = {
+        id: 'app_' + Date.now(),
+        name: document.getElementById('formName').value,
+        phone: document.getElementById('formPhone').value,
+        birthYear: document.getElementById('formBirthYear').value,
+        branch: document.getElementById('branchSelect').value,
+        note: document.getElementById('formNote').value,
+        date: new Date().toLocaleDateString('tr-TR')
+      };
+
+      applicationsList.unshift(appData);
+      saveLocalState();
+      if (window.cloudSaveApplication) window.cloudSaveApplication(appData);
+      updateAppBadge();
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Başvuruyu Gönder</span>`;
+        document.getElementById('contactForm').reset();
+        showToast('Başvurunuz başarıyla alındı! Kulüp yöneticilerimiz sizinle iletişime geçecektir.');
+      }, 500);
+    };
+
+    window.openApplicationsModal = function() {
+      const container = document.getElementById('applicationsList');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (applicationsList.length === 0) {
+        container.innerHTML = `<p class="text-gray-400 text-center py-8">Henüz başvuru bulunmuyor.</p>`;
+      } else {
+        applicationsList.forEach(app => {
+          const div = document.createElement('div');
+          div.className = "bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-1.5";
+          div.innerHTML = `
+            <div class="flex justify-between items-center font-bold text-brandDarkBlue">
+              <span>${app.name} (${app.birthYear})</span>
+              <span class="text-[10px] bg-blue-100 text-brandBlue px-2 py-0.5 rounded-full">${app.date || 'Yeni'}</span>
+            </div>
+            <div class="text-gray-600"><strong>Telefon:</strong> ${app.phone}</div>
+            <div class="text-gray-600"><strong>Branş:</strong> ${app.branch}</div>
+            ${app.note ? `<div class="text-gray-500 italic bg-white p-2 rounded-xl border border-gray-100 mt-1">"${app.note}"</div>` : ''}
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      document.getElementById('applicationsModal').classList.remove('hidden');
+    };
+
+    window.closeApplicationsModal = function() {
+      document.getElementById('applicationsModal').classList.add('hidden');
+    };
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    mobileMenuBtn?.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    const filterBtns = document.querySelectorAll('#eventFilters .filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-brandDarkBlue', 'text-white', 'active');
+          b.classList.add('bg-gray-100', 'text-gray-600');
+        });
+        btn.classList.add('bg-brandDarkBlue', 'text-white', 'active');
+        btn.classList.remove('bg-gray-100', 'text-gray-600');
+
+        if (window.renderEvents) window.renderEvents();
+      });
+    });
+
+    document.getElementById('athleteSearch')?.addEventListener('input', () => {
+      if (window.renderAthletes) window.renderAthletes();
+    });
+
+    document.querySelectorAll('.faq-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const content = toggle.nextElementSibling;
+        const icon = toggle.querySelector('i');
+        content.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+      });
+    });
+
+    function openAddAthleteModal() {
+      document.getElementById('addAthleteModal').classList.remove('hidden');
+    }
+    function closeAddAthleteModal() {
+      document.getElementById('addAthleteModal').classList.add('hidden');
+    }
+    function addNewEventModal() {
+      document.getElementById('addEventModal').classList.remove('hidden');
+    }
+    function closeAddEventModal() {
+      document.getElementById('addEventModal').classList.add('hidden');
+    }
+
+    function toggleAiChatModal() {
+      document.getElementById('aiChatModal').classList.toggle('hidden');
+    }
+
+    function sendQuickChip(text) {
+      document.getElementById('chatInput').value = text;
+      sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+      const inputEl = document.getElementById('chatInput');
+      const message = inputEl.value.trim();
+      if (!message) return;
+
+      const container = document.getElementById('chatMessages');
+
+      const userDiv = document.createElement('div');
+      userDiv.className = "bg-brandDarkBlue text-white p-3.5 rounded-2xl max-w-[85%] ml-auto text-right font-medium";
+      userDiv.innerText = message;
+      container.appendChild(userDiv);
+
+      inputEl.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      const replyDiv = document.createElement('div');
+      replyDiv.className = "bg-blue-50 text-brandDarkBlue p-3.5 rounded-2xl max-w-[85%] border border-blue-100 leading-relaxed";
+      
+      let replyText = "Bilek güreşi antrenmanlarımız ve doğa sporları kamplarımız hakkında detaylı bilgi almak için iletişim formumuzu doldurabilir veya bizi doğrudan arayabilirsiniz!";
+      if (message.toLowerCase().includes("bilek")) {
+        replyText = "Bilek Güreşi Takımımızda sağ/sol kol kuvvet çalışmaları, masa içi teknikler ve lisanslı yarışma hazırlıkları yapıyoruz. Etkinliklerimiz haftada 3 gün Çankaya Spor Salonu'nda gerçekleşmektedir.";
+      } else if (message.toLowerCase().includes("kamp") || message.toLowerCase().includes("doğa")) {
+        replyText = "Doğa Kamplarımız her ay Kızılcahamam ve Ankara çevresinde gerçekleşiyor. Çadır kurma, oryantiring (yön bulma) ve doğa yürüyüşleri ile gençlerimize liderlik bilinci aşılıyoruz.";
+      }
+
+      replyDiv.innerText = replyText;
+      container.appendChild(replyDiv);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function generateAiReport(name, branch, leader, attendance, status) {
+      document.getElementById('reportAthleteTitle').innerText = `${name} - Sporcu Raporu`;
+      document.getElementById('aiReportModal').classList.remove('hidden');
+      document.getElementById('reportLoading').classList.add('hidden');
+      
+      const contentEl = document.getElementById('reportContent');
+      contentEl.classList.remove('hidden');
+      contentEl.innerHTML = `
+        <div class="p-4 bg-blue-50 border border-blue-100 rounded-2xl text-brandDarkBlue mb-3">
+          <div class="grid grid-cols-2 gap-2 text-[11px] font-semibold mb-2 pb-2 border-b border-blue-200">
+            <div><strong>Sporcu:</strong> ${name}</div>
+            <div><strong>Branş:</strong> ${branch}</div>
+            <div><strong>Lider:</strong> ${leader}</div>
+            <div><strong>Katılım:</strong> ${attendance}</div>
+          </div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200 space-y-2 text-gray-700 leading-relaxed">
+          <p class="font-bold text-brandDarkBlue">1. Genel Katılım ve Performans:</p>
+          <p>${name}, ${branch} branşında ${attendance} katılım oranı ile istikrarlı bir devamlılık göstermektedir.</p>
+
+          <p class="font-bold text-brandDarkBlue mt-3">2. Güçlü Yönler ve Gelişim:</p>
+          <p>Masa hakimiyeti, odaklanma ve ekip içi yardımlaşma konularında ön plana çıkmaktadır. Durumu: ${status}.</p>
+
+          <p class="font-bold text-brandDarkBlue mt-3">3. Lider Tavsiyesi:</p>
+          <p>Lideri ${leader} ile düzenli etkinlik katılımına devam etmesi ve kamp liderlik görevlerinde sorumluluk alması önerilir.</p>
+        </div>
+      `;
+    }
+
+    function closeAiReportModal() {
+      document.getElementById('aiReportModal').classList.add('hidden');
+    }
+
+    function getAiRecommendation() {
+      const input = document.getElementById('aiAdviceInput').value.trim();
+      if (!input) {
+        showToast('Lütfen ilgi alanlarınızı yazın.');
+        return;
+      }
+
+      const resultDiv = document.getElementById('aiAdviceResult');
+      resultDiv.classList.remove('hidden');
+
+      if (input.toLowerCase().includes("güç") || input.toLowerCase().includes("kol") || input.toLowerCase().includes("mücadele") || input.toLowerCase().includes("salon")) {
+        resultDiv.innerText = "Sizin için en uygun branş: Bilek Güreşi Takımı! Kuvvet, disiplin ve masa içi refleks geliştirme odaklı bu branşımızda yeteneklerinizi sergileyebilirsiniz.";
+        document.getElementById('branchSelect').value = "Bilek Güreşi Takımı";
+      } else {
+        resultDiv.innerText = "Sizin için en uygun branş: Doğa Sporları & Kamp! Açık havada çadır kurma, oryantiring ve liderlik gelişim kamplarımız tam size göre.";
+        document.getElementById('branchSelect').value = "Doğa Sporları & Kamp";
+      }
+    }
+
+    window.onload = function() {
+      if (window.isAdminLoggedIn) {
+        activateAdminUI();
+      }
+      renderAll();
+    };
+  </script>
+</body>
+</html>
