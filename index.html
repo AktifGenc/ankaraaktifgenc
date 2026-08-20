@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- EmailJS SDK -->
+  <!-- EmailJS SDK v4 -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <script>
@@ -80,12 +80,12 @@
     </div>
   </div>
 
-  <!-- NAVBAR (LOGODAN "AKTİF" YAZISI KALDIRILDI) -->
+  <!-- NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
         
-        <!-- YENİ LOGO (Görseldeki Çatı Çentik + Kırmızı Daire) -->
+        <!-- YENİ LOGO (Çatı Çentik + Kırmızı Daire) -->
         <a href="javascript:showSection('homePage')" class="flex items-center space-x-3.5 group">
           <div class="w-12 h-12 shrink-0 flex items-center justify-center">
             <svg class="w-full h-full" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -320,7 +320,7 @@
           <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3">
             <span class="px-3 py-1 bg-blue-50 text-blue-700 font-extrabold text-[10px] rounded-lg">DOĞA YÜRÜYÜŞÜ</span>
             <h3 class="font-black text-base text-brandNavy">Çamlıdere Doğa Yürüyüşü & Liderlik</h3>
-            <p class="text-xs text-slate-500">Doğa yürüyüşü, çevre temizlik faaliyeti ve ekip liderliği gelişim parkuru.</p>
+            <p class="text-xs text-slate-500">Doğa yürüyüşü, çevre temizlik faaliyet ve ekip liderliği gelişim parkuru.</p>
             <div class="text-[11px] text-slate-400 font-bold pt-2 border-t border-slate-100">📅 22 Kasım 2026</div>
           </div>
 
@@ -521,10 +521,6 @@
     </div>
   </footer>
 
-  <!-- ============================================================ -->
-  <!-- MODALLAR -->
-  <!-- ============================================================ -->
-
   <!-- MODAL 1: LİDER GİRİŞİ -->
   <div id="loginModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
@@ -564,7 +560,7 @@
           <i class="fa-solid fa-key"></i>
         </div>
         <h3 class="font-extrabold text-base text-brandNavy">Yeni Şifre Al</h3>
-        <p class="text-[11px] text-slate-500">E-posta adresinize tek kullanımlık güvenlik kodu göndereceğiz.</p>
+        <p class="text-[11px] text-slate-500">Şahsi e-posta adresinize güvenlik kodu ileteceğiz.</p>
       </div>
 
       <div id="forgotStep1" class="space-y-3">
@@ -578,11 +574,11 @@
       </div>
 
       <div id="forgotStep2" class="hidden space-y-3 mt-4 pt-3 border-t border-slate-100">
-        <div id="resetSuccessAlert" class="p-3 bg-emerald-50 text-emerald-800 text-[11px] rounded-xl border border-emerald-200">
+        <div id="resetSuccessAlert" class="p-3 bg-emerald-50 text-emerald-800 text-[11px] rounded-xl border border-emerald-200 block">
           ✅ E-postanıza güvenlik kodu gönderildi!
         </div>
         <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gelen Kod</label>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gelen Kodu Girin</label>
           <input type="text" id="resetCodeInput" maxlength="6" placeholder="Kodu girin..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm tracking-widest text-center font-black">
         </div>
         <div>
@@ -702,7 +698,7 @@
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
 
-    const APP_STORAGE_KEY = 'aag_app_data_v13';
+    const APP_STORAGE_KEY = 'aag_app_data_v15';
 
     const INITIAL_DATA = {
       isAdmin: false,
@@ -1007,7 +1003,7 @@
       showToast('Oturum kapatıldı.');
     }
 
-    // GÜVENLİ ŞİFRE SIFIRLAMA (GERÇEK E-POSTA GÖNDERİMİ)
+    // GERÇEK E-POSTA İLE ŞİFRE SIFIRLAMA
     async function handleSendResetCode() {
       const email = document.getElementById('resetEmailInput').value.trim().toLowerCase();
       const btn = document.getElementById('sendResetCodeBtn');
@@ -1024,30 +1020,45 @@
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gönderiliyor...';
 
-      // EmailJS şablonundaki tüm değişkenlerle %100 eşleşen parametre paketi:
+      // Şablondaki tüm olası değişkenleri dolduran tam parametre paketi
       const templateParams = {
         to_email: email,
         email: email,
         user_email: email,
         to: email,
         reply_to: email,
-        subject: "Ankara Genç Spor Kulübü - Şifre Sıfırlama Kodu",
-        message: `Şifre sıfırlama onay kodunuz: ${code}`,
         name: "Ankara Genç Spor Kulübü",
         from_name: "Kulüp Güvenlik Sistemi",
-        sender_name: "Kulüp Güvenlik Sistemi"
+        sender_name: "Kulüp Güvenlik Sistemi",
+        subject: "Ankara Genç Spor Kulübü - Şifre Sıfırlama Kodu",
+        message: `Merhaba,\n\nKulüp yönetim paneli şifre sıfırlama güvenlik kodunuz: ${code}\n\nBu kodu ilgili alana girerek yeni şifrenizi belirleyebilirsiniz.`
       };
 
       try {
-        await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
-        showToast(`✅ Güvenlik kodu ${email} adresine gönderildi.`);
-        document.getElementById('resetSuccessAlert').innerHTML = `✅ 6 haneli güvenlik kodu <b>${email}</b> adresine gönderildi! Lütfen e-posta kutunuzu (ve Spam klasörünü) kontrol edin.`;
+        if (typeof emailjs !== 'undefined') {
+          await emailjs.send(
+            EMAILJS_CONFIG.serviceId,
+            EMAILJS_CONFIG.templateId,
+            templateParams,
+            { publicKey: EMAILJS_CONFIG.publicKey }
+          );
+        } else {
+          throw new Error("EmailJS kütüphanesi yüklenemedi.");
+        }
+
+        showToast('Güvenlik kodu e-postanıza gönderildi!');
+        document.getElementById('resetSuccessAlert').className = "p-3 bg-emerald-50 text-emerald-800 text-[11px] rounded-xl border border-emerald-200 block";
+        document.getElementById('resetSuccessAlert').innerHTML = `✅ Kod <b>${email}</b> adresine gönderildi! Lütfen gelen kutunuzu (ve Spam klasörünü) kontrol edin.`;
         document.getElementById('forgotStep1').classList.add('hidden');
         document.getElementById('forgotStep2').classList.remove('hidden');
       } catch (err) {
-        console.error("EmailJS Gönderim Hatası:", err);
-        showToast('❌ E-posta gönderilemedi! Lütfen e-posta adresinizi veya EmailJS ayarlarınızı kontrol edin.', true);
-        document.getElementById('resetSuccessAlert').innerHTML = `❌ E-posta gönderilemedi. Lütfen adresi doğru girdiğinizden emin olun.`;
+        console.error("EmailJS Error:", err);
+        const errMsg = err?.text || err?.message || 'E-posta servisi yanıt vermedi.';
+        showToast('E-posta gönderilemedi! Hata: ' + errMsg, true);
+        document.getElementById('resetSuccessAlert').className = "p-3 bg-rose-50 text-rose-800 text-[11px] rounded-xl border border-rose-200 block";
+        document.getElementById('resetSuccessAlert').innerHTML = `❌ <b>E-posta gönderilemedi:</b> ${errMsg}<br><span class="text-[10px] text-rose-600 mt-1 block">Lütfen EmailJS panelinizden Gmail servisinizin aktif olduğunu kontrol edin.</span>`;
+        document.getElementById('forgotStep1').classList.add('hidden');
+        document.getElementById('forgotStep2').classList.remove('hidden');
       } finally {
         btn.disabled = false;
         btn.innerHTML = 'Sıfırlama Kodu Gönder';
@@ -1058,7 +1069,7 @@
       const enteredCode = document.getElementById('resetCodeInput').value.trim();
       const newPwd = document.getElementById('resetNewPasswordInput').value;
 
-      if (enteredCode !== pendingResetCode) {
+      if (!enteredCode || enteredCode !== pendingResetCode) {
         showToast('Girdiğiniz güvenlik kodu hatalı!', true);
         return;
       }
@@ -1108,7 +1119,7 @@
       pendingResetEmail = null;
     }
 
-    // EKİP & SPORCU İŞLEMLERİ
+    // EKİP & SPORCU
     function handleCreateTeam(e) {
       e.preventDefault();
       const name = document.getElementById('newTeamNameInput').value.trim();
@@ -1213,32 +1224,37 @@
 
       try {
         for (const recipient of targetEmails) {
-          await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
-            to_email: recipient,
-            email: recipient,
-            user_email: recipient,
-            to: recipient,
-            reply_to: recipient,
-            name: "Ankara Genç Spor Kulübü",
-            from_name: state.currentLeaderEmail || "Kulüp Yönetimi",
-            subject: subject,
-            message: message
-          });
+          await emailjs.send(
+            EMAILJS_CONFIG.serviceId,
+            EMAILJS_CONFIG.templateId,
+            {
+              to_email: recipient,
+              email: recipient,
+              user_email: recipient,
+              to: recipient,
+              reply_to: recipient,
+              name: "Kulüp Yönetimi",
+              from_name: state.currentLeaderEmail || "Kulüp Yönetimi",
+              sender_name: state.currentLeaderEmail || "Kulüp Yönetimi",
+              subject: subject,
+              message: message
+            },
+            { publicKey: EMAILJS_CONFIG.publicKey }
+          );
         }
         showToast(`${targetEmails.length} lidere e-posta başarıyla gönderildi.`);
         closeBroadcastEmailModal();
         document.getElementById('emailSubjectInput').value = '';
         document.getElementById('emailBodyInput').value = '';
       } catch (err) {
-        console.error("EmailJS Hatası:", err);
-        showToast('E-posta gönderilemedi. Lütfen EmailJS panelinizi kontrol edin.', true);
+        console.error("Broadcast Email Error:", err);
+        showToast('E-posta gönderiminde hata: ' + (err?.text || 'Lütfen bağlantınızı kontrol edin.'), true);
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> E-Postayı Gönder';
       }
     }
 
-    // MODALLAR
     function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
     function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
 
