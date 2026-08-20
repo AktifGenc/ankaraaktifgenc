@@ -550,7 +550,7 @@
 
   <!-- MODALLAR & CMS YÖNETİM PENCERELERİ -->
 
-  <!-- 1. LİDER GİRİŞ MODALI -->
+  <!-- 1. LİDER GİRİŞ MODALI (Bireysel Lider İsim & Şifre Seçimi) -->
   <div id="loginModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
       <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -559,49 +559,27 @@
           <i class="fa-solid fa-user-shield"></i>
         </div>
         <h3 class="font-extrabold text-lg text-brandNavy">Lider Yönetici Girişi</h3>
-        <p class="text-xs text-slate-500">Hesap kullanıcı adı ve şifrenizle giriş yapın.</p>
+        <p class="text-xs text-slate-500">Kendi isminizi seçip şifrenizle giriş yapın.</p>
       </div>
       <form onsubmit="handleLoginSubmit(event)" class="space-y-3">
         <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kullanıcı Adı</label>
-          <input type="text" id="adminUsernameInput" required class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="Örn: ahmet veya emre">
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Lider Adı Soyadı</label>
+          <select id="loginLeaderSelect" onchange="toggleLoginCustomName()" class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue font-medium">
+            <!-- JS ile Doldurulacak -->
+          </select>
         </div>
+
+        <div id="customNameInputContainer" class="hidden">
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Diğer Ad Soyad</label>
+          <input type="text" id="adminUsernameInput" class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="Adınız Soyadınız">
+        </div>
+
         <div>
-          <div class="flex justify-between items-center mb-1">
-            <label class="block text-xs font-bold text-slate-700 uppercase">Giriş Şifresi</label>
-            <button type="button" onclick="openForgotPasswordModal()" class="text-[11px] font-semibold text-brandBlue hover:underline">Şifremi Unuttum?</button>
-          </div>
-          <input type="password" id="adminPasswordInput" required class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="Varsayılan: 1234">
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Giriş Şifresi</label>
+          <input type="password" id="adminPasswordInput" required class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="Giriş Şifreniz">
         </div>
         <button type="submit" class="w-full py-3 bg-brandNavy hover:bg-brandBlue text-white font-bold rounded-xl text-sm transition shadow-md mt-2">
           Giriş Yap
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 1.1 ŞİFREMİ UNUTTUM MODALI -->
-  <div id="forgotPasswordModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
-      <button onclick="closeForgotPasswordModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-      <div class="text-center mb-6">
-        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl mx-auto flex items-center justify-center text-xl mb-2">
-          <i class="fa-solid fa-key"></i>
-        </div>
-        <h3 class="font-extrabold text-lg text-brandNavy">Şifremi Unuttum</h3>
-        <p class="text-xs text-slate-500">Kullanıcı adınızı ve yeni belirlemek istediğiniz şifreyi girin.</p>
-      </div>
-      <form onsubmit="handleResetPasswordSubmit(event)" class="space-y-3">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kullanıcı Adı</label>
-          <input type="text" id="resetUsernameInput" required class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="Örn: ahmet">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Yeni Şifreniz</label>
-          <input type="password" id="resetNewPasswordInput" required minlength="4" class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="Yeni şifrenizi yazın">
-        </div>
-        <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow mt-2">
-          Şifremi Güncelle ve Giriş Yap
         </button>
       </form>
     </div>
@@ -782,15 +760,21 @@
       <form onsubmit="handleLeaderFormSubmit(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Lider Adı Soyadı</label>
-          <input type="text" id="leaderNameInput" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+          <input type="text" id="leaderNameInput" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" placeholder="Örn: Mehmet Öztürk">
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Görevi / Unvanı</label>
           <input type="text" id="leaderRoleInput" required placeholder="Örn: Doğa Sporları & Kamp Lideri" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
         </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Rozet / Tecrübe Bilgisi</label>
-          <input type="text" id="leaderBadgeInput" required placeholder="Örn: Doğa Liderliği Sertifikası" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Rozet / Tecrübe</label>
+            <input type="text" id="leaderBadgeInput" required placeholder="Örn: Doğa Uzmanı" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Giriş Şifresi</label>
+            <input type="password" id="leaderPasswordInput" required placeholder="Örn: 1234" value="1234" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold">
+          </div>
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Açıklama</label>
@@ -947,7 +931,7 @@
 
   <!-- UYGULAMA MANTIĞI VE JAVASCRIPT KODLARI -->
   <script>
-    // VARSAYILAN KULÜP VERİLERİ (Doğa Etkinlikleri Odaklı)
+    // VARSAYILAN KULÜP VERİLERİ (Doğa Etkinlikleri Odaklı & Bireysel Şifreli)
     const DEFAULT_SITE_DATA = {
       hero: {
         badge: '🌲 Doğa Sporları & Gençlik Kampları Kulübü',
@@ -984,9 +968,9 @@
         { id: '3', title: 'Kulüpler Arası Dostluk Bilek Güreşi Turnuvası', category: 'Bilek Güreşi', date: '30 Kasım 2026', location: 'Kulüp Merkezi', desc: 'Gençlerimizin fiziksel gelişimini ve dostluk bağlarını güçlendiren kulüp içi teşvik müsabakası.' }
       ],
       leaders: [
-        { id: '1', name: 'Ahmet Yılmaz', role: 'Kulüp Başkanı & Koordinatör', desc: 'Kulüp yönetimi, kurumsal ilişkiler ve gençlik doğa projelerinden sorumlu.', badge: '15 Yıl Tecrübe', iconBg: 'bg-brandDarkBlue', icon: 'fa-user-tie' },
-        { id: '2', name: 'Emre Kaya', role: 'Doğa Sporları & Kamp Lideri', desc: 'Çadır kampları, trekking, izcilik teknikleri ve açık alan güvenlik sorumlusu.', badge: 'Doğa Uzmanı', iconBg: 'bg-brandRed', icon: 'fa-compass' },
-        { id: '3', name: 'Selin Demir', role: 'Gençlik Lideri & Antrenör', desc: 'Liderlik eğitimleri, outdoor faaliyetler ve bilek güreşi kondisyon sorumlusu.', badge: 'Sertifikalı Eğitmen', iconBg: 'bg-brandBlue', icon: 'fa-map' }
+        { id: '1', name: 'Ahmet Yılmaz', role: 'Kulüp Başkanı & Koordinatör', desc: 'Kulüp yönetimi, kurumsal ilişkiler ve gençlik doğa projelerinden sorumlu.', badge: '15 Yıl Tecrübe', iconBg: 'bg-brandDarkBlue', icon: 'fa-user-tie', password: '1234' },
+        { id: '2', name: 'Emre Kaya', role: 'Doğa Sporları & Kamp Lideri', desc: 'Çadır kampları, trekking, izcilik teknikleri ve açık alan güvenlik sorumlusu.', badge: 'Doğa Uzmanı', iconBg: 'bg-brandRed', icon: 'fa-compass', password: '1234' },
+        { id: '3', name: 'Selin Demir', role: 'Gençlik Lideri & Antrenör', desc: 'Liderlik eğitimleri, outdoor faaliyetler ve bilek güreşi kondisyon sorumlusu.', badge: 'Sertifikalı Eğitmen', iconBg: 'bg-brandBlue', icon: 'fa-map', password: '1234' }
       ],
       gallery: [
         { id: '1', title: 'Kızılcahamam Çadır Kampı', icon: '⛺', url: '' },
@@ -1499,14 +1483,16 @@
 
     function handleLeaderFormSubmit(e) {
       e.preventDefault();
-      const name = document.getElementById('leaderNameInput').value;
+      const name = document.getElementById('leaderNameInput').value.trim();
       const role = document.getElementById('leaderRoleInput').value;
       const badge = document.getElementById('leaderBadgeInput').value;
+      const pwd = document.getElementById('leaderPasswordInput').value || '1234';
       const desc = document.getElementById('leaderDescInput').value;
 
       data.leaders.push({
         id: Date.now().toString(),
         name, role, badge, desc,
+        password: pwd,
         iconBg: 'bg-brandNavy',
         icon: 'fa-user-tie'
       });
@@ -1514,7 +1500,7 @@
       saveSiteData();
       renderLeaders();
       closeLeaderModal();
-      showToast('Yeni lider eklendi.');
+      showToast(`Yeni lider '${name}' eklendi. (Giriş Şifresi: ${pwd})`);
     }
 
     // GALERİ İŞLEMLERİ
@@ -1653,60 +1639,79 @@
       reader.readAsText(file);
     }
 
-    // GİRİŞ / ÇIKIŞ VE ŞİFRE YENİLEME İŞLEMLERİ
     function handleLoginSubmit(e) {
       e.preventDefault();
-      const username = document.getElementById('adminUsernameInput').value.trim().toLowerCase();
+      const selectVal = document.getElementById('loginLeaderSelect')?.value;
+      let selectedName = selectVal;
+      if (selectVal === '__OTHER__') {
+        selectedName = document.getElementById('adminUsernameInput').value.trim();
+      }
       const pwd = document.getElementById('adminPasswordInput').value;
 
-      const savedCustomPasswords = JSON.parse(localStorage.getItem('aag_leader_passwords') || '{}');
-      const validPassword = savedCustomPasswords[username] || '1234';
+      if (!selectedName) {
+        showToast('Lütfen ad soyad seçin veya yazın.', true);
+        return;
+      }
 
-      if ((username === 'ahmet' || username === 'emre' || username === 'selin' || username === 'admin' || username.length > 0) && (pwd === validPassword || pwd === 'aktif2026' || pwd === '1234')) {
+      // Seçilen lider veritabanında var mı kontrol et
+      const leaderObj = data.leaders.find(l => l.name.toLowerCase() === selectedName.toLowerCase());
+      
+      // Şifre kontrolü (Bireysel şifre, özel değiştirilen şifre veya genel master şifreler)
+      const savedCustomPasswords = JSON.parse(localStorage.getItem('aag_leader_passwords') || '{}');
+      const validPassword = savedCustomPasswords[selectedName.toLowerCase()] || (leaderObj ? leaderObj.password : '1234');
+
+      if ((leaderObj && pwd === validPassword) || pwd === validPassword || pwd === 'aktif2026' || pwd === '1234') {
         data.isAdmin = true;
-        data.currentUser = username;
+        data.currentUser = selectedName;
         saveSiteData();
         updateAdminUI();
         renderAll();
         closeLoginModal();
-        showToast(`Hoş geldiniz ${username.toUpperCase()}, Lider Girişi Başarılı!`);
+        showToast(`Hoş geldiniz ${selectedName.toUpperCase()}, Lider Girişi Başarılı!`);
       } else {
-        showToast('Kullanıcı adı veya şifre hatalı! Lütfen tekrar deneyin.', true);
+        showToast(`'${selectedName}' için şifre hatalı! Lütfen tekrar deneyin.`, true);
       }
     }
 
-    function openForgotPasswordModal() {
-      closeLoginModal();
-      document.getElementById('forgotPasswordModal').classList.remove('hidden');
-    }
+    function populateLoginLeaderSelect() {
+      const select = document.getElementById('loginLeaderSelect');
+      if (!select) return;
+      select.innerHTML = '';
 
-    function closeForgotPasswordModal() {
-      document.getElementById('forgotPasswordModal').classList.add('hidden');
-    }
-
-    function handleResetPasswordSubmit(e) {
-      e.preventDefault();
-      const username = document.getElementById('resetUsernameInput').value.trim().toLowerCase();
-      const newPwd = document.getElementById('resetNewPasswordInput').value;
-
-      if (!username || !newPwd) {
-        showToast('Lütfen tüm alanları doldurun.', true);
-        return;
+      if (data.leaders && data.leaders.length > 0) {
+        data.leaders.forEach(ldr => {
+          const opt = document.createElement('option');
+          opt.value = ldr.name;
+          opt.innerText = `${ldr.name} (${ldr.role})`;
+          select.appendChild(opt);
+        });
       }
 
-      const savedCustomPasswords = JSON.parse(localStorage.getItem('aag_leader_passwords') || '{}');
-      savedCustomPasswords[username] = newPwd;
-      localStorage.setItem('aag_leader_passwords', JSON.stringify(savedCustomPasswords));
+      const otherOpt = document.createElement('option');
+      otherOpt.value = '__OTHER__';
+      otherOpt.innerText = '➕ Diğer Ad Soyad Yaz...';
+      select.appendChild(otherOpt);
 
-      data.isAdmin = true;
-      data.currentUser = username;
-      saveSiteData();
-      updateAdminUI();
-      renderAll();
-
-      closeForgotPasswordModal();
-      showToast(`'${username}' hesabı için yeni şifre tanımlandı ve giriş yapıldı!`);
+      toggleLoginCustomName();
     }
+
+    function toggleLoginCustomName() {
+      const select = document.getElementById('loginLeaderSelect');
+      const container = document.getElementById('customNameInputContainer');
+      if (select && container) {
+        if (select.value === '__OTHER__') {
+          container.classList.remove('hidden');
+        } else {
+          container.classList.add('hidden');
+        }
+      }
+    }
+
+    function openLoginModal() { 
+      populateLoginLeaderSelect();
+      document.getElementById('loginModal').classList.remove('hidden'); 
+    }
+    function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
 
     function logoutAdmin() {
       data.isAdmin = false;
@@ -1721,9 +1726,6 @@
     function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('hidden');
     }
-
-    function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
-    function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
 
     function openCmsModal(tab = 'general') {
       document.getElementById('cmsHeroTitle').value = data.hero.title;
@@ -1792,7 +1794,6 @@
     }
     function closeApplicationsModal() { document.getElementById('applicationsModal').classList.add('hidden'); }
 
-    // HAFTALIK TAKİP FONKSİYONLARI
     function openWeeklyTrackingModal() {
       renderWeeklyTrackingTable();
       document.getElementById('weeklyTrackingModal').classList.remove('hidden');
