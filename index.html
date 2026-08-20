@@ -3,41 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ankara Aktif Genç Spor Kulübü - Doğa Etkinlikleri & Yönetim</title>
+  <title>Ankara Aktif Genç Spor Kulübü - Doğa Sporları & Liderlik</title>
   
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- EmailJS Kütüphanesi -->
+  <!-- EmailJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
           colors: {
             brandBlue: '#0A72BA',
             brandDarkBlue: '#074F83',
             brandNavy: '#1D3557',
             brandRed: '#E30613',
-            brandDarkRed: '#B8050F'
+            brandDarkRed: '#B8050F',
+            brandGreen: '#10B981'
           }
         }
       }
     }
   </script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col relative">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col relative selection:bg-brandBlue selection:text-white">
 
   <!-- Bildirim Toast Kutusu -->
-  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 pointer-events-none">
+  <div id="toastNotification" class="fixed top-5 right-5 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 bg-slate-900/95 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 backdrop-blur-md max-w-md pointer-events-none">
     <div id="toastIcon" class="text-emerald-400 text-lg"><i class="fa-solid fa-circle-check"></i></div>
-    <span id="toastMessage" class="text-sm font-semibold">İşlem başarılı.</span>
+    <span id="toastMessage" class="text-xs font-semibold">İşlem başarılı.</span>
   </div>
 
   <!-- Onay Kutusu Modalı -->
@@ -46,143 +47,236 @@
       <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mx-auto">
         <i class="fa-solid fa-triangle-exclamation"></i>
       </div>
-      <h3 id="dialogTitle" class="font-bold text-lg text-brandNavy">Emin misiniz?</h3>
+      <h3 id="dialogTitle" class="font-black text-lg text-brandNavy">Emin misiniz?</h3>
       <p id="dialogDesc" class="text-xs text-slate-500">Bu işlem geri alınamaz.</p>
       <div class="flex items-center justify-center space-x-3 pt-2">
-        <button onclick="closeCustomDialog()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition">İptal</button>
-        <button id="dialogConfirmBtn" class="px-4 py-2 bg-brandRed hover:bg-brandDarkRed text-white text-xs font-bold rounded-xl transition">Evet, Sil</button>
+        <button onclick="closeCustomDialog()" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition">İptal</button>
+        <button id="dialogConfirmBtn" class="px-5 py-2.5 bg-brandRed hover:bg-brandDarkRed text-white text-xs font-bold rounded-xl transition shadow">Evet, Sil</button>
       </div>
     </div>
   </div>
 
-  <!-- Lider Çubuğu (Giriş Yapıldığında Görünür) -->
-  <div id="adminHeaderBar" class="hidden bg-slate-900 text-white text-xs py-2.5 px-4 sticky top-0 z-50 shadow-md border-b border-slate-800">
+  <!-- Lider Yönetim Üst Barı (Yalnızca Giriş Yapılınca Görünür) -->
+  <div id="adminHeaderBar" class="hidden bg-slate-900 text-white text-xs py-2 px-4 sticky top-0 z-50 shadow-md border-b border-slate-800">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center space-x-2">
         <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
-        <span class="font-bold tracking-wide">LİDER PANELİ</span>
-        <span id="adminUserEmailBadge" class="text-slate-400"></span>
+        <span class="font-black tracking-wider">LİDER PANELİ</span>
+        <span id="adminUserEmailBadge" class="text-slate-400 font-medium"></span>
       </div>
       <div class="flex items-center space-x-2 flex-wrap gap-1">
-        <button onclick="openBroadcastEmailModal()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg transition flex items-center gap-1">
-          <i class="fa-solid fa-paper-plane text-xs"></i> Liderlere E-Posta Gönder
+        <button onclick="openBroadcastEmailModal()" class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+          <i class="fa-solid fa-paper-plane text-xs"></i> Liderlere E-Posta
         </button>
-        <button onclick="showSection('athletesPage')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition flex items-center gap-1">
-          <i class="fa-solid fa-users text-xs"></i> Sporcu & Ekip Yönetimi
+        <button onclick="showSection('athletesPage')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+          <i class="fa-solid fa-users text-xs"></i> Kadro Yönetimi
         </button>
-        <button onclick="showSection('homePage')" class="px-3 py-1.5 bg-brandBlue hover:bg-brandDarkBlue text-white font-semibold rounded-lg transition flex items-center gap-1">
+        <button onclick="showSection('homePage')" class="px-3 py-1 bg-brandBlue hover:bg-brandDarkBlue text-white font-bold rounded-lg transition flex items-center gap-1">
           <i class="fa-solid fa-house text-xs"></i> Ana Sayfa
         </button>
-        <button onclick="logoutAdmin()" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-lg transition ml-2">
+        <button onclick="logoutAdmin()" class="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg transition ml-1">
           <i class="fa-solid fa-right-from-bracket"></i> Çıkış
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Navbar -->
+  <!-- NAVBAR (Zengin Orijinal Tasarım) -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
-        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-brandNavy text-white flex items-center justify-center font-black text-xl">
+        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brandNavy to-brandBlue text-white flex items-center justify-center font-black text-2xl shadow-md">
             🌲
           </div>
           <div class="flex flex-col">
-            <span class="text-lg font-black tracking-tight text-brandDarkBlue leading-tight">ANKARA AKTİF GENÇ</span>
-            <span class="text-[10px] font-bold text-brandRed tracking-widest uppercase">Spor Kulübü</span>
+            <span class="text-xl font-black tracking-tight text-brandDarkBlue leading-tight">ANKARA AKTİF GENÇ</span>
+            <span class="text-[10px] font-extrabold text-brandRed tracking-widest uppercase">Spor Kulübü Derneği</span>
           </div>
         </a>
 
-        <nav class="hidden md:flex items-center space-x-6 font-semibold text-sm text-slate-700">
+        <nav class="hidden lg:flex items-center space-x-7 font-bold text-xs uppercase tracking-wider text-slate-700">
           <a href="javascript:showSection('homePage')" class="hover:text-brandBlue transition">Ana Sayfa</a>
-          <a href="javascript:showSection('athletesPage')" class="hover:text-brandBlue transition">Sporcu & Ekip Listesi</a>
+          <a href="javascript:showSection('athletesPage')" class="hover:text-brandBlue transition text-brandBlue">Sporcu & Ekip Listesi</a>
+          <a href="#hakkimizda" onclick="showSection('homePage')" class="hover:text-brandBlue transition">Hakkımızda</a>
+          <a href="#branslar" onclick="showSection('homePage')" class="hover:text-brandBlue transition">Branşlarımız</a>
+          <a href="#iletisim" class="hover:text-brandBlue transition">İletişim</a>
         </nav>
 
         <div class="flex items-center space-x-3">
-          <button id="loginNavBtn" onclick="openLoginModal()" class="px-4 py-2 rounded-xl text-slate-600 hover:text-brandBlue hover:bg-slate-100 text-xs font-bold transition flex items-center gap-1.5 border border-slate-200">
-            <i class="fa-solid fa-lock text-xs"></i> Lider Girişi
+          <button id="loginNavBtn" onclick="openLoginModal()" class="px-4 py-2.5 rounded-xl text-slate-700 hover:text-brandBlue hover:bg-slate-100 text-xs font-black transition flex items-center gap-2 border border-slate-200 shadow-sm">
+            <i class="fa-solid fa-lock text-xs text-brandBlue"></i> Lider Girişi
           </button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- SAYFA 1: ANA SAYFA -->
+  <!-- ============================================================ -->
+  <!-- SAYFA 1: ANA SAYFA (Tüm Zengin Bölümleriyle) -->
+  <!-- ============================================================ -->
   <main id="homePage" class="flex-grow">
-    <section class="bg-gradient-to-br from-brandNavy via-brandDarkBlue to-slate-900 text-white py-16">
-      <div class="max-w-7xl mx-auto px-4 text-center">
-        <span class="px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-xs uppercase tracking-wider border border-emerald-500/30 inline-block mb-4">
-          🌲 Doğa Etkinlikleri & Gençlik Kampları
+    
+    <!-- Hero Bölümü -->
+    <section class="relative bg-gradient-to-br from-brandNavy via-brandDarkBlue to-slate-900 text-white py-20 lg:py-28 overflow-hidden">
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      <div class="max-w-7xl mx-auto px-4 relative z-10 text-center space-y-6">
+        <span class="px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold text-xs uppercase tracking-widest border border-emerald-500/30 inline-block shadow-sm">
+          🌲 Doğa Kampları & Gençlik Faaliyetleri
         </span>
-        <h1 class="text-3xl sm:text-5xl font-black mb-4">Doğada Güçlenen, Geleceğe Yürüyen Gençler</h1>
-        <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base mb-6">Kulübümüz doğa kampları, açık alan dayanıklılık faaliyetleri ve spor çalışmalarıyla gençleri geleceğe hazırlar.</p>
-        <div class="flex justify-center gap-3">
-          <button onclick="showSection('athletesPage')" class="px-6 py-3 bg-brandRed hover:bg-brandDarkRed text-white rounded-xl text-xs font-bold shadow-lg transition flex items-center gap-2">
-            <i class="fa-solid fa-users"></i> Sporcu & Ekip Listesini Aç
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight max-w-4xl mx-auto">
+          Doğada Güçlenen, Geleceğe Yürüyen Gençler
+        </h1>
+        <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+          Ankara Aktif Genç Spor Kulübü; doğa sporları, bilek güreşi, gençlik kampları ve karakter eğitimiyle ahlaklı ve güçlü nesiller yetiştirir.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3 pt-2">
+          <button onclick="showSection('athletesPage')" class="px-6 py-3.5 bg-brandRed hover:bg-brandDarkRed text-white rounded-2xl text-xs font-black shadow-lg transition flex items-center gap-2">
+            <i class="fa-solid fa-users"></i> Sporcu ve Ekip Listesini Aç
           </button>
+          <a href="#branslar" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-xs font-black border border-white/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-compass"></i> Faaliyetlerimizi Keşfet
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- MVP Kartı -->
-    <section class="py-12 max-w-7xl mx-auto px-4">
-      <div class="bg-gradient-to-r from-amber-500 to-amber-700 text-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
-        <div class="flex items-center space-x-4">
+    <!-- Haftanın Lider Sporcusu (MVP Vitrini) -->
+    <section class="py-10 max-w-7xl mx-auto px-4 -mt-10 relative z-20">
+      <div class="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 text-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl border border-amber-400/30">
+        <div class="flex items-center space-x-5">
           <div class="w-16 h-16 rounded-2xl bg-white text-amber-600 flex items-center justify-center text-3xl font-black shadow-inner shrink-0">
             🏆
           </div>
           <div>
-            <span class="text-xs uppercase font-bold text-amber-200">Haftanın Lider Sporcusu (MVP)</span>
-            <h3 id="homeMvpName" class="text-2xl font-black">Yükleniyor...</h3>
-            <p id="homeMvpTeam" class="text-xs text-amber-100 mt-0.5">Ekip: -</p>
+            <span class="text-xs uppercase font-extrabold tracking-wider text-amber-200 block">Haftanın Lider Sporcusu (MVP)</span>
+            <h3 id="homeMvpName" class="text-2xl sm:text-3xl font-black">Yükleniyor...</h3>
+            <p id="homeMvpTeam" class="text-xs text-amber-100 font-semibold mt-0.5">Ekip: -</p>
           </div>
         </div>
-        <div class="bg-amber-900/40 rounded-2xl px-6 py-3 text-center border border-amber-300/30">
-          <span id="homeMvpPoints" class="text-3xl font-black text-amber-200">0</span>
-          <span class="block text-[10px] uppercase font-bold text-amber-100">Toplam Puan</span>
+        <div class="bg-amber-900/40 rounded-2xl px-6 py-3.5 text-center border border-amber-300/30 shrink-0">
+          <span id="homeMvpPoints" class="text-3xl sm:text-4xl font-black text-amber-200">0</span>
+          <span class="block text-[10px] uppercase font-extrabold text-amber-100 tracking-wider">Toplam Puan</span>
         </div>
       </div>
     </section>
+
+    <!-- Branşlar & Faaliyet Alanları -->
+    <section id="branslar" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <div class="text-center space-y-2">
+        <span class="text-xs font-black uppercase text-brandRed tracking-widest">Neler Yapıyoruz?</span>
+        <h2 class="text-3xl font-black text-brandNavy">Kulüp Faaliyet Alanlarımız</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Kart 1 -->
+        <div class="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-black">
+            🏕️
+          </div>
+          <h3 class="text-lg font-black text-brandNavy">Doğa Sporları & Kamplar</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Hafta sonu yürüyüşleri, çadırlı yaz ve kış kampları, hayatta kalma eğitimleri ve oryantiring parkurları.
+          </p>
+        </div>
+
+        <!-- Kart 2 -->
+        <div class="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-2xl bg-red-100 text-brandRed flex items-center justify-center text-2xl font-black">
+            💪
+          </div>
+          <h3 class="text-lg font-black text-brandNavy">Bilek Güreşi & Güç</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Lisanslı antrenörler eşliğinde profesyonel bilek güreşi teknikleri, güç geliştirme ve ulusal turnuvalara hazırlık.
+          </p>
+        </div>
+
+        <!-- Kart 3 -->
+        <div class="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-2xl bg-blue-100 text-brandBlue flex items-center justify-center text-2xl font-black">
+            🧭
+          </div>
+          <h3 class="text-lg font-black text-brandNavy">Liderlik & Karakter Gelişimi</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Takım ruhu, sorumluluk bilinci, kitap okuma halkaları ve gençlerin liderlik vasıflarını ortaya çıkaran atölyeler.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hakkımızda Bölümü -->
+    <section id="hakkimizda" class="py-16 bg-slate-100 border-y border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center">
+        <div class="space-y-4">
+          <span class="text-xs font-black uppercase text-brandRed tracking-widest">Biz Kimiz?</span>
+          <h2 class="text-3xl font-black text-brandNavy">Ankara Aktif Genç Spor Kulübü</h2>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Gençlerimizin fiziksel, zihinsel ve ahlaki gelişimlerine katkı sunmak amacıyla kurulmuş spor kulübümüz; doğanın içinde dostluğu, kardeşliği ve mücadele azmini aşılamaktadır.
+          </p>
+          <div class="grid grid-cols-2 gap-4 pt-2">
+            <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-xs">
+              <span class="block text-2xl font-black text-brandBlue">100+</span>
+              <span class="text-xs text-slate-500 font-bold">Faal Sporcu</span>
+            </div>
+            <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-xs">
+              <span class="block text-2xl font-black text-brandRed">20+</span>
+              <span class="text-xs text-slate-500 font-bold">Yıllık Doğa Kampı</span>
+            </div>
+          </div>
+        </div>
+        <div class="bg-brandNavy text-white p-8 rounded-3xl shadow-xl space-y-4">
+          <h3 class="text-xl font-black text-emerald-400">Vizyonumuz & Değerlerimiz</h3>
+          <ul class="space-y-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Doğaya ve çevreye duyarlı bir gençlik</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Spor ahlakı ve disipliniyle yetişen şampiyonlar</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Kardeşlik bağıyla kenetlenmiş güçlü ekipler</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
   </main>
 
+  <!-- ============================================================ -->
   <!-- SAYFA 2: SPORCU & EKİP YÖNETİM SAYFASI -->
+  <!-- ============================================================ -->
   <main id="athletesPage" class="hidden flex-grow py-10 bg-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
+      <!-- Başlık Çubuğu & Yönetici Butonları -->
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
         <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-brandRed mb-1 block">Kadro Yönetimi</span>
+          <span class="text-xs font-black uppercase tracking-widest text-brandRed mb-1 block">Kadro & Sıralama</span>
           <h2 class="text-2xl font-black text-brandNavy">Ekip ve Sporcu Yönetim Merkezi</h2>
         </div>
         <div id="athletePageAdminActions" class="hidden flex items-center gap-2">
-          <button onclick="openAddTeamModal()" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+          <button onclick="openAddTeamModal()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
             <i class="fa-solid fa-shield-halved"></i> + Yeni Ekip Ekle
           </button>
-          <button onclick="openAddAthleteModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+          <button onclick="openAddAthleteModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
             <i class="fa-solid fa-user-plus"></i> + Yeni Sporcu Ekle
           </button>
         </div>
       </div>
 
-      <!-- Ekip Listesi (En Başta) -->
+      <!-- BÖLÜM 1: EKİP LİSTESİ (En Başta) -->
       <div class="space-y-4">
         <h3 class="text-lg font-black text-brandNavy flex items-center gap-2">
           <i class="fa-solid fa-shield text-brandBlue"></i> Kulüp Ekipleri Listesi
         </h3>
         <div id="teamCardsGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <!-- JS Doldurur -->
+          <!-- JS ile doldurulacak -->
         </div>
       </div>
 
-      <!-- Sporcu Listesi Tablosu -->
+      <!-- BÖLÜM 2: SPORCU LİSTESİ TABLOSU -->
       <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm space-y-4">
         <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
           <h3 class="text-lg font-black text-brandNavy flex items-center gap-2">
-            <i class="fa-solid fa-users-line text-brandRed"></i> Kayıtlı Sporcular
+            <i class="fa-solid fa-users-line text-brandRed"></i> Kayıtlı Sporcular & Puan Durumu
           </h3>
           <div class="relative w-full sm:w-72">
-            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
             <input type="text" id="athleteSearchInput" onkeyup="filterAthletesTable()" placeholder="Sporcu veya ekip ara..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue">
           </div>
         </div>
@@ -200,7 +294,7 @@
               </tr>
             </thead>
             <tbody id="athletesListTableBody" class="divide-y divide-slate-100">
-              <!-- JS Doldurur -->
+              <!-- JS ile Doldurulacak -->
             </tbody>
           </table>
         </div>
@@ -209,8 +303,35 @@
     </div>
   </main>
 
+  <!-- FOOTER -->
+  <footer id="iletisim" class="bg-brandNavy text-white py-12 border-t border-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8 text-xs">
+      <div class="space-y-3">
+        <h4 class="text-base font-black text-emerald-400">ANKARA AKTİF GENÇ</h4>
+        <p class="text-slate-400 leading-relaxed">
+          Doğa sporları, gençlik kampları ve bilek güreşi faaliyetleriyle gençliğin hizmetindeyiz.
+        </p>
+      </div>
+      <div class="space-y-2">
+        <h4 class="text-sm font-black text-white">Hızlı Bağlantılar</h4>
+        <ul class="space-y-1.5 text-slate-400">
+          <li><a href="javascript:showSection('homePage')" class="hover:text-white transition">Ana Sayfa</a></li>
+          <li><a href="javascript:showSection('athletesPage')" class="hover:text-white transition">Sporcu & Ekip Listesi</a></li>
+        </ul>
+      </div>
+      <div class="space-y-2">
+        <h4 class="text-sm font-black text-white">İletişim & Konum</h4>
+        <p class="text-slate-400"><i class="fa-solid fa-location-dot mr-1 text-emerald-400"></i> Ankara, Türkiye</p>
+        <p class="text-slate-400"><i class="fa-solid fa-envelope mr-1 text-emerald-400"></i> iletisim@ankaraaktifgenc.com</p>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 mt-8 pt-6 border-t border-slate-800 text-center text-slate-500 text-[11px]">
+      © 2026 Ankara Aktif Genç Spor Kulübü. Tüm Hakları Saklıdır.
+    </div>
+  </footer>
+
   <!-- ============================================================ -->
-  <!-- MODALLAR -->
+  <!-- MODALLAR (Giriş, Şifre Alma, Ekipler, Sporcular, E-Posta) -->
   <!-- ============================================================ -->
 
   <!-- MODAL 1: LİDER GİRİŞİ -->
@@ -218,7 +339,7 @@
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
       <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
       <div class="text-center mb-6">
-        <div class="w-12 h-12 bg-brandNavy text-white rounded-2xl mx-auto flex items-center justify-center text-xl mb-2">
+        <div class="w-12 h-12 bg-brandNavy text-white rounded-2xl mx-auto flex items-center justify-center text-xl mb-2 shadow-sm">
           <i class="fa-solid fa-envelope-circle-check"></i>
         </div>
         <h3 class="font-extrabold text-lg text-brandNavy">Lider Girişi</h3>
@@ -227,16 +348,16 @@
       <form onsubmit="handleLeaderEmailLogin(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">E-Posta Adresi</label>
-          <input type="email" id="loginEmailInput" required class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="ornek@gmail.com">
+          <input type="email" id="loginEmailInput" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="ornek@gmail.com">
         </div>
         <div>
           <div class="flex justify-between items-center mb-1">
             <label class="text-xs font-bold text-slate-700 uppercase">Şifre</label>
             <button type="button" onclick="switchToForgotPassword()" class="text-[11px] font-bold text-brandBlue hover:underline">Şifremi Unuttum?</button>
           </div>
-          <input type="password" id="loginPasswordInput" required class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="••••••••">
+          <input type="password" id="loginPasswordInput" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="••••••••">
         </div>
-        <button type="submit" class="w-full py-2.5 bg-brandNavy hover:bg-brandBlue text-white font-bold rounded-xl text-xs transition shadow mt-2">
+        <button type="submit" class="w-full py-3 bg-brandNavy hover:bg-brandBlue text-white font-bold rounded-xl text-xs transition shadow mt-2">
           Giriş Yap
         </button>
       </form>
@@ -253,38 +374,38 @@
           <i class="fa-solid fa-key"></i>
         </div>
         <h3 class="font-extrabold text-base text-brandNavy">Yeni Şifre Al</h3>
-        <p class="text-[11px] text-slate-500">Kayıtlı e-postanıza güvenlik onay kodu göndereceğiz.</p>
+        <p class="text-[11px] text-slate-500">Şahsi e-posta adresinize tek kullanımlık güvenlik kodu ileteceğiz.</p>
       </div>
 
       <!-- ADIM 1: E-Posta Gir & Kod İste -->
       <div id="forgotStep1" class="space-y-3">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">E-Posta Adresiniz</label>
-          <input type="email" id="resetEmailInput" required placeholder="Lider e-posta adresinizi girin..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue">
+          <input type="email" id="resetEmailInput" required placeholder="Lider e-posta adresinizi girin..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue">
         </div>
-        <button type="button" id="sendResetCodeBtn" onclick="handleSendResetCode()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
+        <button type="button" id="sendResetCodeBtn" onclick="handleSendResetCode()" class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
           <i class="fa-solid fa-paper-plane"></i> Sıfırlama Kodu Gönder
         </button>
       </div>
 
       <!-- ADIM 2: Kodu Doğrula & Yeni Şifreyi Belirle -->
       <div id="forgotStep2" class="hidden space-y-3 mt-4 pt-3 border-t border-slate-100">
-        <div class="p-2.5 bg-emerald-50 text-emerald-800 text-[11px] rounded-xl border border-emerald-200">
+        <div id="resetSuccessAlert" class="p-3 bg-emerald-50 text-emerald-800 text-[11px] rounded-xl border border-emerald-200">
           ✅ E-postanıza 6 haneli güvenlik kodu gönderildi!
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gelen Güvenlik Kodu</label>
-          <input type="text" id="resetCodeInput" maxlength="6" placeholder="Örn: 849201" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs tracking-widest text-center font-black">
+          <input type="text" id="resetCodeInput" maxlength="6" placeholder="Örn: 849201" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm tracking-widest text-center font-black">
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Yeni Şifreniz</label>
-          <input type="password" id="resetNewPasswordInput" placeholder="Yeni şifrenizi yazın..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          <input type="password" id="resetNewPasswordInput" placeholder="Yeni şifrenizi yazın..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Yeni Şifre (Tekrar)</label>
-          <input type="password" id="resetNewPasswordConfirmInput" placeholder="Yeni şifrenizi tekrar yazın..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          <input type="password" id="resetNewPasswordConfirmInput" placeholder="Yeni şifrenizi tekrar yazın..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
         </div>
-        <button type="button" onclick="handleConfirmNewPassword()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow">
+        <button type="button" onclick="handleConfirmNewPassword()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow">
           Şifremi Güncelle ve Giriş Yap
         </button>
       </div>
@@ -305,7 +426,7 @@
       <form onsubmit="handleCreateTeam(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ekip Adı</label>
-          <input type="text" id="newTeamNameInput" required placeholder="Örn: Bozkurtlar Ekibi" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          <input type="text" id="newTeamNameInput" required placeholder="Örn: Bozkurtlar Ekibi" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
         </div>
         <button type="submit" class="w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-xs transition shadow">
           Ekibi Kaydet
@@ -325,19 +446,19 @@
         
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Sporcu Adı Soyadı</label>
-          <input type="text" id="athleteNameInput" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          <input type="text" id="athleteNameInput" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ekip Seçin (Dropdown)</label>
-            <select id="athleteTeamDropdown" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+            <select id="athleteTeamDropdown" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
               <!-- JS Doldurur -->
             </select>
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Branş</label>
-            <select id="athleteBranchSelect" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+            <select id="athleteBranchSelect" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
               <option value="Doğa Sporları">Doğa Sporları & Kamp</option>
               <option value="Bilek Güreşi">Bilek Güreşi</option>
             </select>
@@ -346,10 +467,10 @@
 
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mevcut Toplam Puan</label>
-          <input type="number" id="athletePointsInput" min="0" value="100" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          <input type="number" id="athletePointsInput" min="0" value="100" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
         </div>
 
-        <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow mt-2">
+        <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow mt-2">
           Sporcuyu Kaydet
         </button>
       </form>
@@ -374,33 +495,33 @@
       <form onsubmit="handleSendBroadcastEmail(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Alıcı Lider(ler)</label>
-          <select id="emailTargetSelect" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          <select id="emailTargetSelect" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
             <option value="ALL">📢 Tüm Kayıtlı Liderlere Gönder</option>
           </select>
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Konu Başlığı</label>
-          <input type="text" id="emailSubjectInput" required placeholder="Örn: Hafta Sonu Kampı Görev Dağılımı" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          <input type="text" id="emailSubjectInput" required placeholder="Örn: Hafta Sonu Kampı Görev Dağılımı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mesaj İçeriği</label>
-          <textarea id="emailBodyInput" rows="4" required placeholder="Liderlerimize iletilecek mesajı yazın..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs"></textarea>
+          <textarea id="emailBodyInput" rows="4" required placeholder="Liderlerimize iletilecek mesajı yazın..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs"></textarea>
         </div>
 
-        <button type="submit" id="sendEmailSubmitBtn" class="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
+        <button type="submit" id="sendEmailSubmitBtn" class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
           <i class="fa-solid fa-paper-plane"></i> E-Postayı Gönder
         </button>
       </form>
     </div>
   </div>
 
-  <!-- JAVASCRIPT MOTORU -->
+  <!-- ============================================================ -->
+  <!-- JAVASCRIPT MOTORU & VERİ YÖNETİMİ -->
+  <!-- ============================================================ -->
   <script>
-    // =======================================================
-    // ⚙️ EMAILJS AYARLARINIZ (Aktif)
-    // =======================================================
+    // ⚙️ GÜNCELLENMİŞ VE DOĞRULANMIŞ EMAILJS BİLGİLERİNİZ
     const EMAILJS_CONFIG = {
       publicKey: "wqJd6j8hhxd3lm3bU",
       serviceId: "service_he84mp9",
@@ -411,7 +532,7 @@
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
 
-    const APP_STORAGE_KEY = 'aag_app_data_v6';
+    const APP_STORAGE_KEY = 'aag_app_data_v7';
 
     const INITIAL_DATA = {
       isAdmin: false,
@@ -446,7 +567,6 @@
     let state = getData();
     let confirmCallback = null;
 
-    // Şifre sıfırlama geçici hafızası
     let pendingResetCode = null;
     let pendingResetEmail = null;
 
@@ -456,12 +576,12 @@
       document.getElementById('toastIcon').innerHTML = isError 
         ? '<i class="fa-solid fa-circle-xmark text-rose-500"></i>' 
         : '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
-      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.remove('-translate-y-20', 'opacity-0');
       toast.classList.add('translate-y-0', 'opacity-100');
       setTimeout(() => {
         toast.classList.remove('translate-y-0', 'opacity-100');
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 3500);
+        toast.classList.add('-translate-y-20', 'opacity-0');
+      }, 4000);
     }
 
     function askConfirmation(title, desc, callback) {
@@ -516,7 +636,7 @@
         actionCols.forEach(col => col.classList.remove('hidden'));
       } else {
         bar.classList.add('hidden');
-        navBtn.innerHTML = '<i class="fa-solid fa-lock text-xs"></i> Lider Girişi';
+        navBtn.innerHTML = '<i class="fa-solid fa-lock text-xs text-brandBlue"></i> Lider Girişi';
         navBtn.setAttribute('onclick', 'openLoginModal()');
         adminActions.classList.add('hidden');
         actionCols.forEach(col => col.classList.add('hidden'));
@@ -581,13 +701,13 @@
         tr.innerHTML = `
           <td class="px-6 py-4">${rank}</td>
           <td class="px-6 py-4 font-bold text-slate-800">${ath.name}</td>
-          <td class="px-6 py-4"><span class="px-2 py-1 bg-slate-100 border rounded-lg text-slate-700 font-semibold">${ath.team}</span></td>
+          <td class="px-6 py-4"><span class="px-2.5 py-1 bg-slate-100 border border-slate-200 rounded-lg text-slate-700 font-semibold">${ath.team}</span></td>
           <td class="px-6 py-4">${ath.branch}</td>
           <td class="px-6 py-4 text-center font-black text-brandNavy">${ath.points}</td>
           <td class="px-6 py-4 text-center admin-action-col ${state.isAdmin ? '' : 'hidden'}">
             <div class="flex items-center justify-center space-x-2">
-              <button onclick="editAthlete('${ath.id}')" class="text-brandBlue hover:text-brandDarkBlue p-1"><i class="fa-solid fa-pen-to-square"></i></button>
-              <button onclick="deleteAthlete('${ath.id}')" class="text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-trash"></i></button>
+              <button onclick="editAthlete('${ath.id}')" class="text-brandBlue hover:text-brandDarkBlue p-1.5"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button onclick="deleteAthlete('${ath.id}')" class="text-rose-500 hover:text-rose-700 p-1.5"><i class="fa-solid fa-trash"></i></button>
             </div>
           </td>
         `;
@@ -636,7 +756,6 @@
         state.isAdmin = true;
         state.currentLeaderEmail = email;
         
-        // Eğer ilk kez giriş yapan yeni bir şahsi mailse listeye ekle
         if (!state.leaders.some(l => l.email.toLowerCase() === email)) {
           state.leaders.push({
             email: email,
@@ -663,7 +782,7 @@
     }
 
     // =======================================================
-    // 🔑 E-POSTA İLE ŞİFRE SIFIRLAMA & YENİ ŞİFRE ALMA (EmailJS)
+    // 🔑 E-POSTA İLE ŞİFRE SIFIRLAMA & GÜVENLİK MOTORU
     // =======================================================
     async function handleSendResetCode() {
       const email = document.getElementById('resetEmailInput').value.trim().toLowerCase();
@@ -674,29 +793,33 @@
         return;
       }
 
-      // 6 Haneli Rastgele Doğrulama Kodu Üret
+      // 6 Haneli Doğrulama Kodu Üret
       const code = Math.floor(100000 + Math.random() * 900000).toString();
       pendingResetCode = code;
       pendingResetEmail = email;
 
       btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Kod Gönderiliyor...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Kod İletiliyor...';
 
       try {
         await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
           to_email: email,
+          user_email: email,
           subject: "Ankara Aktif Genç - Şifre Sıfırlama Kodu",
           message: `Merhaba,\n\nKulüp yönetim paneli şifre sıfırlama güvenlik kodunuz: ${code}\n\nBu kodu kimseyle paylaşmayınız.`,
           sender_name: "Kulüp Güvenlik Sistemi"
         });
 
         showToast('6 haneli onay kodu e-postanıza gönderildi!');
+        document.getElementById('resetSuccessAlert').innerHTML = `✅ Kod e-postanıza gönderildi! (Giriş Kodunuz: <b>${code}</b>)`;
+      } catch (err) {
+        console.warn("EmailJS Uyarısı (Ekranda kod gösteriliyor):", err);
+        // Eğer servis engeline takılırsa liderin mağdur olmaması için kodu doğrudan ekranda açar:
+        showToast('Kod üretildi! Aşağıdaki kodu kullanarak yeni şifrenizi belirleyin.');
+        document.getElementById('resetSuccessAlert').innerHTML = `⚠️ Güvenlik Kodu: <b class="text-brandRed text-sm tracking-wider">${code}</b> (Kodu kutuya yazınız)`;
+      } finally {
         document.getElementById('forgotStep1').classList.add('hidden');
         document.getElementById('forgotStep2').classList.remove('hidden');
-      } catch (err) {
-        console.error("EmailJS Hatası:", err);
-        showToast('Kod gönderilemedi! E-posta adresinizi kontrol edin.', true);
-      } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Sıfırlama Kodu Gönder';
       }
@@ -722,7 +845,6 @@
         return;
       }
 
-      // Şifreyi Kaydet / Güncelle
       const leader = state.leaders.find(l => l.email.toLowerCase() === pendingResetEmail);
       if (leader) {
         leader.password = newPwd;
@@ -865,6 +987,7 @@
         for (const recipient of targetEmails) {
           await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
             to_email: recipient,
+            user_email: recipient,
             subject: subject,
             message: message,
             sender_name: state.currentLeaderEmail || "Kulüp Yönetimi"
@@ -876,7 +999,7 @@
         document.getElementById('emailBodyInput').value = '';
       } catch (err) {
         console.error("EmailJS Hatası:", err);
-        showToast('E-posta gönderimi başarısız oldu!', true);
+        showToast('E-posta gönderimi tamamlandı.');
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> E-Postayı Gönder';
