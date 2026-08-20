@@ -55,7 +55,6 @@
     </div>
   </div>
 
-  <!-- LİDER YÖNETİM ÜST BARI -->
   <div id="adminHeaderBar" class="hidden bg-slate-900 text-white text-xs py-2 px-4 sticky top-0 z-50 shadow-md border-b border-slate-800">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center space-x-2">
@@ -80,12 +79,11 @@
     </div>
   </div>
 
-  <!-- NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
         
-        <!-- YENİ LOGO (Çatı Çentik + Kırmızı Daire) -->
+        <!-- YENİ LOGO (Orijinal Mavi Çatı Çentik + Kırmızı Daire) -->
         <a href="javascript:showSection('homePage')" class="flex items-center space-x-3.5 group">
           <div class="w-12 h-12 shrink-0 flex items-center justify-center">
             <svg class="w-full h-full" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,9 +120,6 @@
     </div>
   </header>
 
-  <!-- ============================================================ -->
-  <!-- SAYFA 1: ANA SAYFA -->
-  <!-- ============================================================ -->
   <main id="homePage" class="flex-grow">
     
     <!-- 1. HERO -->
@@ -320,7 +315,7 @@
           <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3">
             <span class="px-3 py-1 bg-blue-50 text-blue-700 font-extrabold text-[10px] rounded-lg">DOĞA YÜRÜYÜŞÜ</span>
             <h3 class="font-black text-base text-brandNavy">Çamlıdere Doğa Yürüyüşü & Liderlik</h3>
-            <p class="text-xs text-slate-500">Doğa yürüyüşü, çevre temizlik faaliyet ve ekip liderliği gelişim parkuru.</p>
+            <p class="text-xs text-slate-500">Doğa yürüyüşü, çevre temizlik faaliyeti ve ekip liderliği gelişim parkuru.</p>
             <div class="text-[11px] text-slate-400 font-bold pt-2 border-t border-slate-100">📅 22 Kasım 2026</div>
           </div>
 
@@ -574,11 +569,11 @@
       </div>
 
       <div id="forgotStep2" class="hidden space-y-3 mt-4 pt-3 border-t border-slate-100">
-        <div id="resetSuccessAlert" class="p-3 bg-emerald-50 text-emerald-800 text-[11px] rounded-xl border border-emerald-200 block">
+        <div id="resetSuccessAlert" class="p-3 bg-emerald-50 text-emerald-800 text-[11px] rounded-xl border border-emerald-200">
           ✅ E-postanıza güvenlik kodu gönderildi!
         </div>
         <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gelen Kodu Girin</label>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gelen Kod</label>
           <input type="text" id="resetCodeInput" maxlength="6" placeholder="Kodu girin..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm tracking-widest text-center font-black">
         </div>
         <div>
@@ -686,11 +681,11 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT MOTORU -->
   <script>
+    // EmailJS Configurations (Service ID updated to service_vbqoqv6)
     const EMAILJS_CONFIG = {
       publicKey: "wqJd6j8hhxd3lm3bU",
-      serviceId: "service_he84mp9",
+      serviceId: "service_vbqoqv6",
       templateId: "template_1askpkh"
     };
 
@@ -966,7 +961,6 @@
       });
     }
 
-    // LİDER GİRİŞİ
     function handleLeaderEmailLogin(e) {
       e.preventDefault();
       const email = document.getElementById('loginEmailInput').value.trim().toLowerCase();
@@ -1003,7 +997,6 @@
       showToast('Oturum kapatıldı.');
     }
 
-    // GERÇEK E-POSTA İLE ŞİFRE SIFIRLAMA
     async function handleSendResetCode() {
       const email = document.getElementById('resetEmailInput').value.trim().toLowerCase();
       const btn = document.getElementById('sendResetCodeBtn');
@@ -1020,7 +1013,6 @@
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gönderiliyor...';
 
-      // Şablondaki tüm olası değişkenleri dolduran tam parametre paketi
       const templateParams = {
         to_email: email,
         email: email,
@@ -1119,7 +1111,6 @@
       pendingResetEmail = null;
     }
 
-    // EKİP & SPORCU
     function handleCreateTeam(e) {
       e.preventDefault();
       const name = document.getElementById('newTeamNameInput').value.trim();
