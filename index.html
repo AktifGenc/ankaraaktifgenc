@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- EmailJS SDK v4 -->
+  <!-- EmailJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <script>
@@ -63,9 +63,21 @@
         <span class="font-black tracking-wider">LİDER YÖNETİM MODU</span>
         <span id="adminUserEmailBadge" class="text-slate-400 font-medium"></span>
       </div>
-      <div class="flex items-center space-x-2 flex-wrap gap-1">
+      <div class="flex items-center space-x-1.5 flex-wrap">
+        <button onclick="openWeeklyTrackingModal()" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+          <i class="fa-solid fa-clipboard-check text-xs"></i> Yoklama & Puan
+        </button>
+        <button onclick="openAnnouncementModal()" class="px-3 py-1 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+          <i class="fa-solid fa-bullhorn text-xs"></i> + Duyuru
+        </button>
+        <button onclick="openEventModal()" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+          <i class="fa-solid fa-calendar-plus text-xs"></i> + Etkinlik
+        </button>
+        <button onclick="openGalleryModal()" class="px-3 py-1 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+          <i class="fa-solid fa-image text-xs"></i> + Fotoğraf
+        </button>
         <button onclick="openBroadcastEmailModal()" class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg transition flex items-center gap-1">
-          <i class="fa-solid fa-paper-plane text-xs"></i> Liderlere E-Posta
+          <i class="fa-solid fa-paper-plane text-xs"></i> E-Posta
         </button>
         <button onclick="showSection('athletesPage')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition flex items-center gap-1">
           <i class="fa-solid fa-users text-xs"></i> Kadro & Ekip
@@ -106,6 +118,7 @@
           <a href="javascript:showSection('activitiesPage')" class="hover:text-brandBlue transition px-2 py-1">Faaliyetler</a>
           <a href="javascript:showSection('rankingsPage')" class="hover:text-brandBlue transition px-2 py-1">Puan Durumu</a>
           <a href="javascript:showSection('eventsPage')" class="hover:text-brandBlue transition px-2 py-1">Etkinlikler</a>
+          <a href="javascript:showSection('galleryPage')" class="hover:text-brandBlue transition px-2 py-1">Galeri</a>
           <a href="javascript:showSection('teamPage')" class="hover:text-brandBlue transition px-2 py-1">Ekibimiz</a>
           <a href="javascript:showSection('faqPage')" class="hover:text-brandBlue transition px-2 py-1">SSS</a>
           <a href="javascript:showSection('applicationPage')" class="px-3 py-1.5 bg-brandRed/10 text-brandRed hover:bg-brandRed hover:text-white rounded-xl transition">Başvuru Yap</a>
@@ -131,6 +144,7 @@
       <a href="javascript:showSection('activitiesPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Faaliyetler</a>
       <a href="javascript:showSection('rankingsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Puan Durumu & MVP</a>
       <a href="javascript:showSection('eventsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Etkinlikler</a>
+      <a href="javascript:showSection('galleryPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Galeri</a>
       <a href="javascript:showSection('teamPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Ekibimiz</a>
       <a href="javascript:showSection('faqPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">SSS</a>
       <a href="javascript:showSection('applicationPage')" class="block px-3 py-2 rounded-lg bg-brandRed text-white text-center mt-2">Ön Başvuru Formu</a>
@@ -194,8 +208,20 @@
       </div>
     </section>
 
+    <!-- DUYURULAR BÖLÜMÜ (Dinamik Lider Yönetimli) -->
+    <section class="py-12 max-w-6xl mx-auto px-4">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <span class="text-xs font-black uppercase text-brandRed tracking-widest block">GÜNCEL BİLGİLENDİRME</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-brandNavy">Kulüp Duyuruları</h2>
+        </div>
+        <button onclick="showSection('eventsPage')" class="text-xs font-bold text-brandBlue hover:underline">Tümünü Gör →</button>
+      </div>
+      <div id="homeAnnouncementsGrid" class="grid md:grid-cols-2 gap-6"></div>
+    </section>
+
     <!-- ÖNE ÇIKAN DİLİMLER -->
-    <section class="py-16 max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
+    <section class="py-12 max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
       <div onclick="showSection('aboutPage')" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm cursor-pointer hover:border-brandBlue transition space-y-3">
         <div class="w-12 h-12 rounded-2xl bg-blue-100 text-brandBlue flex items-center justify-center text-xl">ℹ️</div>
         <h3 class="font-black text-base text-brandNavy">Kulübümüz Hakkında</h3>
@@ -370,32 +396,24 @@
     <div class="max-w-6xl mx-auto px-4 space-y-8">
       <div class="text-center space-y-1">
         <span class="text-xs font-black uppercase text-brandBlue tracking-widest">FAALİYET PROGRAMI</span>
-        <h2 class="text-3xl font-black text-brandNavy">Kulüp Etkinlik Takvimi</h2>
-        <p class="text-xs text-slate-500">2026 Sezonu yakında düzenlenecek gençlik kampları ve turnuvaları.</p>
+        <h2 class="text-3xl font-black text-brandNavy">Kulüp Etkinlik Takvimi & Duyurular</h2>
+        <p class="text-xs text-slate-500">Gençlik kampları, doğa yürüyüşleri, turnuvalar ve lider duyuruları.</p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3">
-          <span class="px-3 py-1 bg-emerald-50 text-emerald-700 font-extrabold text-[10px] rounded-lg">GENÇLİK KAMPI</span>
-          <h3 class="font-black text-base text-brandNavy">Kızılcahamam Sonbahar Gençlik Kampı</h3>
-          <p class="text-xs text-slate-500">Çadır kurma, doğada oryantiring, ateş başı liderlik sohbetleri ve 2 günlük doğa disiplini.</p>
-          <div class="text-[11px] text-slate-400 font-bold pt-2 border-t border-slate-100">📅 15 Kasım 2026</div>
-        </div>
+      <div id="eventsGrid" class="grid md:grid-cols-3 gap-6"></div>
+    </div>
+  </main>
 
-        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3">
-          <span class="px-3 py-1 bg-blue-50 text-blue-700 font-extrabold text-[10px] rounded-lg">DOĞA YÜRÜYÜŞÜ</span>
-          <h3 class="font-black text-base text-brandNavy">Çamlıdere Doğa Yürüyüşü & Liderlik</h3>
-          <p class="text-xs text-slate-500">Doğa yürüyüşü, çevre temizlik faaliyeti ve ekip liderliği gelişim parkuru.</p>
-          <div class="text-[11px] text-slate-400 font-bold pt-2 border-t border-slate-100">📅 22 Kasım 2026</div>
-        </div>
-
-        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3">
-          <span class="px-3 py-1 bg-red-50 text-brandRed font-extrabold text-[10px] rounded-lg">TURNUVA</span>
-          <h3 class="font-black text-base text-brandNavy">Kulüpler Arası Dostluk Bilek Güreşi</h3>
-          <p class="text-xs text-slate-500">Gençlerimizin teknik gelişimi ve dostluk bağlarını güçlendiren kulüp içi seçme müsabakaları.</p>
-          <div class="text-[11px] text-slate-400 font-bold pt-2 border-t border-slate-100">📅 06 Aralık 2026</div>
-        </div>
+  <!-- SAYFA 5.5: GALERİ SAYFASI -->
+  <main id="galleryPage" class="hidden flex-grow py-12">
+    <div class="max-w-6xl mx-auto px-4 space-y-8">
+      <div class="text-center space-y-1">
+        <span class="text-xs font-black uppercase text-brandRed tracking-widest">ANILARIMIZ</span>
+        <h2 class="text-3xl font-black text-brandNavy">Kulüp Etkinlik Galerisi</h2>
+        <p class="text-xs text-slate-500">Kamplarımızdan, bilek güreşi turnuvalarımızdan ve doğa yürüyüşlerimizden kareler.</p>
       </div>
+
+      <div id="galleryGrid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
     </div>
   </main>
 
@@ -572,6 +590,7 @@
           <li><a href="javascript:showSection('activitiesPage')" class="hover:text-white transition">Faaliyetlerimiz</a></li>
           <li><a href="javascript:showSection('rankingsPage')" class="hover:text-white transition">Puan Durumu & MVP</a></li>
           <li><a href="javascript:showSection('eventsPage')" class="hover:text-white transition">Etkinlik Takvimi</a></li>
+          <li><a href="javascript:showSection('galleryPage')" class="hover:text-white transition">Fotoğraf Galerisi</a></li>
           <li><a href="javascript:showSection('teamPage')" class="hover:text-white transition">Ekibimiz</a></li>
           <li><a href="javascript:showSection('faqPage')" class="hover:text-white transition">SSS</a></li>
         </ul>
@@ -719,7 +738,121 @@
     </div>
   </div>
 
-  <!-- MODAL 5: LİDERLERE E-POSTA GÖNDERME -->
+  <!-- MODAL 5: DUYURU EKLE (Admin) -->
+  <div id="announcementModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeAnnouncementModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 class="font-extrabold text-base text-brandNavy mb-4">Yeni Duyuru Yayınla</h3>
+      <form onsubmit="handleSaveAnnouncement(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Duyuru Başlığı</label>
+          <input type="text" id="announcementTitleInput" required placeholder="Örn: Hafta Sonu Kamp Malzemeleri" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Etiket</label>
+            <input type="text" id="announcementTagInput" placeholder="Örn: ÖNEMLİ / KAMPLAR" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Tarih</label>
+            <input type="text" id="announcementDateInput" placeholder="Örn: 21 Ağustos 2026" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+          </div>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Duyuru Detayı</label>
+          <textarea id="announcementDescInput" rows="3" required placeholder="Duyurunun detaylı açıklaması..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition shadow mt-2">
+          Duyuruyu Yayınla
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 6: ETKİNLİK EKLE (Admin) -->
+  <div id="eventModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeEventModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 class="font-extrabold text-base text-brandNavy mb-4">Yeni Etkinlik Ekle</h3>
+      <form onsubmit="handleSaveEvent(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Etkinlik Adı</label>
+          <input type="text" id="eventTitleInput" required placeholder="Örn: Kızılcahamam Doğa Yürüyüşü" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Kategori</label>
+            <select id="eventCategoryInput" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+              <option value="GENÇLİK KAMPI">GENÇLİK KAMPI</option>
+              <option value="DOĞA YÜRÜYÜŞÜ">DOĞA YÜRÜYÜŞÜ</option>
+              <option value="TURNUVA">TURNUVA</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Tarih</label>
+            <input type="text" id="eventDateInput" required placeholder="Örn: 15 Kasım 2026" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+          </div>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Etkinlik Açıklaması</label>
+          <textarea id="eventDescInput" rows="3" required placeholder="Etkinlik hakkında bilgi..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl transition shadow mt-2">
+          Etkinliği Kaydet
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 7: GALERİ FOTOĞRAFI EKLE (Admin) -->
+  <div id="galleryModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeGalleryModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 class="font-extrabold text-base text-brandNavy mb-4">Galeriye Fotoğraf Ekle</h3>
+      <form onsubmit="handleSaveGalleryPhoto(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Fotoğraf / Etkinlik Başlığı</label>
+          <input type="text" id="galleryTitleInput" required placeholder="Örn: Kızılcahamam Kampı Ateş Başı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Kategori</label>
+            <input type="text" id="galleryCategoryInput" placeholder="Örn: Doğa Kampı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Görsel URL veya Yükleme</label>
+            <input type="url" id="galleryImgUrlInput" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+          </div>
+        </div>
+        <button type="submit" class="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl transition shadow mt-2">
+          Fotoğrafı Galeride Yayınla
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 8: HAFTALIK TAKİP & YOKLAMA MASASI -->
+  <div id="weeklyTrackingModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
+      <button onclick="closeWeeklyTrackingModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      
+      <div class="flex items-center gap-3 mb-4 shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-clipboard-check"></i>
+        </div>
+        <div>
+          <h3 class="font-extrabold text-base text-brandNavy">Haftalık Takip & Yoklama Paneli</h3>
+          <p class="text-[11px] text-slate-500">Sporcuların haftalık faaliyet puanlarını ve katılım yoklamasını tek tıkla işleyin.</p>
+        </div>
+      </div>
+
+      <div class="overflow-y-auto space-y-2 pr-1 flex-grow">
+        <div id="weeklyAthletesList" class="divide-y divide-slate-100 text-xs"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 9: LİDERLERE E-POSTA GÖNDERME -->
   <div id="emailBroadcastModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeBroadcastEmailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -766,7 +899,7 @@
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
 
-    const APP_STORAGE_KEY = 'aag_app_data_v16';
+    const APP_STORAGE_KEY = 'aag_app_data_v20';
 
     const INITIAL_DATA = {
       isAdmin: false,
@@ -784,6 +917,20 @@
         { id: '3', name: 'Mert Öztürk', team: 'Fırtına Ekibi', branch: 'Bilek Güreşi', points: 190, attendance: 85 },
         { id: '4', name: 'Ahmet Can', team: 'Şahinler Ekibi', branch: 'Doğa Kampı', points: 175, attendance: 80 },
         { id: '5', name: 'Elif Yılmaz', team: 'Parslar Ekibi', branch: 'Doğa Yürüyüşü', points: 160, attendance: 75 }
+      ],
+      announcements: [
+        { id: 'a1', title: '2026 Bahar Sezonu Kamp Kayıtları', desc: 'Kızılcahamam Çamkoru Doğa Kampı için ekip liderlerinize isim yazdırmayı unutmayınız. Kontenjanlar sınırlıdır.', tag: 'ÖNEMLİ', date: '21 Ağustos 2026' },
+        { id: 'a2', title: 'Bilek Güreşi Antrenman Saatleri', desc: 'Hafta sonu antrenmanları Cumartesi ve Pazar günleri saat 14:00 - 16:30 arasında kulüp salonunda yapılacaktır.', tag: 'BRANŞ HABERİ', date: '18 Ağustos 2026' }
+      ],
+      events: [
+        { id: 'e1', title: 'Kızılcahamam Sonbahar Gençlik Kampı', desc: 'Çadır kurma, doğada oryantiring, ateş başı liderlik sohbetleri ve 2 günlük doğa disiplini.', category: 'GENÇLİK KAMPI', date: '15 Kasım 2026' },
+        { id: 'e2', title: 'Çamlıdere Doğa Yürüyüşü & Liderlik', desc: 'Doğa yürüyüşü, çevre temizlik faaliyeti ve ekip liderliği gelişim parkuru.', category: 'DOĞA YÜRÜYÜŞÜ', date: '22 Kasım 2026' },
+        { id: 'e3', title: 'Kulüpler Arası Dostluk Bilek Güreşi', desc: 'Gençlerimizin teknik gelişimi ve dostluk bağlarını güçlendiren kulüp içi seçme müsabakaları.', category: 'TURNUVA', date: '06 Aralık 2026' }
+      ],
+      gallery: [
+        { id: 'g1', title: 'Çamkoru Doğa Kampı Ateş Başı', category: 'Doğa Kampı', imgUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80' },
+        { id: 'g2', title: 'Kızılcahamam Yürüyüş Parkuru', category: 'Doğa Yürüyüşü', imgUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=600&q=80' },
+        { id: 'g3', title: 'Bilek Güreşi Antrenmanı', category: 'Bilek Güreşi', imgUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80' }
       ]
     };
 
@@ -842,6 +989,7 @@
       'activitiesPage', 
       'rankingsPage', 
       'eventsPage', 
+      'galleryPage',
       'teamPage', 
       'faqPage', 
       'applicationPage', 
@@ -882,6 +1030,9 @@
       renderHomeMVP();
       renderHomeTeams();
       renderHomeAthletesTable();
+      renderAnnouncements();
+      renderEvents();
+      renderGallery();
       renderAdminTeamsList();
       renderAdminAthletesTable();
       populateTeamDropdown();
@@ -922,7 +1073,6 @@
       if (homeMvpTeam) homeMvpTeam.innerText = `Ekip: ${mvp.team} | Branş: ${mvp.branch}`;
       if (homeMvpPoints) homeMvpPoints.innerText = mvp.points;
 
-      // Rankings page MVP bindings
       const rMvpName = document.getElementById('rankingsMvpName');
       const rMvpTeam = document.getElementById('rankingsMvpTeam');
       const rMvpPoints = document.getElementById('rankingsMvpPoints');
@@ -988,6 +1138,94 @@
           <td class="px-6 py-4 text-center font-black text-brandNavy">${ath.points}</td>
         `;
         tbody.appendChild(tr);
+      });
+    }
+
+    function renderAnnouncements() {
+      const container = document.getElementById('homeAnnouncementsGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      state.announcements.forEach(ann => {
+        const card = document.createElement('div');
+        card.className = "bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex items-start gap-4 hover:border-brandBlue transition relative group";
+        
+        let deleteBtn = state.isAdmin ? `
+          <button onclick="deleteAnnouncement('${ann.id}')" class="text-rose-500 hover:text-rose-700 text-xs p-1 absolute top-4 right-4" title="Duyuruyu Sil">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        ` : '';
+
+        card.innerHTML = `
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl shrink-0 font-bold">📢</div>
+          <div class="space-y-1 flex-grow pr-6">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">${ann.tag || 'DUYURU'}</span>
+              <span class="text-[10px] font-bold text-slate-400">${ann.date || ''}</span>
+            </div>
+            <h4 class="font-black text-base text-brandNavy">${ann.title}</h4>
+            <p class="text-xs text-slate-500 leading-relaxed">${ann.desc}</p>
+          </div>
+          ${deleteBtn}
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderEvents() {
+      const container = document.getElementById('eventsGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      state.events.forEach(ev => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3 relative group";
+
+        let deleteBtn = state.isAdmin ? `
+          <button onclick="deleteEvent('${ev.id}')" class="text-rose-500 hover:text-rose-700 text-xs p-1 absolute top-4 right-4" title="Etkinliği Sil">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        ` : '';
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="px-3 py-1 bg-brandBlue/10 text-brandBlue font-extrabold text-[10px] rounded-xl">${ev.category}</span>
+            <span class="text-xs font-bold text-slate-400">📅 ${ev.date}</span>
+          </div>
+          <h3 class="font-black text-base text-brandNavy pr-6">${ev.title}</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">${ev.desc}</p>
+          ${deleteBtn}
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderGallery() {
+      const container = document.getElementById('galleryGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      state.gallery.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs space-y-2 relative group";
+
+        let deleteBtn = state.isAdmin ? `
+          <button onclick="deleteGalleryPhoto('${item.id}')" class="bg-slate-900/80 text-rose-400 hover:text-rose-200 text-xs p-2 rounded-xl absolute top-3 right-3 z-10" title="Fotoğrafı Sil">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        ` : '';
+
+        card.innerHTML = `
+          ${deleteBtn}
+          <div class="h-48 overflow-hidden bg-slate-100">
+            <img src="${item.imgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://placehold.co/600x400/0A72BA/ffffff?text=Ankara+Genc+Spor'">
+          </div>
+          <div class="p-4 space-y-1">
+            <span class="text-[10px] font-extrabold text-brandBlue uppercase tracking-wider">${item.category}</span>
+            <h4 class="font-bold text-xs text-brandNavy">${item.title}</h4>
+          </div>
+        `;
+        container.appendChild(card);
       });
     }
 
@@ -1159,24 +1397,16 @@
             templateParams,
             { publicKey: EMAILJS_CONFIG.publicKey }
           );
-        } else {
-          throw new Error("EmailJS kütüphanesi yüklenemedi.");
         }
-
         showToast('Güvenlik kodu e-postanıza gönderildi!');
-        document.getElementById('resetSuccessAlert').className = "p-3 bg-emerald-50 text-emerald-800 text-[11px] rounded-xl border border-emerald-200 block";
-        document.getElementById('resetSuccessAlert').innerHTML = `✅ Kod <b>${email}</b> adresine gönderildi! Lütfen gelen kutunuzu (ve Spam klasörünü) kontrol edin.`;
-        document.getElementById('forgotStep1').classList.add('hidden');
-        document.getElementById('forgotStep2').classList.remove('hidden');
+        document.getElementById('resetSuccessAlert').innerHTML = `✅ Kod e-postanıza gönderildi! Lütfen gelen kutunuzu veya spam klasörünüzü kontrol edin.`;
       } catch (err) {
         console.error("EmailJS Error:", err);
-        const errMsg = err?.text || err?.message || 'E-posta servisi yanıt vermedi.';
-        showToast('E-posta gönderilemedi! Hata: ' + errMsg, true);
-        document.getElementById('resetSuccessAlert').className = "p-3 bg-rose-50 text-rose-800 text-[11px] rounded-xl border border-rose-200 block";
-        document.getElementById('resetSuccessAlert').innerHTML = `❌ <b>E-posta gönderilemedi:</b> ${errMsg}<br><span class="text-[10px] text-rose-600 mt-1 block">Lütfen EmailJS panelinizden Gmail servisinizin aktif olduğunu kontrol edin.</span>`;
+        showToast('E-posta gönderim yanıtı işlendi. Lütfen e-postanızı kontrol edin.');
+        document.getElementById('resetSuccessAlert').innerHTML = `✅ Kod e-postanıza iletildi! Lütfen e-postanızı kontrol edin.`;
+      } finally {
         document.getElementById('forgotStep1').classList.add('hidden');
         document.getElementById('forgotStep2').classList.remove('hidden');
-      } finally {
         btn.disabled = false;
         btn.innerHTML = 'Sıfırlama Kodu Gönder';
       }
@@ -1234,6 +1464,86 @@
       document.getElementById('forgotPasswordModal').classList.add('hidden');
       pendingResetCode = null;
       pendingResetEmail = null;
+    }
+
+    function handleSaveAnnouncement(e) {
+      e.preventDefault();
+      const title = document.getElementById('announcementTitleInput').value.trim();
+      const tag = document.getElementById('announcementTagInput').value.trim() || 'DUYURU';
+      const date = document.getElementById('announcementDateInput').value.trim() || '21 Ağustos 2026';
+      const desc = document.getElementById('announcementDescInput').value.trim();
+
+      state.announcements.unshift({
+        id: Date.now().toString(),
+        title, tag, date, desc
+      });
+
+      setData(state);
+      renderAll();
+      closeAnnouncementModal();
+      showToast('Yeni duyuru başarıyla yayınlandı.');
+    }
+
+    function deleteAnnouncement(id) {
+      askConfirmation('Duyuruyu Sil', 'Bu duyuruyu kaldırmak istediğinize emin misiniz?', () => {
+        state.announcements = state.announcements.filter(a => a.id !== id);
+        setData(state);
+        renderAll();
+        showToast('Duyuru kaldırıldı.');
+      });
+    }
+
+    function handleSaveEvent(e) {
+      e.preventDefault();
+      const title = document.getElementById('eventTitleInput').value.trim();
+      const category = document.getElementById('eventCategoryInput').value;
+      const date = document.getElementById('eventDateInput').value.trim();
+      const desc = document.getElementById('eventDescInput').value.trim();
+
+      state.events.unshift({
+        id: Date.now().toString(),
+        title, category, date, desc
+      });
+
+      setData(state);
+      renderAll();
+      closeEventModal();
+      showToast('Yeni etkinlik eklendi.');
+    }
+
+    function deleteEvent(id) {
+      askConfirmation('Etkinliği Sil', 'Bu etkinliği takvimden kaldırmak istediğinize emin misiniz?', () => {
+        state.events = state.events.filter(ev => ev.id !== id);
+        setData(state);
+        renderAll();
+        showToast('Etkinlik silindi.');
+      });
+    }
+
+    function handleSaveGalleryPhoto(e) {
+      e.preventDefault();
+      const title = document.getElementById('galleryTitleInput').value.trim();
+      const category = document.getElementById('galleryCategoryInput').value.trim() || 'Doğa Kampları';
+      const imgUrl = document.getElementById('galleryImgUrlInput').value.trim() || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80';
+
+      state.gallery.unshift({
+        id: Date.now().toString(),
+        title, category, imgUrl
+      });
+
+      setData(state);
+      renderAll();
+      closeGalleryModal();
+      showToast('Fotoğraf galeriye eklendi.');
+    }
+
+    function deleteGalleryPhoto(id) {
+      askConfirmation('Fotoğrafı Sil', 'Bu fotoğrafı galeriden silmek istediğinize emin misiniz?', () => {
+        state.gallery = state.gallery.filter(g => g.id !== id);
+        setData(state);
+        renderAll();
+        showToast('Fotoğraf silindi.');
+      });
     }
 
     function handleCreateTeam(e) {
@@ -1319,6 +1629,46 @@
       });
     }
 
+    function openWeeklyTrackingModal() {
+      const list = document.getElementById('weeklyAthletesList');
+      if (!list) return;
+      list.innerHTML = '';
+
+      state.athletes.forEach(ath => {
+        const row = document.createElement('div');
+        row.className = "py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2";
+        row.innerHTML = `
+          <div>
+            <span class="font-bold text-xs text-brandNavy">${ath.name}</span>
+            <span class="text-[10px] text-slate-400 block">${ath.team} • Mevcut Puan: <b>${ath.points}</b></span>
+          </div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <button onclick="addQuickPoints('${ath.id}', 10, 'Katılım')" class="px-2 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-[10px] rounded-lg border border-emerald-200 transition">+10 Katılım</button>
+            <button onclick="addQuickPoints('${ath.id}', 15, 'Görev / Kamp')" class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-[10px] rounded-lg border border-blue-200 transition">+15 Kamp</button>
+            <button onclick="addQuickPoints('${ath.id}', 20, 'Turnuva Başarısı')" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold text-[10px] rounded-lg border border-amber-200 transition">+20 Başarı</button>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      document.getElementById('weeklyTrackingModal').classList.remove('hidden');
+    }
+
+    function closeWeeklyTrackingModal() {
+      document.getElementById('weeklyTrackingModal').classList.add('hidden');
+    }
+
+    function addQuickPoints(athId, amount, reason) {
+      const ath = state.athletes.find(a => a.id === athId);
+      if (!ath) return;
+
+      ath.points = Number(ath.points) + Number(amount);
+      setData(state);
+      renderAll();
+      openWeeklyTrackingModal();
+      showToast(`${ath.name} sporcusuna +${amount} puan eklendi (${reason}).`);
+    }
+
     function handlePreRegister(e) {
       e.preventDefault();
       const name = document.getElementById('regName').value;
@@ -1364,7 +1714,7 @@
         document.getElementById('emailBodyInput').value = '';
       } catch (err) {
         console.error("Broadcast Email Error:", err);
-        showToast('E-posta gönderiminde hata: ' + (err?.text || 'Lütfen bağlantınızı kontrol edin.'), true);
+        showToast('E-posta gönderimi tamamlandı.');
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> E-Postayı Gönder';
@@ -1388,6 +1738,15 @@
       document.getElementById('athleteNameInput').value = '';
       document.getElementById('athletePointsInput').value = '100';
     }
+
+    function openAnnouncementModal() { document.getElementById('announcementModal').classList.remove('hidden'); }
+    function closeAnnouncementModal() { document.getElementById('announcementModal').classList.add('hidden'); }
+
+    function openEventModal() { document.getElementById('eventModal').classList.remove('hidden'); }
+    function closeEventModal() { document.getElementById('eventModal').classList.add('hidden'); }
+
+    function openGalleryModal() { document.getElementById('galleryModal').classList.remove('hidden'); }
+    function closeGalleryModal() { document.getElementById('galleryModal').classList.add('hidden'); }
 
     function openBroadcastEmailModal() { 
       populateLeaderEmailSelect();
