@@ -81,7 +81,7 @@
     </div>
   </div>
 
-  <!-- NAVBAR (Zengin Orijinal Tasarım) -->
+  <!-- NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
@@ -113,7 +113,7 @@
   </header>
 
   <!-- ============================================================ -->
-  <!-- SAYFA 1: ANA SAYFA (Tüm Zengin Bölümleriyle) -->
+  <!-- SAYFA 1: ANA SAYFA -->
   <!-- ============================================================ -->
   <main id="homePage" class="flex-grow">
     
@@ -169,7 +169,6 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Kart 1 -->
         <div class="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4 hover:shadow-md transition">
           <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-black">
             🏕️
@@ -180,7 +179,6 @@
           </p>
         </div>
 
-        <!-- Kart 2 -->
         <div class="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4 hover:shadow-md transition">
           <div class="w-12 h-12 rounded-2xl bg-red-100 text-brandRed flex items-center justify-center text-2xl font-black">
             💪
@@ -191,7 +189,6 @@
           </p>
         </div>
 
-        <!-- Kart 3 -->
         <div class="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4 hover:shadow-md transition">
           <div class="w-12 h-12 rounded-2xl bg-blue-100 text-brandBlue flex items-center justify-center text-2xl font-black">
             🧭
@@ -331,7 +328,7 @@
   </footer>
 
   <!-- ============================================================ -->
-  <!-- MODALLAR (Giriş, Şifre Alma, Ekipler, Sporcular, E-Posta) -->
+  <!-- MODALLAR -->
   <!-- ============================================================ -->
 
   <!-- MODAL 1: LİDER GİRİŞİ -->
@@ -435,7 +432,7 @@
     </div>
   </div>
 
-  <!-- MODAL 4: SPORCU EKLE / DÜZENLE (Dropdown Ekip Seçimli) -->
+  <!-- MODAL 4: SPORCU EKLE / DÜZENLE -->
   <div id="athleteModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeAthleteModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -521,7 +518,7 @@
   <!-- JAVASCRIPT MOTORU & VERİ YÖNETİMİ -->
   <!-- ============================================================ -->
   <script>
-    // ⚙️ GÜNCELLENMİŞ VE DOĞRULANMIŞ EMAILJS BİLGİLERİNİZ
+    // ⚙️ GÜNCELLENMİŞ EMAILJS BİLGİLERİNİZ
     const EMAILJS_CONFIG = {
       publicKey: "wqJd6j8hhxd3lm3bU",
       serviceId: "service_he84mp9",
@@ -532,15 +529,17 @@
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
 
-    const APP_STORAGE_KEY = 'aag_app_data_v7';
+    const APP_STORAGE_KEY = 'aag_app_data_v8';
 
+    // 4 KAYITLI LİDERİN E-POSTASI
     const INITIAL_DATA = {
       isAdmin: false,
       currentLeaderEmail: '',
       leaders: [
-        { email: 'ahmet@ankaraaktifgenc.com', name: 'Ahmet Yılmaz', password: '1234' },
-        { email: 'emre@ankaraaktifgenc.com', name: 'Emre Kaya', password: '1234' },
-        { email: 'selin@ankaraaktifgenc.com', name: 'Selin Demir', password: '1234' }
+        { email: 'ardoli58@gmail.com', name: 'Arda Lider', password: '1234' },
+        { email: 'gokhanabay86@gmail.com', name: 'Gökhan Abay', password: '1234' },
+        { email: 'yasindrndl58@gmail.com', name: 'Yasin Lider', password: '1234' },
+        { email: 'enesfazilejder01@gmail.com', name: 'Enes Fazıl Ejder', password: '1234' }
       ],
       teams: ['Fırtına Ekibi', 'Parslar Ekibi', 'Şahinler Ekibi'],
       athletes: [
@@ -781,9 +780,7 @@
       showToast('Oturum kapatıldı.');
     }
 
-    // =======================================================
-    // 🔑 E-POSTA İLE ŞİFRE SIFIRLAMA & GÜVENLİK MOTORU
-    // =======================================================
+    // ŞİFRE SIFIRLAMA & YENİ ŞİFRE ALMA
     async function handleSendResetCode() {
       const email = document.getElementById('resetEmailInput').value.trim().toLowerCase();
       const btn = document.getElementById('sendResetCodeBtn');
@@ -793,7 +790,6 @@
         return;
       }
 
-      // 6 Haneli Doğrulama Kodu Üret
       const code = Math.floor(100000 + Math.random() * 900000).toString();
       pendingResetCode = code;
       pendingResetEmail = email;
@@ -814,7 +810,6 @@
         document.getElementById('resetSuccessAlert').innerHTML = `✅ Kod e-postanıza gönderildi! (Giriş Kodunuz: <b>${code}</b>)`;
       } catch (err) {
         console.warn("EmailJS Uyarısı (Ekranda kod gösteriliyor):", err);
-        // Eğer servis engeline takılırsa liderin mağdur olmaması için kodu doğrudan ekranda açar:
         showToast('Kod üretildi! Aşağıdaki kodu kullanarak yeni şifrenizi belirleyin.');
         document.getElementById('resetSuccessAlert').innerHTML = `⚠️ Güvenlik Kodu: <b class="text-brandRed text-sm tracking-wider">${code}</b> (Kodu kutuya yazınız)`;
       } finally {
