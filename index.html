@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ankara Aktif Genç Spor Kulübü Web Sitesi</title>
+  <title>Ankara Genç Spor Kulübü Web Sitesi</title>
   
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -21,8 +21,8 @@
         extend: {
           fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
           colors: {
-            brandBlue: '#0A72BA',
-            brandDarkBlue: '#074F83',
+            brandBlue: '#0C71C3',
+            brandDarkBlue: '#0A5599',
             brandNavy: '#1D3557',
             brandRed: '#E30613',
             brandDarkRed: '#B8050F'
@@ -80,24 +80,24 @@
     </div>
   </div>
 
-  <!-- NAVBAR (ORİJİNAL LOGO VE TASARIM) -->
+  <!-- NAVBAR (LOGODAN "AKTİF" YAZISI KALDIRILDI) -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
-        <!-- Orijinal Logo -->
-        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3">
-          <div class="w-10 h-10 shrink-0 flex items-center justify-center">
-            <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M50 12 L65 38 L35 38 Z" fill="#E30613" />
-              <path d="M88 50 L62 65 L62 35 Z" fill="#0A72BA" />
-              <path d="M50 88 L35 62 L65 62 Z" fill="#1D3557" />
-              <path d="M12 50 L38 35 L38 65 Z" fill="#F59E0B" />
-              <circle cx="50" cy="50" r="11" fill="white" stroke="#1D3557" stroke-width="2.5" />
+        
+        <!-- YENİ LOGO (Görseldeki Çatı Çentik + Kırmızı Daire) -->
+        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3.5 group">
+          <div class="w-12 h-12 shrink-0 flex items-center justify-center">
+            <svg class="w-full h-full" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Mavi Çatı / Çentik -->
+              <path d="M 10 75 L 50 10 L 85 45 L 70 45 L 50 25 L 30 75 Z" fill="#0C71C3" />
+              <!-- Kırmızı Daire -->
+              <circle cx="50" cy="45" r="13" fill="#E30613" />
             </svg>
           </div>
           <div class="flex flex-col">
-            <span class="text-lg font-black tracking-tight text-slate-800 leading-none">ANKARA AKTİF GENÇ</span>
-            <span class="text-[9px] font-extrabold text-slate-400 tracking-widest uppercase mt-1">SPOR KULÜBÜ</span>
+            <span class="text-xl font-black tracking-tight text-brandBlue leading-none group-hover:text-brandDarkBlue transition">ANKARA GENÇ</span>
+            <span class="text-[9px] font-extrabold text-slate-500 tracking-widest uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
           </div>
         </a>
 
@@ -114,7 +114,7 @@
         </nav>
 
         <div class="flex items-center space-x-3">
-          <button id="loginNavBtn" onclick="openLoginModal()" class="px-4 py-2 rounded-xl text-slate-700 hover:text-brandBlue hover:bg-slate-100 text-xs font-bold transition flex items-center gap-1.5 border border-slate-200 shadow-xs">
+          <button id="loginNavBtn" onclick="openLoginModal()" class="px-4 py-2.5 rounded-xl text-slate-700 hover:text-brandBlue hover:bg-slate-100 text-xs font-bold transition flex items-center gap-2 border border-slate-200 shadow-xs">
             <i class="fa-solid fa-lock text-xs text-brandBlue"></i> Lider Girişi
           </button>
         </div>
@@ -128,7 +128,7 @@
   <main id="homePage" class="flex-grow">
     
     <!-- 1. HERO -->
-    <section class="bg-gradient-to-r from-sky-500 via-sky-600 to-cyan-700 text-white py-16 lg:py-24 text-center px-4 relative overflow-hidden">
+    <section class="bg-gradient-to-r from-brandBlue via-sky-600 to-brandDarkBlue text-white py-16 lg:py-24 text-center px-4 relative overflow-hidden">
       <div class="max-w-4xl mx-auto space-y-6 relative z-10">
         <span class="px-4 py-1.5 rounded-full bg-white/20 text-white font-extrabold text-xs uppercase tracking-widest border border-white/30 inline-block shadow-xs">
           🏕️ DOĞA SPORLARI & GENÇLİK KAMPLARI KULÜBÜ
@@ -137,7 +137,7 @@
           Doğayla Buluş, Azminle Geleceğe Adım At!
         </h1>
         <p class="text-white/90 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-          Ankara Aktif Genç Spor Kulübü olarak gençlerimizi doğa kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.
+          Ankara Genç Spor Kulübü olarak gençlerimizi doğa kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.
         </p>
         <div class="flex flex-wrap justify-center gap-3 pt-2">
           <a href="#puan-durumu" class="px-6 py-3.5 bg-brandRed hover:bg-brandDarkRed text-white rounded-2xl text-xs font-black shadow-lg transition flex items-center gap-2">
@@ -188,7 +188,7 @@
         <span class="text-xs font-black uppercase text-brandRed tracking-widest">KULÜP HAKKINDA</span>
         <h2 class="text-3xl font-black text-brandNavy">Doğada Güçlenen, Disiplinli Gençler</h2>
         <p class="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-3xl">
-          Ankara Aktif Genç Spor Kulübü; gençlerimizi şehir stresinden ve ekran bağımlılığından uzak tutarak doğa sporları, çadır kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor.
+          Ankara Genç Spor Kulübü; gençlerimizi şehir stresinden ve ekran bağımlılığından uzak tutarak doğa sporları, çadır kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor.
         </p>
       </div>
 
@@ -498,7 +498,7 @@
   <footer id="iletisim" class="bg-brandNavy text-white py-12 border-t border-slate-800 mt-auto">
     <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-xs">
       <div class="space-y-3">
-        <h4 class="text-base font-black text-white">ANKARA AKTİF GENÇ</h4>
+        <h4 class="text-base font-black text-white">ANKARA GENÇ SPOR KULÜBÜ</h4>
         <p class="text-slate-400 leading-relaxed">
           Doğa sporları, gençlik kampları ve bilek güreşi faaliyetleriyle gençliğin hizmetindeyiz.
         </p>
@@ -513,11 +513,11 @@
       <div class="space-y-2">
         <h4 class="text-sm font-black text-white">İletişim & Konum</h4>
         <p class="text-slate-400"><i class="fa-solid fa-phone mr-1 text-emerald-400"></i> +90 (312) 000 00 00</p>
-        <p class="text-slate-400"><i class="fa-solid fa-envelope mr-1 text-emerald-400"></i> bilgi@ankaraaktifgenc.org.tr</p>
+        <p class="text-slate-400"><i class="fa-solid fa-envelope mr-1 text-emerald-400"></i> bilgi@ankaragenc.org.tr</p>
       </div>
     </div>
     <div class="max-w-6xl mx-auto px-4 mt-8 pt-6 border-t border-slate-800 text-center text-slate-500 text-[11px]">
-      © 2026 Ankara Aktif Genç Spor Kulübü. Tüm Hakları Saklıdır.
+      © 2026 Ankara Genç Spor Kulübü Derneği. Tüm Hakları Saklıdır.
     </div>
   </footer>
 
@@ -525,7 +525,7 @@
   <!-- MODALLAR -->
   <!-- ============================================================ -->
 
-  <!-- MODAL: LİDER GİRİŞİ -->
+  <!-- MODAL 1: LİDER GİRİŞİ -->
   <div id="loginModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
       <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -555,7 +555,7 @@
     </div>
   </div>
 
-  <!-- MODAL: ŞİFRE SIFIRLAMA -->
+  <!-- MODAL 2: ŞİFRE SIFIRLAMA -->
   <div id="forgotPasswordModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
       <button onclick="closeForgotPasswordModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -564,7 +564,7 @@
           <i class="fa-solid fa-key"></i>
         </div>
         <h3 class="font-extrabold text-base text-brandNavy">Yeni Şifre Al</h3>
-        <p class="text-[11px] text-slate-500">Şahsi e-posta adresinize güvenlik kodu ileteceğiz.</p>
+        <p class="text-[11px] text-slate-500">E-posta adresinize tek kullanımlık güvenlik kodu göndereceğiz.</p>
       </div>
 
       <div id="forgotStep1" class="space-y-3">
@@ -582,7 +582,7 @@
           ✅ E-postanıza güvenlik kodu gönderildi!
         </div>
         <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Güvenlik Kodu</label>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gelen Kod</label>
           <input type="text" id="resetCodeInput" maxlength="6" placeholder="Kodu girin..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm tracking-widest text-center font-black">
         </div>
         <div>
@@ -602,7 +602,7 @@
     </div>
   </div>
 
-  <!-- MODAL: EKİP EKLE -->
+  <!-- MODAL 3: EKİP EKLE -->
   <div id="teamModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
       <button onclick="closeTeamModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -619,7 +619,7 @@
     </div>
   </div>
 
-  <!-- MODAL: SPORCU EKLE -->
+  <!-- MODAL 4: SPORCU EKLE -->
   <div id="athleteModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeAthleteModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -655,7 +655,7 @@
     </div>
   </div>
 
-  <!-- MODAL: LİDERLERE E-POSTA GÖNDERME -->
+  <!-- MODAL 5: LİDERLERE E-POSTA GÖNDERME -->
   <div id="emailBroadcastModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeBroadcastEmailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -702,7 +702,7 @@
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
 
-    const APP_STORAGE_KEY = 'aag_app_data_v12';
+    const APP_STORAGE_KEY = 'aag_app_data_v13';
 
     const INITIAL_DATA = {
       isAdmin: false,
@@ -1007,7 +1007,7 @@
       showToast('Oturum kapatıldı.');
     }
 
-    // ŞİFRE SIFIRLAMA
+    // GÜVENLİ ŞİFRE SIFIRLAMA (GERÇEK E-POSTA GÖNDERİMİ)
     async function handleSendResetCode() {
       const email = document.getElementById('resetEmailInput').value.trim().toLowerCase();
       const btn = document.getElementById('sendResetCodeBtn');
@@ -1024,29 +1024,31 @@
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gönderiliyor...';
 
-      // Şablondaki tüm olası değişkenleri dolduran tam paket
+      // EmailJS şablonundaki tüm değişkenlerle %100 eşleşen parametre paketi:
       const templateParams = {
         to_email: email,
         email: email,
         user_email: email,
-        name: "Ankara Aktif Genç",
+        to: email,
+        reply_to: email,
+        subject: "Ankara Genç Spor Kulübü - Şifre Sıfırlama Kodu",
+        message: `Şifre sıfırlama onay kodunuz: ${code}`,
+        name: "Ankara Genç Spor Kulübü",
         from_name: "Kulüp Güvenlik Sistemi",
-        subject: "Ankara Aktif Genç - Şifre Sıfırlama Kodu",
-        message: `Merhaba,\n\nKulüp yönetim paneli tek kullanımlık şifre sıfırlama kodunuz: ${code}\n\nBu kodu ilgili alana girerek yeni şifrenizi belirleyebilirsiniz.`
+        sender_name: "Kulüp Güvenlik Sistemi"
       };
 
       try {
         await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
-        showToast('Güvenlik kodu e-postanıza gönderildi!');
-        document.getElementById('resetSuccessAlert').innerHTML = `✅ Kod e-postanıza gönderildi! (Giriş Kodunuz: <b class="text-brandRed text-sm tracking-widest">${code}</b>)`;
-      } catch (err) {
-        console.warn("EmailJS Bilgilendirme:", err);
-        showToast('Kod üretildi! Aşağıdaki kodu kutuya yazınız.');
-        document.getElementById('resetSuccessAlert').innerHTML = `⚠️ Güvenlik Kodu: <b class="text-brandRed text-sm tracking-widest">${code}</b> (Kodu kutuya yazınız)`;
-      } finally {
+        showToast(`✅ Güvenlik kodu ${email} adresine gönderildi.`);
+        document.getElementById('resetSuccessAlert').innerHTML = `✅ 6 haneli güvenlik kodu <b>${email}</b> adresine gönderildi! Lütfen e-posta kutunuzu (ve Spam klasörünü) kontrol edin.`;
         document.getElementById('forgotStep1').classList.add('hidden');
         document.getElementById('forgotStep2').classList.remove('hidden');
-        document.getElementById('resetCodeInput').value = code;
+      } catch (err) {
+        console.error("EmailJS Gönderim Hatası:", err);
+        showToast('❌ E-posta gönderilemedi! Lütfen e-posta adresinizi veya EmailJS ayarlarınızı kontrol edin.', true);
+        document.getElementById('resetSuccessAlert').innerHTML = `❌ E-posta gönderilemedi. Lütfen adresi doğru girdiğinizden emin olun.`;
+      } finally {
         btn.disabled = false;
         btn.innerHTML = 'Sıfırlama Kodu Gönder';
       }
@@ -1215,7 +1217,9 @@
             to_email: recipient,
             email: recipient,
             user_email: recipient,
-            name: "Kulüp Yönetimi",
+            to: recipient,
+            reply_to: recipient,
+            name: "Ankara Genç Spor Kulübü",
             from_name: state.currentLeaderEmail || "Kulüp Yönetimi",
             subject: subject,
             message: message
@@ -1226,13 +1230,15 @@
         document.getElementById('emailSubjectInput').value = '';
         document.getElementById('emailBodyInput').value = '';
       } catch (err) {
-        showToast('E-posta gönderimi tamamlandı.');
+        console.error("EmailJS Hatası:", err);
+        showToast('E-posta gönderilemedi. Lütfen EmailJS panelinizi kontrol edin.', true);
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> E-Postayı Gönder';
       }
     }
 
+    // MODALLAR
     function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
     function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
 
