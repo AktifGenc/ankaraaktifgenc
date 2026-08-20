@@ -34,13 +34,13 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col relative">
 
-  <!-- Bildirim Kutusu -->
+  <!-- Bildirim Toast Kutusu -->
   <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 pointer-events-none">
     <div id="toastIcon" class="text-emerald-400 text-lg"><i class="fa-solid fa-circle-check"></i></div>
     <span id="toastMessage" class="text-sm font-semibold">İşlem başarılı.</span>
   </div>
 
-  <!-- Onay Kutusu -->
+  <!-- Onay Kutusu Modalı -->
   <div id="customDialogModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4">
       <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mx-auto">
@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <!-- Lider Çubuğu -->
+  <!-- Lider Çubuğu (Giriş Yapıldığında Görünür) -->
   <div id="adminHeaderBar" class="hidden bg-slate-900 text-white text-xs py-2.5 px-4 sticky top-0 z-50 shadow-md border-b border-slate-800">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center space-x-2">
@@ -108,7 +108,7 @@
     </div>
   </header>
 
-  <!-- ANA SAYFA -->
+  <!-- SAYFA 1: ANA SAYFA -->
   <main id="homePage" class="flex-grow">
     <section class="bg-gradient-to-br from-brandNavy via-brandDarkBlue to-slate-900 text-white py-16">
       <div class="max-w-7xl mx-auto px-4 text-center">
@@ -146,7 +146,7 @@
     </section>
   </main>
 
-  <!-- SPORCU & EKİP YÖNETİM SAYFASI -->
+  <!-- SAYFA 2: SPORCU & EKİP YÖNETİM SAYFASI -->
   <main id="athletesPage" class="hidden flex-grow py-10 bg-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
@@ -209,7 +209,11 @@
     </div>
   </main>
 
-  <!-- Lider Giriş Modalı -->
+  <!-- ============================================================ -->
+  <!-- MODALLAR -->
+  <!-- ============================================================ -->
+
+  <!-- MODAL 1: LİDER GİRİŞİ -->
   <div id="loginModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
       <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -218,7 +222,7 @@
           <i class="fa-solid fa-envelope-circle-check"></i>
         </div>
         <h3 class="font-extrabold text-lg text-brandNavy">Lider Girişi</h3>
-        <p class="text-xs text-slate-500">Kayıtlı şahsi e-posta ve şifrenizle giriş yapın.</p>
+        <p class="text-xs text-slate-500">Kayıtlı e-posta adresiniz ve şifrenizle giriş yapın.</p>
       </div>
       <form onsubmit="handleLeaderEmailLogin(event)" class="space-y-3">
         <div>
@@ -226,7 +230,10 @@
           <input type="email" id="loginEmailInput" required class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="ornek@gmail.com">
         </div>
         <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Şifre</label>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-slate-700 uppercase">Şifre</label>
+            <button type="button" onclick="switchToForgotPassword()" class="text-[11px] font-bold text-brandBlue hover:underline">Şifremi Unuttum?</button>
+          </div>
           <input type="password" id="loginPasswordInput" required class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="••••••••">
         </div>
         <button type="submit" class="w-full py-2.5 bg-brandNavy hover:bg-brandBlue text-white font-bold rounded-xl text-xs transition shadow mt-2">
@@ -236,7 +243,61 @@
     </div>
   </div>
 
-  <!-- Ekip Ekle Modalı -->
+  <!-- MODAL 2: E-POSTA İLE ŞİFRE SIFIRLAMA & YENİ ŞİFRE ALMA -->
+  <div id="forgotPasswordModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
+      <button onclick="closeForgotPasswordModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      
+      <div class="text-center mb-5">
+        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl mx-auto flex items-center justify-center text-xl mb-2">
+          <i class="fa-solid fa-key"></i>
+        </div>
+        <h3 class="font-extrabold text-base text-brandNavy">Yeni Şifre Al</h3>
+        <p class="text-[11px] text-slate-500">Kayıtlı e-postanıza güvenlik onay kodu göndereceğiz.</p>
+      </div>
+
+      <!-- ADIM 1: E-Posta Gir & Kod İste -->
+      <div id="forgotStep1" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">E-Posta Adresiniz</label>
+          <input type="email" id="resetEmailInput" required placeholder="Lider e-posta adresinizi girin..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue">
+        </div>
+        <button type="button" id="sendResetCodeBtn" onclick="handleSendResetCode()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
+          <i class="fa-solid fa-paper-plane"></i> Sıfırlama Kodu Gönder
+        </button>
+      </div>
+
+      <!-- ADIM 2: Kodu Doğrula & Yeni Şifreyi Belirle -->
+      <div id="forgotStep2" class="hidden space-y-3 mt-4 pt-3 border-t border-slate-100">
+        <div class="p-2.5 bg-emerald-50 text-emerald-800 text-[11px] rounded-xl border border-emerald-200">
+          ✅ E-postanıza 6 haneli güvenlik kodu gönderildi!
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gelen Güvenlik Kodu</label>
+          <input type="text" id="resetCodeInput" maxlength="6" placeholder="Örn: 849201" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs tracking-widest text-center font-black">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Yeni Şifreniz</label>
+          <input type="password" id="resetNewPasswordInput" placeholder="Yeni şifrenizi yazın..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Yeni Şifre (Tekrar)</label>
+          <input type="password" id="resetNewPasswordConfirmInput" placeholder="Yeni şifrenizi tekrar yazın..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+        <button type="button" onclick="handleConfirmNewPassword()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow">
+          Şifremi Güncelle ve Giriş Yap
+        </button>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-100 text-center">
+        <button type="button" onclick="switchToLoginModal()" class="text-xs font-bold text-slate-500 hover:text-brandBlue">
+          ← Giriş Ekranına Geri Dön
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: EKİP EKLE -->
   <div id="teamModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
       <button onclick="closeTeamModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -253,7 +314,7 @@
     </div>
   </div>
 
-  <!-- Sporcu Ekle Modalı (Dropdown Ekip Seçimli) -->
+  <!-- MODAL 4: SPORCU EKLE / DÜZENLE (Dropdown Ekip Seçimli) -->
   <div id="athleteModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeAthleteModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -295,7 +356,7 @@
     </div>
   </div>
 
-  <!-- E-Posta Bildirim Modalı -->
+  <!-- MODAL 5: LİDERLERE E-POSTA BİLDİRİMİ GÖNDERME -->
   <div id="emailBroadcastModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeBroadcastEmailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -335,9 +396,10 @@
     </div>
   </div>
 
+  <!-- JAVASCRIPT MOTORU -->
   <script>
     // =======================================================
-    // ⚙️ GÜNCELLENMİŞ EMAILJS BİLGİLERİNİZ
+    // ⚙️ EMAILJS AYARLARINIZ (Aktif)
     // =======================================================
     const EMAILJS_CONFIG = {
       publicKey: "wqJd6j8hhxd3lm3bU",
@@ -345,12 +407,11 @@
       templateId: "template_1askpkh"
     };
 
-    // EmailJS Başlatma
     if (EMAILJS_CONFIG.publicKey) {
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
 
-    const APP_STORAGE_KEY = 'aag_app_data_v5';
+    const APP_STORAGE_KEY = 'aag_app_data_v6';
 
     const INITIAL_DATA = {
       isAdmin: false,
@@ -384,6 +445,10 @@
 
     let state = getData();
     let confirmCallback = null;
+
+    // Şifre sıfırlama geçici hafızası
+    let pendingResetCode = null;
+    let pendingResetEmail = null;
 
     function showToast(msg, isError = false) {
       const toast = document.getElementById('toastNotification');
@@ -559,6 +624,7 @@
       });
     }
 
+    // LİDER GİRİŞİ (E-Posta & Şifre)
     function handleLeaderEmailLogin(e) {
       e.preventDefault();
       const email = document.getElementById('loginEmailInput').value.trim().toLowerCase();
@@ -570,7 +636,7 @@
         state.isAdmin = true;
         state.currentLeaderEmail = email;
         
-        // Eğer yeni bir şahsi mail ile girildiyse listeye lider olarak otomatik ekle
+        // Eğer ilk kez giriş yapan yeni bir şahsi mailse listeye ekle
         if (!state.leaders.some(l => l.email.toLowerCase() === email)) {
           state.leaders.push({
             email: email,
@@ -582,7 +648,7 @@
         setData(state);
         renderAll();
         closeLoginModal();
-        showToast(`Hoş geldiniz (${email})`);
+        showToast(`Giriş başarılı (${email})`);
       } else {
         showToast('E-posta veya şifre hatalı!', true);
       }
@@ -596,6 +662,108 @@
       showToast('Oturum kapatıldı.');
     }
 
+    // =======================================================
+    // 🔑 E-POSTA İLE ŞİFRE SIFIRLAMA & YENİ ŞİFRE ALMA (EmailJS)
+    // =======================================================
+    async function handleSendResetCode() {
+      const email = document.getElementById('resetEmailInput').value.trim().toLowerCase();
+      const btn = document.getElementById('sendResetCodeBtn');
+
+      if (!email) {
+        showToast('Lütfen e-posta adresinizi girin!', true);
+        return;
+      }
+
+      // 6 Haneli Rastgele Doğrulama Kodu Üret
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      pendingResetCode = code;
+      pendingResetEmail = email;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Kod Gönderiliyor...';
+
+      try {
+        await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+          to_email: email,
+          subject: "Ankara Aktif Genç - Şifre Sıfırlama Kodu",
+          message: `Merhaba,\n\nKulüp yönetim paneli şifre sıfırlama güvenlik kodunuz: ${code}\n\nBu kodu kimseyle paylaşmayınız.`,
+          sender_name: "Kulüp Güvenlik Sistemi"
+        });
+
+        showToast('6 haneli onay kodu e-postanıza gönderildi!');
+        document.getElementById('forgotStep1').classList.add('hidden');
+        document.getElementById('forgotStep2').classList.remove('hidden');
+      } catch (err) {
+        console.error("EmailJS Hatası:", err);
+        showToast('Kod gönderilemedi! E-posta adresinizi kontrol edin.', true);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Sıfırlama Kodu Gönder';
+      }
+    }
+
+    function handleConfirmNewPassword() {
+      const enteredCode = document.getElementById('resetCodeInput').value.trim();
+      const newPwd = document.getElementById('resetNewPasswordInput').value;
+      const newPwdConfirm = document.getElementById('resetNewPasswordConfirmInput').value;
+
+      if (enteredCode !== pendingResetCode) {
+        showToast('Girdiğiniz güvenlik kodu hatalı!', true);
+        return;
+      }
+
+      if (!newPwd || newPwd.length < 4) {
+        showToast('Yeni şifre en az 4 karakter olmalıdır!', true);
+        return;
+      }
+
+      if (newPwd !== newPwdConfirm) {
+        showToast('Şifreler birbiriyle eşleşmiyor!', true);
+        return;
+      }
+
+      // Şifreyi Kaydet / Güncelle
+      const leader = state.leaders.find(l => l.email.toLowerCase() === pendingResetEmail);
+      if (leader) {
+        leader.password = newPwd;
+      } else {
+        state.leaders.push({
+          email: pendingResetEmail,
+          name: pendingResetEmail.split('@')[0].toUpperCase(),
+          password: newPwd
+        });
+      }
+
+      setData(state);
+      renderAll();
+
+      showToast('Şifreniz başarıyla güncellendi!');
+      closeForgotPasswordModal();
+      openLoginModal();
+      document.getElementById('loginEmailInput').value = pendingResetEmail;
+      document.getElementById('loginPasswordInput').value = '';
+    }
+
+    function switchToForgotPassword() {
+      closeLoginModal();
+      document.getElementById('forgotPasswordModal').classList.remove('hidden');
+      document.getElementById('forgotStep1').classList.remove('hidden');
+      document.getElementById('forgotStep2').classList.add('hidden');
+      document.getElementById('resetEmailInput').value = document.getElementById('loginEmailInput').value || '';
+    }
+
+    function switchToLoginModal() {
+      closeForgotPasswordModal();
+      openLoginModal();
+    }
+
+    function closeForgotPasswordModal() {
+      document.getElementById('forgotPasswordModal').classList.add('hidden');
+      pendingResetCode = null;
+      pendingResetEmail = null;
+    }
+
+    // EKİP İŞLEMLERİ
     function handleCreateTeam(e) {
       e.preventDefault();
       const name = document.getElementById('newTeamNameInput').value.trim();
@@ -627,6 +795,7 @@
       });
     }
 
+    // SPORCU İŞLEMLERİ
     function handleSaveAthlete(e) {
       e.preventDefault();
       const editId = document.getElementById('athleteEditId').value;
@@ -679,9 +848,7 @@
       });
     }
 
-    // =======================================================
-    // ✉️ EMAILJS İLE GERÇEK E-POSTA GÖNDERME İŞLEMİ
-    // =======================================================
+    // LİDERLERE TOPLU E-POSTA GÖNDERME
     async function handleSendBroadcastEmail(e) {
       e.preventDefault();
       const target = document.getElementById('emailTargetSelect').value;
@@ -709,13 +876,14 @@
         document.getElementById('emailBodyInput').value = '';
       } catch (err) {
         console.error("EmailJS Hatası:", err);
-        showToast('E-posta gönderimi başarısız oldu! Ayarları kontrol edin.', true);
+        showToast('E-posta gönderimi başarısız oldu!', true);
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> E-Postayı Gönder';
       }
     }
 
+    // MODAL AÇ/KAPAT
     function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
     function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
 
