@@ -109,8 +109,8 @@
             </svg>
           </div>
           <div class="flex flex-col">
-            <span class="text-xl font-black tracking-tight text-brandBlue leading-none group-hover:text-brandDarkBlue transition">ANKARA GENÇ</span>
-            <span class="text-[9px] font-extrabold text-slate-500 tracking-widest uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
+            <span id="displayClubTitle1" class="text-xl font-black tracking-tight text-brandBlue leading-none group-hover:text-brandDarkBlue transition">ANKARA AKTİF GENÇ</span>
+            <span id="displayClubTitle2" class="text-[9px] font-extrabold text-slate-500 tracking-widest uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
           </div>
         </a>
 
@@ -590,7 +590,7 @@
   <footer id="iletisim" class="bg-brandNavy text-white py-12 border-t border-slate-800 mt-auto">
     <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-xs">
       <div class="space-y-3">
-        <h4 class="text-base font-black text-white">ANKARA GENÇ SPOR KULÜBÜ</h4>
+        <h4 id="displayFooterTitle" class="text-base font-black text-white">ANKARA AKTİF GENÇ SPOR KULÜBÜ</h4>
         <p class="text-slate-400 leading-relaxed">
           Doğa sporları, gençlik kampları ve bilek güreşi faaliyetleriyle gençliğin hizmetindeyiz.
         </p>
@@ -638,6 +638,21 @@
 
       <form onsubmit="handleSaveSiteContent(event)" class="overflow-y-auto space-y-4 pr-1 flex-grow text-xs">
         
+        <!-- Kulüp İsmi & Başlıklar -->
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+          <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">0. Kulüp İsmi ve Başlık Yönetimi</h4>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">KULÜP ANA İSMİ</label>
+              <input type="text" id="editClubTitle1" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">KULÜP ALT İSMİ</label>
+              <input type="text" id="editClubTitle2" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
+            </div>
+          </div>
+        </div>
+
         <!-- Hero Bölümü -->
         <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
           <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">1. Ana Sayfa (Hero) Başlık ve Metinleri</h4>
@@ -1016,6 +1031,8 @@
         { email: 'enesfazilejder01@gmail.com', name: 'Enes Fazıl Ejder', password: '1234' }
       ],
       siteContent: {
+        clubTitle1: "ANKARA AKTİF GENÇ",
+        clubTitle2: "SPOR KULÜBÜ DERNEĞİ",
         heroBadge: "🏕️ DOĞA SPORLARI & GENÇLİK KAMPLARI KULÜBÜ",
         heroTitle: "Doğayla Buluş, Azminle Geleceğe Adım At!",
         heroSub: "Ankara Genç Spor Kulübü olarak gençlerimizi doğa kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.",
@@ -1167,6 +1184,11 @@
     function renderSiteTextContent() {
       const c = state.siteContent || INITIAL_DATA.siteContent;
       
+      // Club Title Elements
+      if (document.getElementById('displayClubTitle1')) document.getElementById('displayClubTitle1').innerText = c.clubTitle1 || 'ANKARA AKTİF GENÇ';
+      if (document.getElementById('displayClubTitle2')) document.getElementById('displayClubTitle2').innerText = c.clubTitle2 || 'SPOR KULÜBÜ DERNEĞİ';
+      if (document.getElementById('displayFooterTitle')) document.getElementById('displayFooterTitle').innerText = `${c.clubTitle1 || 'ANKARA AKTİF GENÇ'} ${c.clubTitle2 || 'SPOR KULÜBÜ'}`;
+
       // Hero Elements
       if (document.getElementById('displayHeroBadge')) document.getElementById('displayHeroBadge').innerText = c.heroBadge || '';
       if (document.getElementById('displayHeroTitle')) document.getElementById('displayHeroTitle').innerText = c.heroTitle || '';
@@ -1474,6 +1496,9 @@
     function openContentEditModal() {
       const c = state.siteContent || INITIAL_DATA.siteContent;
       
+      if (document.getElementById('editClubTitle1')) document.getElementById('editClubTitle1').value = c.clubTitle1 || 'ANKARA AKTİF GENÇ';
+      if (document.getElementById('editClubTitle2')) document.getElementById('editClubTitle2').value = c.clubTitle2 || 'SPOR KULÜBÜ DERNEĞİ';
+
       document.getElementById('editHeroBadge').value = c.heroBadge || '';
       document.getElementById('editHeroTitle').value = c.heroTitle || '';
       document.getElementById('editHeroSub').value = c.heroSub || '';
@@ -1505,6 +1530,9 @@
       e.preventDefault();
       
       state.siteContent = {
+        clubTitle1: document.getElementById('editClubTitle1').value,
+        clubTitle2: document.getElementById('editClubTitle2').value,
+
         heroBadge: document.getElementById('editHeroBadge').value,
         heroTitle: document.getElementById('editHeroTitle').value,
         heroSub: document.getElementById('editHeroSub').value,
@@ -1529,7 +1557,7 @@
       setData(state);
       renderAll();
       closeContentEditModal();
-      showToast('Site metinleri başarıyla güncellendi!');
+      showToast('Site metinleri ve kulüp ismi güncellendi!');
     }
 
     function handleLeaderEmailLogin(e) {
