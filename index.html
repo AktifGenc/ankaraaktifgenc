@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ankara Genç Spor Kulübü Derneği Web Sitesi</title>
+  <title>Ankara Aktif Genç Spor Kulübü Web Sitesi</title>
   
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -77,7 +77,7 @@
           <i class="fa-solid fa-calendar-plus text-xs"></i> + Etkinlik
         </button>
         <button onclick="openGalleryModal()" class="px-3 py-1 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition flex items-center gap-1">
-          <i class="fa-solid fa-image text-xs"></i> + Fotoğraf
+          <i class="fa-solid fa-photo-film text-xs"></i> + Medya (Foto/Video)
         </button>
         <button onclick="openBroadcastEmailModal()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition flex items-center gap-1">
           <i class="fa-solid fa-paper-plane text-xs"></i> E-Posta
@@ -100,17 +100,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
         
-        <!-- LOGO (Koyu Mavi Çatı Çentiği + Kırmızı Daire) -->
-        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3.5 group">
+        <!-- LOGO -->
+        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3.5 group shrink-0">
           <div class="w-12 h-12 shrink-0 flex items-center justify-center">
-            <svg class="w-full h-full" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 10 75 L 50 10 L 85 45 L 70 45 L 50 25 L 30 75 Z" fill="#0B62A4" />
-              <circle cx="50" cy="45" r="13" fill="#E30613" />
+            <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 50 12 L 88 78 L 72 78 L 50 38 L 28 78 L 12 78 Z" fill="#0B62A4" />
+              <circle cx="50" cy="56" r="14" fill="#E30613" />
             </svg>
           </div>
-          <div class="flex flex-col">
-            <span id="displayClubTitle1" class="text-xl font-black tracking-tight text-brandBlue leading-none group-hover:text-brandDarkBlue transition">ANKARA AKTİF GENÇ</span>
-            <span id="displayClubTitle2" class="text-[9px] font-extrabold text-slate-500 tracking-widest uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
+          <div class="flex flex-col justify-center">
+            <span id="displayClubTitle1" class="text-lg sm:text-xl font-black tracking-tight text-brandBlue leading-tight group-hover:text-brandDarkBlue transition">ANKARA AKTİF GENÇ</span>
+            <span id="displayClubTitle2" class="text-[9px] font-extrabold text-slate-500 tracking-widest uppercase mt-0.5 leading-none">SPOR KULÜBÜ DERNEĞİ</span>
           </div>
         </a>
 
@@ -120,7 +120,7 @@
           <a href="javascript:showSection('aboutPage')" class="hover:text-brandBlue transition px-2 py-1">Hakkımızda</a>
           <a href="javascript:showSection('activitiesPage')" class="hover:text-brandBlue transition px-2 py-1">Faaliyetler</a>
           <a href="javascript:showSection('rankingsPage')" class="hover:text-brandBlue transition px-2 py-1">Puan Durumu</a>
-          <a href="javascript:showSection('eventsPage')" class="hover:text-brandBlue transition px-2 py-1">Etkinlikler</a>
+          <a href="javascript:showSection('eventsPage')" class="hover:text-brandBlue transition px-2 py-1">Etkinlik Takvimi</a>
           <a href="javascript:showSection('galleryPage')" class="hover:text-brandBlue transition px-2 py-1">Galeri</a>
           <a href="javascript:showSection('teamPage')" class="hover:text-brandBlue transition px-2 py-1">Ekibimiz</a>
           <a href="javascript:showSection('faqPage')" class="hover:text-brandBlue transition px-2 py-1">SSS</a>
@@ -145,7 +145,7 @@
       <a href="javascript:showSection('aboutPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Hakkımızda</a>
       <a href="javascript:showSection('activitiesPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Faaliyetler</a>
       <a href="javascript:showSection('rankingsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Puan Durumu & MVP</a>
-      <a href="javascript:showSection('eventsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Etkinlikler</a>
+      <a href="javascript:showSection('eventsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Etkinlik Takvimi</a>
       <a href="javascript:showSection('galleryPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Galeri</a>
       <a href="javascript:showSection('teamPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Ekibimiz</a>
       <a href="javascript:showSection('faqPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">SSS</a>
@@ -225,6 +225,22 @@
         <button onclick="showSection('eventsPage')" class="text-xs font-bold text-brandBlue hover:underline">Tümünü Gör →</button>
       </div>
       <div id="homeAnnouncementsGrid" class="grid md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- TANITIM VİDEOSU BÖLÜMÜ -->
+    <section class="py-14 bg-slate-900 text-white relative overflow-hidden">
+      <div class="max-w-5xl mx-auto px-4 space-y-6 text-center">
+        <div class="space-y-2">
+          <span class="text-xs font-black uppercase text-brandRed tracking-widest block">🎬 KULÜP TANITIM FİLMİ</span>
+          <h2 class="text-2xl sm:text-4xl font-black">Doğa Kamplarımız ve Faaliyetlerimiz</h2>
+          <p class="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Ankara Genç Spor Kulübü’nün düzenlediği çadırlı doğa kampları, trekking rotaları ve gençlik atölyelerinden heyecan dolu görüntüler.
+          </p>
+        </div>
+        <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-black aspect-video max-w-4xl mx-auto">
+          <iframe id="displayPromoVideo" class="w-full h-full" src="https://www.youtube.com/embed/tKuqwtJZ7-0" title="Kulüp Tanıtım Videosu" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
     </section>
 
     <!-- ÖNE ÇIKAN DİLİMLER -->
@@ -410,7 +426,7 @@
       <div class="text-center space-y-1">
         <span class="text-xs font-black uppercase text-brandBlue tracking-widest">FAALİYET PROGRAMI</span>
         <h2 class="text-3xl font-black text-brandNavy">Kulüp Etkinlik Takvimi & Duyurular</h2>
-        <p class="text-xs text-slate-500">Gençlik kampları, doğa yürüyüşleri, turnuvalar ve lider duyuruları.</p>
+        <p class="text-xs text-slate-500">Gençlik kampları, doğa yürüyüşleri, turnuvar ve lider duyuruları.</p>
       </div>
 
       <div id="eventsGrid" class="grid md:grid-cols-3 gap-6"></div>
@@ -603,7 +619,7 @@
           <li><a href="javascript:showSection('activitiesPage')" class="hover:text-white transition">Faaliyetlerimiz</a></li>
           <li><a href="javascript:showSection('rankingsPage')" class="hover:text-white transition">Puan Durumu & MVP</a></li>
           <li><a href="javascript:showSection('eventsPage')" class="hover:text-white transition">Etkinlik Takvimi</a></li>
-          <li><a href="javascript:showSection('galleryPage')" class="hover:text-white transition">Fotoğraf Galerisi</a></li>
+          <li><a href="javascript:showSection('galleryPage')" class="hover:text-white transition">Fotoğraf & Video Galerisi</a></li>
           <li><a href="javascript:showSection('teamPage')" class="hover:text-white transition">Ekibimiz</a></li>
           <li><a href="javascript:showSection('faqPage')" class="hover:text-white transition">SSS</a></li>
         </ul>
@@ -655,7 +671,7 @@
 
         <!-- Hero Bölümü -->
         <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
-          <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">1. Ana Sayfa (Hero) Başlık ve Metinleri</h4>
+          <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">1. Ana Sayfa (Hero & Video) Başlık ve Metinleri</h4>
           <div>
             <label class="block font-bold text-slate-700 mb-1">ÜST ROZET METNİ</label>
             <input type="text" id="editHeroBadge" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
@@ -667,6 +683,10 @@
           <div>
             <label class="block font-bold text-slate-700 mb-1">AÇIKLAMA METNİ</label>
             <textarea id="editHeroSub" rows="2" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl"></textarea>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">ANA SAYFA TANITIM VİDEO LINKI (YouTube Embed URL)</label>
+            <input type="text" id="editPromoVideoUrl" placeholder="https://www.youtube.com/embed/..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
           </div>
         </div>
 
@@ -924,14 +944,21 @@
     </div>
   </div>
 
-  <!-- MODAL 7: GALERİ FOTOĞRAFI EKLE -->
+  <!-- MODAL 7: GALERİ MEDYASI (FOTOĞRAF / VİDEO) EKLE -->
   <div id="galleryModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeGalleryModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-      <h3 class="font-extrabold text-base text-brandNavy mb-4">Galeriye Fotoğraf Ekle</h3>
+      <h3 class="font-extrabold text-base text-brandNavy mb-4">Galeriye Medya Ekle (Fotoğraf / Video)</h3>
       <form onsubmit="handleSaveGalleryPhoto(event)" class="space-y-3 text-xs">
         <div>
-          <label class="block font-bold text-slate-700 uppercase mb-1">Fotoğraf / Etkinlik Başlığı</label>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Medya Türü</label>
+          <select id="galleryTypeInput" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl" onchange="toggleGalleryUrlPlaceholder()">
+            <option value="image">🖼️ Fotoğraf</option>
+            <option value="video">🎥 Video (YouTube / Embed Bağlantısı)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Başlık / Açıklama</label>
           <input type="text" id="galleryTitleInput" required placeholder="Örn: Kızılcahamam Kampı Ateş Başı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
         </div>
         <div class="grid grid-cols-2 gap-3">
@@ -940,12 +967,12 @@
             <input type="text" id="galleryCategoryInput" placeholder="Örn: Doğa Kampı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
           </div>
           <div>
-            <label class="block font-bold text-slate-700 uppercase mb-1">Görsel URL</label>
-            <input type="url" id="galleryImgUrlInput" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <label id="galleryUrlLabel" class="block font-bold text-slate-700 uppercase mb-1">Görsel URL</label>
+            <input type="url" id="galleryImgUrlInput" required placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
           </div>
         </div>
         <button type="submit" class="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl transition shadow mt-2">
-          Fotoğrafı Galeride Yayınla
+          Medyayı Galeride Yayınla
         </button>
       </form>
     </div>
@@ -1015,7 +1042,7 @@
       templateId: "template_1askpkh"
     };
 
-    if (EMAILJS_CONFIG.publicKey) {
+    if (EMAILJS_CONFIG.publicKey && typeof emailjs !== 'undefined') {
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
 
@@ -1036,6 +1063,7 @@
         heroBadge: "🏕️ DOĞA SPORLARI & GENÇLİK KAMPLARI KULÜBÜ",
         heroTitle: "Doğayla Buluş, Azminle Geleceğe Adım At!",
         heroSub: "Ankara Genç Spor Kulübü olarak gençlerimizi doğa kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.",
+        promoVideoUrl: "https://www.youtube.com/embed/tKuqwtJZ7-0",
         aboutTitle: "Doğada Güçlenen, Disiplinli Gençler",
         aboutDesc: "Ankara Genç Spor Kulübü Derneği; gençlerimizi şehir stresinden, dijital bağımlılıklardan ve pasif yaşam tarzından uzak tutarak doğa sporları, çadır kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor.",
         aboutStat1Num: "120+",
@@ -1069,9 +1097,10 @@
         { id: 'e3', title: 'Kulüpler Arası Dostluk Bilek Güreşi', desc: 'Gençlerimizin teknik gelişimi ve dostluk bağlarını güçlendiren kulüp içi seçme müsabakaları.', category: 'TURNUVA', date: '06 Aralık 2026' }
       ],
       gallery: [
-        { id: 'g1', title: 'Çamkoru Doğa Kampı Ateş Başı', category: 'Doğa Kampı', imgUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80' },
-        { id: 'g2', title: 'Kızılcahamam Yürüyüş Parkuru', category: 'Doğa Yürüyüşü', imgUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=600&q=80' },
-        { id: 'g3', title: 'Bilek Güreşi Antrenmanı', category: 'Bilek Güreşi', imgUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80' }
+        { id: 'g1', type: 'image', title: 'Çamkoru Doğa Kampı Ateş Başı', category: 'Doğa Kampı', imgUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80' },
+        { id: 'g2', type: 'image', title: 'Kızılcahamam Yürüyüş Parkuru', category: 'Doğa Yürüyüşü', imgUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=600&q=80' },
+        { id: 'g3', type: 'video', title: 'Aktif Ünite Kayıtları Başladı', category: 'Doğa Kampı', imgUrl: 'https://www.youtube.com/embed/tKuqwtJZ7-0' },
+        { id: 'g4', type: 'image', title: 'Bilek Güreşi Antrenmanı', category: 'Bilek Güreşi', imgUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80' }
       ]
     };
 
@@ -1154,7 +1183,9 @@
 
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('hidden');
+      if (menu) {
+        menu.classList.toggle('hidden');
+      }
     }
 
     function closeMobileMenu() {
@@ -1181,20 +1212,33 @@
       populateLeaderEmailSelect();
     }
 
+    function formatEmbedUrl(url) {
+      if (!url) return '';
+      if (url.includes('youtube.com/watch?v=')) {
+        const id = url.split('v=')[1].split('&')[0];
+        return `https://www.youtube.com/embed/${id}`;
+      } else if (url.includes('youtu.be/')) {
+        const id = url.split('youtu.be/')[1].split('?')[0];
+        return `https://www.youtube.com/embed/${id}`;
+      }
+      return url;
+    }
+
     function renderSiteTextContent() {
       const c = state.siteContent || INITIAL_DATA.siteContent;
       
-      // Club Title Elements
       if (document.getElementById('displayClubTitle1')) document.getElementById('displayClubTitle1').innerText = c.clubTitle1 || 'ANKARA AKTİF GENÇ';
       if (document.getElementById('displayClubTitle2')) document.getElementById('displayClubTitle2').innerText = c.clubTitle2 || 'SPOR KULÜBÜ DERNEĞİ';
       if (document.getElementById('displayFooterTitle')) document.getElementById('displayFooterTitle').innerText = `${c.clubTitle1 || 'ANKARA AKTİF GENÇ'} ${c.clubTitle2 || 'SPOR KULÜBÜ'}`;
 
-      // Hero Elements
       if (document.getElementById('displayHeroBadge')) document.getElementById('displayHeroBadge').innerText = c.heroBadge || '';
       if (document.getElementById('displayHeroTitle')) document.getElementById('displayHeroTitle').innerText = c.heroTitle || '';
       if (document.getElementById('displayHeroSub')) document.getElementById('displayHeroSub').innerText = c.heroSub || '';
 
-      // About Elements
+      if (document.getElementById('displayPromoVideo')) {
+        document.getElementById('displayPromoVideo').src = formatEmbedUrl(c.promoVideoUrl || "https://www.youtube.com/embed/tKuqwtJZ7-0");
+      }
+
       if (document.getElementById('displayAboutTitle')) document.getElementById('displayAboutTitle').innerText = c.aboutTitle || '';
       if (document.getElementById('displayAboutDesc')) document.getElementById('displayAboutDesc').innerText = c.aboutDesc || '';
       if (document.getElementById('displayAboutStat1Num')) document.getElementById('displayAboutStat1Num').innerText = c.aboutStat1Num || '';
@@ -1204,7 +1248,6 @@
       if (document.getElementById('displayMisyonText')) document.getElementById('displayMisyonText').innerText = c.misyonText || '';
       if (document.getElementById('displayVizyonText')) document.getElementById('displayVizyonText').innerText = c.vizyonText || '';
 
-      // Activity Elements
       if (document.getElementById('displayAct1Title')) document.getElementById('displayAct1Title').innerText = c.act1Title || '';
       if (document.getElementById('displayAct1Desc')) document.getElementById('displayAct1Desc').innerText = c.act1Desc || '';
       if (document.getElementById('displayAct2Title')) document.getElementById('displayAct2Title').innerText = c.act2Title || '';
@@ -1379,18 +1422,32 @@
         card.className = "bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs space-y-2 relative group";
 
         let deleteBtn = state.isAdmin ? `
-          <button onclick="deleteGalleryPhoto('${item.id}')" class="bg-slate-900/80 text-rose-400 hover:text-rose-200 text-xs p-2 rounded-xl absolute top-3 right-3 z-10" title="Fotoğrafı Sil">
+          <button onclick="deleteGalleryPhoto('${item.id}')" class="bg-slate-900/80 text-rose-400 hover:text-rose-200 text-xs p-2 rounded-xl absolute top-3 right-3 z-10" title="Medyayı Sil">
             <i class="fa-solid fa-trash"></i>
           </button>
         ` : '';
 
-        card.innerHTML = `
-          ${deleteBtn}
-          <div class="h-48 overflow-hidden bg-slate-100">
+        const isVideo = item.type === 'video' || item.imgUrl.includes('youtube') || item.imgUrl.includes('embed') || item.imgUrl.endsWith('.mp4');
+        const mediaEmbedUrl = formatEmbedUrl(item.imgUrl);
+
+        let mediaHtml = isVideo ? `
+          <div class="h-52 overflow-hidden bg-black aspect-video relative">
+            <iframe class="w-full h-full" src="${mediaEmbedUrl}" title="${item.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        ` : `
+          <div class="h-52 overflow-hidden bg-slate-100">
             <img src="${item.imgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://placehold.co/600x400/0B62A4/ffffff?text=Ankara+Genc+Spor'">
           </div>
+        `;
+
+        card.innerHTML = `
+          ${deleteBtn}
+          ${mediaHtml}
           <div class="p-4 space-y-1">
-            <span class="text-[10px] font-extrabold text-brandBlue uppercase tracking-wider">${item.category}</span>
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-extrabold text-brandBlue uppercase tracking-wider">${item.category}</span>
+              ${isVideo ? '<span class="text-[10px] font-bold text-brandRed flex items-center gap-1"><i class="fa-solid fa-circle-play"></i> Video</span>' : '<span class="text-[10px] font-bold text-slate-400 flex items-center gap-1"><i class="fa-solid fa-image"></i> Fotoğraf</span>'}
+            </div>
             <h4 class="font-bold text-xs text-brandNavy">${item.title}</h4>
           </div>
         `;
@@ -1502,6 +1559,7 @@
       document.getElementById('editHeroBadge').value = c.heroBadge || '';
       document.getElementById('editHeroTitle').value = c.heroTitle || '';
       document.getElementById('editHeroSub').value = c.heroSub || '';
+      if (document.getElementById('editPromoVideoUrl')) document.getElementById('editPromoVideoUrl').value = c.promoVideoUrl || '';
 
       document.getElementById('editAboutTitle').value = c.aboutTitle || '';
       document.getElementById('editAboutDesc').value = c.aboutDesc || '';
@@ -1536,6 +1594,7 @@
         heroBadge: document.getElementById('editHeroBadge').value,
         heroTitle: document.getElementById('editHeroTitle').value,
         heroSub: document.getElementById('editHeroSub').value,
+        promoVideoUrl: document.getElementById('editPromoVideoUrl').value,
 
         aboutTitle: document.getElementById('editAboutTitle').value,
         aboutDesc: document.getElementById('editAboutDesc').value,
@@ -1557,7 +1616,51 @@
       setData(state);
       renderAll();
       closeContentEditModal();
-      showToast('Site metinleri ve kulüp ismi güncellendi!');
+      showToast('Site metinleri ve tanıtım videosu güncellendi!');
+    }
+
+    function toggleGalleryUrlPlaceholder() {
+      const type = document.getElementById('galleryTypeInput').value;
+      const label = document.getElementById('galleryUrlLabel');
+      const input = document.getElementById('galleryImgUrlInput');
+
+      if (type === 'video') {
+        label.innerText = "Video Bağlantısı (YouTube / Embed)";
+        input.placeholder = "https://www.youtube.com/watch?v=... veya https://www.youtube.com/embed/...";
+      } else {
+        label.innerText = "Görsel URL";
+        input.placeholder = "https://images.unsplash.com/...";
+      }
+    }
+
+    function handleSaveGalleryPhoto(e) {
+      e.preventDefault();
+      const type = document.getElementById('galleryTypeInput').value;
+      const title = document.getElementById('galleryTitleInput').value.trim();
+      const category = document.getElementById('galleryCategoryInput').value.trim() || 'Doğa Kampları';
+      const imgUrl = document.getElementById('galleryImgUrlInput').value.trim();
+
+      state.gallery.unshift({
+        id: Date.now().toString(),
+        type: type,
+        title, 
+        category, 
+        imgUrl: imgUrl || (type === 'video' ? 'https://www.youtube.com/embed/tKuqwtJZ7-0' : 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80')
+      });
+
+      setData(state);
+      renderAll();
+      closeGalleryModal();
+      showToast(`${type === 'video' ? 'Video' : 'Fotoğraf'} galeriye başarıyla eklendi.`);
+    }
+
+    function deleteGalleryPhoto(id) {
+      askConfirmation('Medyayı Sil', 'Bu medyayı galeriden silmek istediğinize emin misiniz?', () => {
+        state.gallery = state.gallery.filter(g => g.id !== id);
+        setData(state);
+        renderAll();
+        showToast('Medya silindi.');
+      });
     }
 
     function handleLeaderEmailLogin(e) {
@@ -1647,32 +1750,6 @@
         setData(state);
         renderAll();
         showToast('Etkinlik silindi.');
-      });
-    }
-
-    function handleSaveGalleryPhoto(e) {
-      e.preventDefault();
-      const title = document.getElementById('galleryTitleInput').value.trim();
-      const category = document.getElementById('galleryCategoryInput').value.trim() || 'Doğa Kampları';
-      const imgUrl = document.getElementById('galleryImgUrlInput').value.trim() || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80';
-
-      state.gallery.unshift({
-        id: Date.now().toString(),
-        title, category, imgUrl
-      });
-
-      setData(state);
-      renderAll();
-      closeGalleryModal();
-      showToast('Fotoğraf galeriye eklendi.');
-    }
-
-    function deleteGalleryPhoto(id) {
-      askConfirmation('Fotoğrafı Sil', 'Bu fotoğrafı galeriden silmek istediğinize emin misiniz?', () => {
-        state.gallery = state.gallery.filter(g => g.id !== id);
-        setData(state);
-        renderAll();
-        showToast('Fotoğraf silindi.');
       });
     }
 
@@ -1926,23 +2003,25 @@
 
       try {
         for (const recipient of targetEmails) {
-          await emailjs.send(
-            EMAILJS_CONFIG.serviceId,
-            EMAILJS_CONFIG.templateId,
-            {
-              to_email: recipient,
-              email: recipient,
-              user_email: recipient,
-              to: recipient,
-              reply_to: recipient,
-              name: "Kulüp Yönetimi",
-              from_name: state.currentLeaderEmail || "Kulüp Yönetimi",
-              sender_name: state.currentLeaderEmail || "Kulüp Yönetimi",
-              subject: subject,
-              message: message
-            },
-            { publicKey: EMAILJS_CONFIG.publicKey }
-          );
+          if (typeof emailjs !== 'undefined') {
+            await emailjs.send(
+              EMAILJS_CONFIG.serviceId,
+              EMAILJS_CONFIG.templateId,
+              {
+                to_email: recipient,
+                email: recipient,
+                user_email: recipient,
+                to: recipient,
+                reply_to: recipient,
+                name: "Kulüp Yönetimi",
+                from_name: state.currentLeaderEmail || "Kulüp Yönetimi",
+                sender_name: state.currentLeaderEmail || "Kulüp Yönetimi",
+                subject: subject,
+                message: message
+              },
+              { publicKey: EMAILJS_CONFIG.publicKey }
+            );
+          }
         }
         showToast(`${targetEmails.length} lidere e-posta başarıyla gönderildi.`);
         closeBroadcastEmailModal();
