@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ankara Aktif Genç Spor Kulübü Derneği Web Sitesi</title>
+  <title>Ankara Aktif Genç Spor Kulübü Derneği</title>
   
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -64,31 +64,31 @@
         <span id="adminUserEmailBadge" class="text-slate-400 font-medium"></span>
       </div>
       <div class="flex items-center space-x-1.5 flex-wrap">
-        <button onclick="openContentEditModal()" class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+        <button onclick="openContentEditModal()" class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-xs">
           <i class="fa-solid fa-pen-to-square text-xs"></i> ✎ Metinleri Düzenle
         </button>
-        <button onclick="openWeeklyTrackingModal()" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+        <button onclick="openWeeklyTrackingModal()" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-xs">
           <i class="fa-solid fa-clipboard-check text-xs"></i> Yoklama & Puan
         </button>
-        <button onclick="openAnnouncementModal()" class="px-3 py-1 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+        <button onclick="openAnnouncementModal()" class="px-3 py-1 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-xs">
           <i class="fa-solid fa-bullhorn text-xs"></i> + Duyuru
         </button>
-        <button onclick="openEventModal()" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+        <button onclick="openEventModal()" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-xs">
           <i class="fa-solid fa-calendar-plus text-xs"></i> + Etkinlik
         </button>
-        <button onclick="openGalleryModal()" class="px-3 py-1 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition flex items-center gap-1">
-          <i class="fa-solid fa-photo-film text-xs"></i> + Medya (Foto/Video)
+        <button onclick="openGalleryModal()" class="px-3 py-1 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-xs">
+          <i class="fa-solid fa-photo-film text-xs"></i> + Medya Ekle
         </button>
-        <button onclick="openBroadcastEmailModal()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+        <button onclick="openBroadcastEmailModal()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-xs">
           <i class="fa-solid fa-paper-plane text-xs"></i> E-Posta
         </button>
-        <button onclick="showSection('athletesPage')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition flex items-center gap-1">
+        <button onclick="showSection('athletesPage')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-xs">
           <i class="fa-solid fa-users text-xs"></i> Kadro & Ekip
         </button>
-        <button onclick="showSection('homePage')" class="px-3 py-1 bg-brandBlue hover:bg-brandDarkBlue text-white font-bold rounded-lg transition flex items-center gap-1">
+        <button onclick="showSection('homePage')" class="px-3 py-1 bg-brandBlue hover:bg-brandDarkBlue text-white font-bold rounded-lg transition flex items-center gap-1 shadow-xs">
           <i class="fa-solid fa-house text-xs"></i> Ana Sayfa
         </button>
-        <button onclick="logoutAdmin()" class="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg transition ml-1">
+        <button onclick="logoutAdmin()" class="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg transition ml-1 shadow-xs">
           <i class="fa-solid fa-right-from-bracket"></i> Çıkış
         </button>
       </div>
@@ -96,21 +96,21 @@
   </div>
 
   <!-- HEADER / NAVBAR -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-100">
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
         
-        <!-- LOGO -->
-        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3.5 group shrink-0">
+        <!-- LOGO (Geniş Çatı Çentiği + Dengeli Kırmızı Daire) -->
+        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3.5 group">
           <div class="w-12 h-12 shrink-0 flex items-center justify-center">
             <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 50 12 L 88 78 L 72 78 L 50 38 L 28 78 L 12 78 Z" fill="#0B62A4" />
-              <circle cx="50" cy="56" r="14" fill="#E30613" />
+              <path d="M 8 76 L 50 22 L 92 76 L 76 76 L 50 42 L 24 76 Z" fill="#0B62A4" />
+              <circle cx="50" cy="60" r="10" fill="#E30613" />
             </svg>
           </div>
           <div class="flex flex-col justify-center">
-            <span id="displayClubTitle1" class="text-lg sm:text-xl font-black tracking-tight text-brandBlue leading-tight group-hover:text-brandDarkBlue transition">ANKARA AKTİF GENÇ</span>
-            <span id="displayClubTitle2" class="text-[9px] font-extrabold text-slate-500 tracking-widest uppercase mt-0.5 leading-none">SPOR KULÜBÜ DERNEĞİ</span>
+            <span id="displayClubTitle1" class="text-xl font-black tracking-tight text-brandBlue leading-none group-hover:text-brandDarkBlue transition">ANKARA AKTİF GENÇ</span>
+            <span id="displayClubTitle2" class="text-[9px] font-extrabold text-slate-500 tracking-widest uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
           </div>
         </a>
 
@@ -122,13 +122,13 @@
           <a href="javascript:showSection('rankingsPage')" class="hover:text-brandBlue transition px-2 py-1">Puan Durumu</a>
           <a href="javascript:showSection('eventsPage')" class="hover:text-brandBlue transition px-2 py-1">Etkinlik Takvimi</a>
           <a href="javascript:showSection('galleryPage')" class="hover:text-brandBlue transition px-2 py-1">Galeri</a>
-          <a href="javascript:showSection('teamPage')" class="hover:text-brandBlue transition px-2 py-1">Ekibimiz</a>
+          <a href="javascript:showSection('teamPage')" class="hover:text-brandBlue transition px-2 py-1">Liderlerimiz</a>
           <a href="javascript:showSection('faqPage')" class="hover:text-brandBlue transition px-2 py-1">SSS</a>
           <a href="javascript:showSection('applicationPage')" class="px-3 py-1.5 bg-brandRed/10 text-brandRed hover:bg-brandRed hover:text-white rounded-xl transition">Başvuru Yap</a>
         </nav>
 
         <div class="flex items-center space-x-3">
-          <button id="loginNavBtn" onclick="openLoginModal()" class="px-4 py-2.5 rounded-xl text-slate-700 hover:text-brandBlue hover:bg-slate-100 text-xs font-bold transition flex items-center gap-2 border border-slate-200 shadow-xs">
+          <button id="loginNavBtn" onclick="openLoginModal()" class="px-4 py-2.5 rounded-xl text-slate-700 hover:text-brandBlue hover:bg-slate-100 text-xs font-bold transition flex items-center gap-2 border border-slate-200 shadow-sm">
             <i class="fa-solid fa-lock text-xs text-brandBlue"></i> Lider Girişi
           </button>
           
@@ -147,7 +147,7 @@
       <a href="javascript:showSection('rankingsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Puan Durumu & MVP</a>
       <a href="javascript:showSection('eventsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Etkinlik Takvimi</a>
       <a href="javascript:showSection('galleryPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Galeri</a>
-      <a href="javascript:showSection('teamPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Ekibimiz</a>
+      <a href="javascript:showSection('teamPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Liderlerimiz</a>
       <a href="javascript:showSection('faqPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">SSS</a>
       <a href="javascript:showSection('applicationPage')" class="block px-3 py-2 rounded-lg bg-brandRed text-white text-center mt-2">Ön Başvuru Formu</a>
     </div>
@@ -158,7 +158,7 @@
     <!-- HERO -->
     <section class="bg-gradient-to-r from-brandBlue via-sky-700 to-brandDarkBlue text-white py-16 lg:py-24 text-center px-4 relative overflow-hidden">
       <div class="max-w-4xl mx-auto space-y-6 relative z-10">
-        <span id="displayHeroBadge" class="px-4 py-1.5 rounded-full bg-white/20 text-white font-extrabold text-xs uppercase tracking-widest border border-white/30 inline-block shadow-xs">
+        <span id="displayHeroBadge" class="px-4 py-1.5 rounded-full bg-white/20 text-white font-extrabold text-xs uppercase tracking-widest border border-white/30 inline-block shadow-sm">
           🏕️ DOĞA SPORLARI & GENÇLİK KAMPLARI KULÜBÜ
         </span>
         <div class="relative">
@@ -191,8 +191,8 @@
             🌲
           </div>
           <div>
-            <h4 class="font-black text-sm text-brandNavy">Aktif Branşlarımız</h4>
-            <p class="text-[11px] text-slate-400">Doğa Kampları • Bilek Güreşi</p>
+            <h4 id="displayBranchTitle" class="font-black text-sm text-brandNavy">Aktif Branşlarımız</h4>
+            <p id="displayBranchSub" class="text-[11px] text-slate-400">Doğa Kampları • Doğa Yürüyüşleri • Bilek Güreşi</p>
           </div>
         </div>
 
@@ -215,8 +215,28 @@
       </div>
     </section>
 
-    <!-- DUYURULAR BÖLÜMÜ -->
+    <!-- ANA SAYFA TANITIM VİDEOSU -->
     <section class="py-12 max-w-6xl mx-auto px-4">
+      <div class="bg-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+          <div>
+            <span class="text-xs font-black uppercase text-brandRed tracking-widest block">KULÜBÜMÜZÜ YAKINDAN TANIYIN</span>
+            <h2 id="displayHomeVideoTitle" class="text-2xl sm:text-3xl font-black text-white mt-1">Kulüp Tanıtım Filmi</h2>
+            <p id="displayHomeVideoDesc" class="text-slate-400 text-xs mt-1">Doğada disiplin, dostluk ve macera dolu etkinliklerimizin coşkusu.</p>
+          </div>
+          <button onclick="openContentEditModal()" class="admin-edit-badge hidden px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow cursor-pointer self-start md:self-auto">
+            <i class="fa-solid fa-pen"></i> Video Linkini Düzenle
+          </button>
+        </div>
+        
+        <div class="aspect-video w-full rounded-2xl overflow-hidden bg-black/60 shadow-2xl border border-slate-800">
+          <iframe id="homePromoVideoIframe" class="w-full h-full" src="https://www.youtube.com/embed/tKuqwtJZ7-0" title="Kulüp Tanıtım Videosu" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- DUYURULAR BÖLÜMÜ -->
+    <section class="py-6 max-w-6xl mx-auto px-4">
       <div class="flex items-center justify-between mb-6">
         <div>
           <span class="text-xs font-black uppercase text-brandRed tracking-widest block">GÜNCEL BİLGİLENDİRME</span>
@@ -225,22 +245,6 @@
         <button onclick="showSection('eventsPage')" class="text-xs font-bold text-brandBlue hover:underline">Tümünü Gör →</button>
       </div>
       <div id="homeAnnouncementsGrid" class="grid md:grid-cols-2 gap-6"></div>
-    </section>
-
-    <!-- TANITIM VİDEOSU BÖLÜMÜ -->
-    <section class="py-14 bg-slate-900 text-white relative overflow-hidden">
-      <div class="max-w-5xl mx-auto px-4 space-y-6 text-center">
-        <div class="space-y-2">
-          <span class="text-xs font-black uppercase text-brandRed tracking-widest block">🎬 KULÜP TANITIM FİLMİ</span>
-          <h2 class="text-2xl sm:text-4xl font-black">Doğa Kamplarımız ve Faaliyetlerimiz</h2>
-          <p class="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Ankara Genç Spor Kulübü’nün düzenlediği çadırlı doğa kampları, trekking rotaları ve gençlik atölyelerinden heyecan dolu görüntüler.
-          </p>
-        </div>
-        <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-black aspect-video max-w-4xl mx-auto">
-          <iframe id="displayPromoVideo" class="w-full h-full" src="https://www.youtube.com/embed/tKuqwtJZ7-0" title="Kulüp Tanıtım Videosu" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      </div>
     </section>
 
     <!-- ÖNE ÇIKAN DİLİMLER -->
@@ -275,7 +279,7 @@
         <span class="text-xs font-black uppercase text-brandRed tracking-widest">KULÜP HAKKINDA</span>
         <h2 id="displayAboutTitle" class="text-3xl sm:text-4xl font-black">Doğada Güçlenen, Disiplinli Gençler</h2>
         <p id="displayAboutDesc" class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-3xl">
-          Ankara Genç Spor Kulübü Derneği; gençlerimizi şehir stresinden, dijital bağımlılıklardan ve pasif yaşam tarzından uzak tutarak doğa sporları, çadır kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor.
+          Ankara Aktif Genç Spor Kulübü Derneği; gençlerimizi şehir stresinden, dijital bağımlılıklardan ve pasif yaşam tarzından uzak tutarak doğa sporları, çadır kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor.
         </p>
         <button onclick="openContentEditModal()" class="admin-edit-badge hidden absolute top-6 right-6 px-3 py-1 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow cursor-pointer">
           <i class="fa-solid fa-pen"></i> Metinleri Düzenle
@@ -283,19 +287,19 @@
       </div>
 
       <div class="grid sm:grid-cols-2 gap-6">
-        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs space-y-2">
+        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-2">
           <span id="displayAboutStat1Num" class="text-4xl font-black text-brandBlue">120+</span>
           <h4 id="displayAboutStat1Label" class="font-black text-sm text-brandNavy uppercase">AKTİF SPORCU GENÇ</h4>
           <p class="text-xs text-slate-500">Ortaokul, lise ve üniversite çağındaki faal sporcularımız kulüp bünyesinde faaliyetlerini sürdürmektedir.</p>
         </div>
-        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs space-y-2">
+        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-2">
           <span id="displayAboutStat2Num" class="text-4xl font-black text-brandRed">10+</span>
           <h4 id="displayAboutStat2Label" class="font-black text-sm text-brandNavy uppercase">SERTİFİKALI KAMP / LİDER</h4>
           <p class="text-xs text-slate-500">Alanında uzman doğa sporcuları, sertifikalı antrenörler ve tecrübeli gençlik liderleri rehberliğinde organizasyonlar düzenlenir.</p>
         </div>
       </div>
 
-      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs space-y-4">
+      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
         <h3 class="text-xl font-black text-brandNavy flex items-center gap-2">
           <i class="fa-solid fa-bullseye text-brandBlue"></i> Misyonumuz & Vizyonumuz
         </h3>
@@ -326,7 +330,7 @@
           <p id="displayAct1Desc" class="text-xs text-slate-500 leading-relaxed">
             Kızılcahamam, Çamkoru, Çamlıdere ve Ankara çevresinde hafta sonu çadırlı kamplar, doğa yürüyüşleri (trekking) ve açık hava parkurları.
           </p>
-          <ul class="text-[11px] text-slate-600 font-bold space-y-1 pt-2 border-t border-slate-100">
+          <ul id="displayAct1Bullets" class="text-[11px] text-slate-600 font-bold space-y-1 pt-2 border-t border-slate-100">
             <li>✔ Çadır Kurma ve Barınma Eğitimleri</li>
             <li>✔ Doğa Yürüyüşü ve Trekking</li>
             <li>✔ Ateş Başı Sohbetleri & Liderlik</li>
@@ -339,7 +343,7 @@
           <p id="displayAct2Desc" class="text-xs text-slate-500 leading-relaxed">
             Çadır ve pusula kullanımı, oryantiring, çevre koruma bilinci, takım çalışması ve çevre temizlik sosyal sorumluluk projeleri.
           </p>
-          <ul class="text-[11px] text-slate-600 font-bold space-y-1 pt-2 border-t border-slate-100">
+          <ul id="displayAct2Bullets" class="text-[11px] text-slate-600 font-bold space-y-1 pt-2 border-t border-slate-100">
             <li>✔ Harita ve Pusula ile Oryantiring</li>
             <li>✔ Çevre ve Tabiat Koruma Bilinci</li>
             <li>✔ Kitap Okuma & Karakter Atölyeleri</li>
@@ -352,7 +356,7 @@
           <p id="displayAct3Desc" class="text-xs text-slate-500 leading-relaxed">
             Masa hakimiyeti ve fiziksel dayanıklılık antrenmanları, teknik geliştirme, kulüp içi seçmeler ve ulusal turnuva hazırlıkları.
           </p>
-          <ul class="text-[11px] text-slate-600 font-bold space-y-1 pt-2 border-t border-slate-100">
+          <ul id="displayAct3Bullets" class="text-[11px] text-slate-600 font-bold space-y-1 pt-2 border-t border-slate-100">
             <li>✔ Teknik Bilek Güreşi Müsabakaları</li>
             <li>✔ Masa Hakimiyeti ve Kuvvet Çalışması</li>
             <li>✔ Şampiyonalara Seçme Elemleri</li>
@@ -395,7 +399,7 @@
       </div>
 
       <!-- SPORCU SIRALAMA TABLOSU -->
-      <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs space-y-4">
+      <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm space-y-4">
         <div class="p-6 border-b border-slate-100">
           <h3 class="font-black text-sm text-brandNavy flex items-center gap-2">
             <i class="fa-solid fa-list-ol text-brandRed"></i> Sporcu Sıralama Tablosu
@@ -420,16 +424,17 @@
     </div>
   </main>
 
-  <!-- SAYFA 5: ETKİNLİKLER SAYFASI -->
+  <!-- SAYFA 5: ETKİNLİK TAKVİMİ SAYFASI (LİSTE ŞEKLİNDE) -->
   <main id="eventsPage" class="hidden flex-grow py-12">
-    <div class="max-w-6xl mx-auto px-4 space-y-8">
+    <div class="max-w-5xl mx-auto px-4 space-y-8">
       <div class="text-center space-y-1">
         <span class="text-xs font-black uppercase text-brandBlue tracking-widest">FAALİYET PROGRAMI</span>
-        <h2 class="text-3xl font-black text-brandNavy">Kulüp Etkinlik Takvimi & Duyurular</h2>
-        <p class="text-xs text-slate-500">Gençlik kampları, doğa yürüyüşleri, turnuvar ve lider duyuruları.</p>
+        <h2 class="text-3xl font-black text-brandNavy">Kulüp Etkinlik Takvimi & Ajanda</h2>
+        <p class="text-xs text-slate-500">Planlanan gençlik kampları, doğa yürüyüşleri, turnuva ve eğitim tarihleri.</p>
       </div>
 
-      <div id="eventsGrid" class="grid md:grid-cols-3 gap-6"></div>
+      <!-- Liste Formatında Etkinlik Akışı -->
+      <div id="eventsListContainer" class="space-y-4"></div>
     </div>
   </main>
 
@@ -437,45 +442,25 @@
   <main id="galleryPage" class="hidden flex-grow py-12">
     <div class="max-w-6xl mx-auto px-4 space-y-8">
       <div class="text-center space-y-1">
-        <span class="text-xs font-black uppercase text-brandRed tracking-widest">ANILARIMIZ</span>
+        <span class="text-xs font-black uppercase text-brandRed tracking-widest">FOTOĞRAF & VİDEO</span>
         <h2 class="text-3xl font-black text-brandNavy">Kulüp Etkinlik Galerisi</h2>
-        <p class="text-xs text-slate-500">Kamplarımızdan, bilek güreşi turnuvalarımızdan ve doğa yürüyüşlerimizden kareler.</p>
+        <p class="text-xs text-slate-500">Kamplarımızdan, bilek güreşi turnuvalarımızdan ve doğa yürüyüşlerimizden video ve fotoğraf anıları.</p>
       </div>
 
       <div id="galleryGrid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
     </div>
   </main>
 
-  <!-- SAYFA 6: EKİBİMİZ SAYFASI -->
+  <!-- SAYFA 6: LİDERLERİMİZ SAYFASI -->
   <main id="teamPage" class="hidden flex-grow py-12">
     <div class="max-w-6xl mx-auto px-4 space-y-8">
       <div class="text-center space-y-1">
-        <span class="text-xs font-black uppercase text-brandRed tracking-widest">EKİBİMİZ</span>
-        <h2 class="text-3xl font-black text-brandNavy">Doğa Kamp Liderleri ve Eğitmenler</h2>
+        <span class="text-xs font-black uppercase text-brandRed tracking-widest">REHBER KADROMUZ</span>
+        <h2 class="text-3xl font-black text-brandNavy">Kulüp Liderlerimiz ve Eğitmenlerimiz</h2>
+        <p class="text-xs text-slate-500">Gençlerimize rehberlik eden, doğa ve spor eğitimlerimizi yürüten tecrübeli lider ekibimiz.</p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 text-center space-y-3 shadow-xs">
-          <div class="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xl font-black mx-auto">AY</div>
-          <h3 class="font-black text-base text-brandNavy">Ahmet Yılmaz</h3>
-          <p class="text-xs text-brandBlue font-bold">Kulüp Başkanı & Doğa Kampı Lideri</p>
-          <p class="text-[11px] text-slate-500">Kulüp yönetimi, kurumsal koordinasyon ve gençlik kampları genel yürütücüsü.</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 text-center space-y-3 shadow-xs">
-          <div class="w-16 h-16 rounded-full bg-red-500 text-white flex items-center justify-center text-xl font-black mx-auto">EK</div>
-          <h3 class="font-black text-base text-brandNavy">Emre Kaya</h3>
-          <p class="text-xs text-brandRed font-bold">Doğa Sporları & Kamp Lideri</p>
-          <p class="text-[11px] text-slate-500">Çadır kampları, yürüyüş rotaları ve açık hava hayatta kalma teknikleri sorumlusu.</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 text-center space-y-3 shadow-xs">
-          <div class="w-16 h-16 rounded-full bg-blue-500 text-white flex items-center justify-center text-xl font-black mx-auto">SD</div>
-          <h3 class="font-black text-base text-brandNavy">Selin Demir</h3>
-          <p class="text-xs text-brandNavy font-bold">Gençlik Lideri & Antrenör</p>
-          <p class="text-[11px] text-slate-500">Liderlik eğitimleri, ahlaki gelişim atölyeleri ve kadın gençlik spor faaliyetleri koordinatörü.</p>
-        </div>
-      </div>
+      <div id="leadersGrid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"></div>
     </div>
   </main>
 
@@ -487,22 +472,7 @@
         <h2 class="text-3xl font-black text-brandNavy">Sıkça Sorulan Sorular</h2>
       </div>
 
-      <div class="space-y-3">
-        <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs cursor-pointer" open>
-          <summary class="font-bold text-xs sm:text-sm text-brandNavy">Doğa kamplarına katılmak için kişisel çadır gerekiyor mu?</summary>
-          <p class="mt-2 text-xs text-slate-500 leading-relaxed">Hayır, temel çadır ve barınma ekipmanları kulübümüz tarafından sağlanmaktadır. Katılımcıların yalnızca kişisel mat ve uyku tulumu getirmesi yeterlidir.</p>
-        </details>
-
-        <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs cursor-pointer">
-          <summary class="font-bold text-xs sm:text-sm text-brandNavy">Doğa yürüyüşleri ve kamplar hangi yaş grubuna uygundur?</summary>
-          <p class="mt-2 text-xs text-slate-500 leading-relaxed">Etkinliklerimiz 12 - 22 yaş arası ortaokul, lise ve üniversite gençlerine özel olarak kademelendirilmiştir.</p>
-        </details>
-
-        <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs cursor-pointer">
-          <summary class="font-bold text-xs sm:text-sm text-brandNavy">Puanlama ve Ekip sistemi doğa etkinliklerinde nasıl işliyor?</summary>
-          <p class="mt-2 text-xs text-slate-500 leading-relaxed">Her etkinliğe katılım, çevre temizliği, kitap okuma ve takım görevlerini tamamlama karşılığında sporculara puan verilir.</p>
-        </details>
-      </div>
+      <div id="faqListContainer" class="space-y-3"></div>
     </div>
   </main>
 
@@ -536,8 +506,9 @@
             <label class="block font-bold text-slate-700 uppercase mb-1">İLGİLENİLEN FAALİYET</label>
             <select id="regBranch" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
               <option value="Doğa Sporları & Kamplar">Doğa Sporları & Kamplar</option>
+              <option value="Doğa Yürüyüşleri">Doğa Yürüyüşleri (Trekking)</option>
               <option value="Bilek Güreşi">Bilek Güreşi</option>
-              <option value="Her İkisi de">Her İkisi de</option>
+              <option value="Hepsi">Tüm Branşlar</option>
             </select>
           </div>
 
@@ -576,7 +547,7 @@
       </div>
 
       <!-- Sporcu Listesi Tablosu -->
-      <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs space-y-4">
+      <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm space-y-4">
         <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
           <h3 class="font-black text-base text-brandNavy flex items-center gap-2">
             <i class="fa-solid fa-users-line text-brandRed"></i> Kayıtlı Sporcular
@@ -607,7 +578,7 @@
     <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-xs">
       <div class="space-y-3">
         <h4 id="displayFooterTitle" class="text-base font-black text-white">ANKARA AKTİF GENÇ SPOR KULÜBÜ</h4>
-        <p class="text-slate-400 leading-relaxed">
+        <p id="displayFooterAbout" class="text-slate-400 leading-relaxed">
           Doğa sporları, gençlik kampları ve bilek güreşi faaliyetleriyle gençliğin hizmetindeyiz.
         </p>
       </div>
@@ -619,25 +590,23 @@
           <li><a href="javascript:showSection('activitiesPage')" class="hover:text-white transition">Faaliyetlerimiz</a></li>
           <li><a href="javascript:showSection('rankingsPage')" class="hover:text-white transition">Puan Durumu & MVP</a></li>
           <li><a href="javascript:showSection('eventsPage')" class="hover:text-white transition">Etkinlik Takvimi</a></li>
-          <li><a href="javascript:showSection('galleryPage')" class="hover:text-white transition">Fotoğraf & Video Galerisi</a></li>
-          <li><a href="javascript:showSection('teamPage')" class="hover:text-white transition">Ekibimiz</a></li>
+          <li><a href="javascript:showSection('galleryPage')" class="hover:text-white transition">Fotoğraf Galerisi</a></li>
+          <li><a href="javascript:showSection('teamPage')" class="hover:text-white transition">Liderlerimiz</a></li>
           <li><a href="javascript:showSection('faqPage')" class="hover:text-white transition">SSS</a></li>
         </ul>
       </div>
       <div class="space-y-2">
         <h4 class="text-sm font-black text-white">İletişim & Konum</h4>
-        <p class="text-slate-400"><i class="fa-solid fa-phone mr-1 text-emerald-400"></i> +90 (312) 000 00 00</p>
-        <p class="text-slate-400"><i class="fa-solid fa-envelope mr-1 text-emerald-400"></i> bilgi@ankaragenc.org.tr</p>
+        <p id="displayFooterPhone" class="text-slate-400"><i class="fa-solid fa-phone mr-1 text-emerald-400"></i> +90 (312) 000 00 00</p>
+        <p id="displayFooterEmail" class="text-slate-400"><i class="fa-solid fa-envelope mr-1 text-emerald-400"></i> bilgi@ankaraaktifgenc.org.tr</p>
       </div>
     </div>
-    <div class="max-w-6xl mx-auto px-4 mt-8 pt-6 border-t border-slate-800 text-center text-slate-500 text-[11px]">
-      © 2026 Ankara Genç Spor Kulübü Derneği. Tüm Hakları Saklıdır.
+    <div id="displayFooterCopyright" class="max-w-6xl mx-auto px-4 mt-8 pt-6 border-t border-slate-800 text-center text-slate-500 text-[11px]">
+      © 2026 Ankara Aktif Genç Spor Kulübü Derneği. Tüm Hakları Saklıdır.
     </div>
   </footer>
 
-  <!-- MODALLAR -->
-
-  <!-- MODAL 0: TÜM SİTE METİNLERİNİ DÜZENLEME PANENİ (LİDER YÖNETİMİ) -->
+  <!-- MODAL 0: TÜM SİTE METİNLERİNİ DÜZENLEME PANELİ (LİDER YÖNETİMİ) -->
   <div id="contentEditModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
       <button onclick="closeContentEditModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -648,7 +617,7 @@
         </div>
         <div>
           <h3 class="font-extrabold text-base text-brandNavy">Site Metinleri & İçerik Yönetimi</h3>
-          <p class="text-[11px] text-slate-500">Hakkımızda, Faaliyetler, Hero Başlığı ve Misyon metinlerini buradan değiştirin.</p>
+          <p class="text-[11px] text-slate-500">Tüm sayfa başlıkları, video URL'si, misyon ve iletişim bilgilerini güncelleyin.</p>
         </div>
       </div>
 
@@ -671,7 +640,7 @@
 
         <!-- Hero Bölümü -->
         <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
-          <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">1. Ana Sayfa (Hero & Video) Başlık ve Metinleri</h4>
+          <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">1. Ana Sayfa (Hero) Başlık ve Metinleri</h4>
           <div>
             <label class="block font-bold text-slate-700 mb-1">ÜST ROZET METNİ</label>
             <input type="text" id="editHeroBadge" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
@@ -685,8 +654,8 @@
             <textarea id="editHeroSub" rows="2" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl"></textarea>
           </div>
           <div>
-            <label class="block font-bold text-slate-700 mb-1">ANA SAYFA TANITIM VİDEO LINKI (YouTube Embed URL)</label>
-            <input type="text" id="editPromoVideoUrl" placeholder="https://www.youtube.com/embed/..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
+            <label class="block font-bold text-slate-700 mb-1">ANA SAYFA TANITIM VİDEOSU URL (YouTube / Embed)</label>
+            <input type="text" id="editHomeVideoUrl" placeholder="https://youtu.be/..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
           </div>
         </div>
 
@@ -721,23 +690,18 @@
           </div>
         </div>
 
-        <!-- Faaliyetler Bölümü -->
+        <!-- İletişim Bilgileri -->
         <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
-          <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">3. Faaliyetler Sayfası Kartları</h4>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">1. BRANŞ BAŞLIĞI</label>
-            <input type="text" id="editAct1Title" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl mb-1">
-            <textarea id="editAct1Desc" rows="2" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl"></textarea>
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">2. BRANŞ BAŞLIĞI</label>
-            <input type="text" id="editAct2Title" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl mb-1">
-            <textarea id="editAct2Desc" rows="2" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl"></textarea>
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">3. BRANŞ BAŞLIĞI</label>
-            <input type="text" id="editAct3Title" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl mb-1">
-            <textarea id="editAct3Desc" rows="2" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl"></textarea>
+          <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">3. İletişim & Altbilgi (Footer)</h4>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">TELEFON</label>
+              <input type="text" id="editFooterPhone" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">E-POSTA</label>
+              <input type="text" id="editFooterEmail" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
+            </div>
           </div>
         </div>
 
@@ -926,6 +890,7 @@
               <option value="GENÇLİK KAMPI">GENÇLİK KAMPI</option>
               <option value="DOĞA YÜRÜYÜŞÜ">DOĞA YÜRÜYÜŞÜ</option>
               <option value="TURNUVA">TURNUVA</option>
+              <option value="SEMİNER & EĞİTİM">SEMİNER & EĞİTİM</option>
             </select>
           </div>
           <div>
@@ -938,28 +903,28 @@
           <textarea id="eventDescInput" rows="3" required placeholder="Etkinlik hakkında bilgi..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl"></textarea>
         </div>
         <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl transition shadow mt-2">
-          Etkinliği Kaydet
+          Etkinliği Takvime Kaydet
         </button>
       </form>
     </div>
   </div>
 
-  <!-- MODAL 7: GALERİ MEDYASI (FOTOĞRAF / VİDEO) EKLE -->
+  <!-- MODAL 7: GALERİ FOTOĞRAFI / VİDEOSU EKLE -->
   <div id="galleryModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeGalleryModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-      <h3 class="font-extrabold text-base text-brandNavy mb-4">Galeriye Medya Ekle (Fotoğraf / Video)</h3>
-      <form onsubmit="handleSaveGalleryPhoto(event)" class="space-y-3 text-xs">
+      <h3 class="font-extrabold text-base text-brandNavy mb-4">Galeriye Medya Ekle</h3>
+      <form onsubmit="handleSaveGalleryItem(event)" class="space-y-3 text-xs">
         <div>
           <label class="block font-bold text-slate-700 uppercase mb-1">Medya Türü</label>
-          <select id="galleryTypeInput" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl" onchange="toggleGalleryUrlPlaceholder()">
-            <option value="image">🖼️ Fotoğraf</option>
-            <option value="video">🎥 Video (YouTube / Embed Bağlantısı)</option>
+          <select id="galleryTypeInput" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <option value="image">📷 Fotoğraf</option>
+            <option value="video">🎥 Video (YouTube Linki)</option>
           </select>
         </div>
         <div>
-          <label class="block font-bold text-slate-700 uppercase mb-1">Başlık / Açıklama</label>
-          <input type="text" id="galleryTitleInput" required placeholder="Örn: Kızılcahamam Kampı Ateş Başı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+          <label class="block font-bold text-slate-700 uppercase mb-1">Başlık</label>
+          <input type="text" id="galleryTitleInput" required placeholder="Örn: Kızılcahamam Kamp Ateşi" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
@@ -967,8 +932,8 @@
             <input type="text" id="galleryCategoryInput" placeholder="Örn: Doğa Kampı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
           </div>
           <div>
-            <label id="galleryUrlLabel" class="block font-bold text-slate-700 uppercase mb-1">Görsel URL</label>
-            <input type="url" id="galleryImgUrlInput" required placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <label class="block font-bold text-slate-700 uppercase mb-1">Görsel / Video Linki</label>
+            <input type="text" id="galleryUrlInput" required placeholder="https://..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
           </div>
         </div>
         <button type="submit" class="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl transition shadow mt-2">
@@ -1034,19 +999,19 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT MOTORU -->
   <script>
+    /* EMAILJS & APP STORAGE CONFIG */
     const EMAILJS_CONFIG = {
       publicKey: "wqJd6j8hhxd3lm3bU",
       serviceId: "service_vbqoqv6",
       templateId: "template_1askpkh"
     };
 
-    if (EMAILJS_CONFIG.publicKey && typeof emailjs !== 'undefined') {
+    if (window.emailjs && EMAILJS_CONFIG.publicKey) {
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
 
-    const APP_STORAGE_KEY = 'aag_app_data_v30';
+    const APP_STORAGE_KEY = 'aag_app_data_v32';
 
     const INITIAL_DATA = {
       isAdmin: false,
@@ -1062,10 +1027,14 @@
         clubTitle2: "SPOR KULÜBÜ DERNEĞİ",
         heroBadge: "🏕️ DOĞA SPORLARI & GENÇLİK KAMPLARI KULÜBÜ",
         heroTitle: "Doğayla Buluş, Azminle Geleceğe Adım At!",
-        heroSub: "Ankara Genç Spor Kulübü olarak gençlerimizi doğa kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.",
-        promoVideoUrl: "https://www.youtube.com/embed/tKuqwtJZ7-0",
+        heroSub: "Ankara Aktif Genç Spor Kulübü olarak gençlerimizi doğa kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.",
+        homeVideoUrl: "https://www.youtube.com/embed/tKuqwtJZ7-0",
+        homeVideoTitle: "Kulüp Tanıtım Filmi",
+        homeVideoDesc: "Doğada disiplin, dostluk ve macera dolu etkinliklerimizin coşkusu.",
+        branchTitle: "Aktif Branşlarımız",
+        branchSub: "Doğa Kampları • Doğa Yürüyüşleri • Bilek Güreşi",
         aboutTitle: "Doğada Güçlenen, Disiplinli Gençler",
-        aboutDesc: "Ankara Genç Spor Kulübü Derneği; gençlerimizi şehir stresinden, dijital bağımlılıklardan ve pasif yaşam tarzından uzak tutarak doğa sporları, çadır kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor.",
+        aboutDesc: "Ankara Aktif Genç Spor Kulübü Derneği; gençlerimizi şehir stresinden, dijital bağımlılıklardan ve pasif yaşam tarzından uzak tutarak doğa sporları, çadır kampları, doğa yürüyüşleri ve bilek güreşi antrenmanlarıyla buluşturuyor.",
         aboutStat1Num: "120+",
         aboutStat1Label: "AKTİF SPORCU GENÇ",
         aboutStat2Num: "10+",
@@ -1077,7 +1046,9 @@
         act2Title: "Gençlik Liderliği & Doğa Eğitimi",
         act2Desc: "Çadır ve pusula kullanımı, oryantiring, çevre koruma bilinci, takım çalışması ve çevre temizlik sosyal sorumluluk projeleri.",
         act3Title: "Bilek Güreşi & Güç",
-        act3Desc: "Masa hakimiyeti ve fiziksel dayanıklılık antrenmanları, teknik geliştirme, kulüp içi seçmeler ve ulusal turnuva hazırlıkları."
+        act3Desc: "Masa hakimiyeti ve fiziksel dayanıklılık antrenmanları, teknik geliştirme, kulüp içi seçmeler ve ulusal turnuva hazırlıkları.",
+        footerPhone: "+90 (312) 000 00 00",
+        footerEmail: "bilgi@ankaraaktifgenc.org.tr"
       },
       teams: ['Fırtına Ekibi', 'Parslar Ekibi', 'Şahinler Ekibi'],
       athletes: [
@@ -1097,17 +1068,52 @@
         { id: 'e3', title: 'Kulüpler Arası Dostluk Bilek Güreşi', desc: 'Gençlerimizin teknik gelişimi ve dostluk bağlarını güçlendiren kulüp içi seçme müsabakaları.', category: 'TURNUVA', date: '06 Aralık 2026' }
       ],
       gallery: [
-        { id: 'g1', type: 'image', title: 'Çamkoru Doğa Kampı Ateş Başı', category: 'Doğa Kampı', imgUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80' },
-        { id: 'g2', type: 'image', title: 'Kızılcahamam Yürüyüş Parkuru', category: 'Doğa Yürüyüşü', imgUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=600&q=80' },
-        { id: 'g3', type: 'video', title: 'Aktif Ünite Kayıtları Başladı', category: 'Doğa Kampı', imgUrl: 'https://www.youtube.com/embed/tKuqwtJZ7-0' },
-        { id: 'g4', type: 'image', title: 'Bilek Güreşi Antrenmanı', category: 'Bilek Güreşi', imgUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80' }
+        { id: 'g0', type: 'video', title: 'Aktif Ünite Kayıtları Başladı Tanıtım Videosu', category: 'Kulüp Tanıtımı', url: 'https://www.youtube.com/embed/tKuqwtJZ7-0' },
+        { id: 'g1', type: 'image', title: 'Çamkoru Doğa Kampı Ateş Başı', category: 'Doğa Kampı', url: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80' },
+        { id: 'g2', type: 'image', title: 'Kızılcahamam Yürüyüş Parkuru', category: 'Doğa Yürüyüşü', url: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=600&q=80' },
+        { id: 'g3', type: 'image', title: 'Bilek Güreşi Antrenmanı', category: 'Bilek Güreşi', url: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80' }
+      ],
+      clubLeaders: [
+        { name: "Muhammed Arda Gül", role: "Lider", avatar: "MG", color: "bg-blue-600" },
+        { name: "Yasin Darendeli", role: "Lider", avatar: "YD", color: "bg-rose-600" },
+        { name: "F. Gökhan Abay", role: "Lider", avatar: "GA", color: "bg-emerald-600" },
+        { name: "N. Ertan Pişkin", role: "Lider", avatar: "EP", color: "bg-amber-600" },
+        { name: "Davut Arı", role: "Lider", avatar: "DA", color: "bg-teal-600" },
+        { name: "Samet Tosun", role: "Lider", avatar: "ST", color: "bg-indigo-600" },
+        { name: "Kerem Kavun", role: "Lider", avatar: "KK", color: "bg-purple-600" },
+        { name: "H. Emir Gürbüz", role: "Lider", avatar: "EG", color: "bg-cyan-600" },
+        { name: "Hüsrev Ünal", role: "Lider", avatar: "HÜ", color: "bg-orange-600" },
+        { name: "Esad Aydemir", role: "Lider", avatar: "EA", color: "bg-sky-600" },
+        { name: "Mustafa Nurettin Arslan", role: "Lider", avatar: "MA", color: "bg-slate-700" },
+        { name: "Saleh Djobsou", role: "Lider", avatar: "SD", color: "bg-emerald-700" },
+        { name: "Fatih Çolak", role: "Lider", avatar: "FÇ", color: "bg-red-700" },
+        { name: "Ahmet Ziyaüddin Okutan", role: "Lider", avatar: "AO", color: "bg-violet-600" }
+      ],
+      faqs: [
+        { q: "Doğa kamplarına katılmak için kişisel çadır gerekiyor mu?", a: "Hayır, temel çadır ve barınma ekipmanları kulübümüz tarafından sağlanmaktadır. Katılımcıların yalnızca kişisel mat ve uyku tulumu getirmesi yeterlidir." },
+        { q: "Doğa yürüyüşleri ve kamplar hangi yaş grubuna uygundur?", a: "Etkinliklerimiz 12 - 22 yaş arası ortaokul, lise ve üniversite gençlerine özel olarak kademelendirilmiştir." },
+        { q: "Puanlama ve Ekip sistemi doğa etkinliklerinde nasıl işliyor?", a: "Her etkinliğe katılım, çevre temizliği, kitap okuma ve takım görevlerini tamamlama karşılığında sporculara puan verilir." }
       ]
     };
 
     function getData() {
       try {
         const saved = localStorage.getItem(APP_STORAGE_KEY);
-        return saved ? JSON.parse(saved) : INITIAL_DATA;
+        if (!saved) return INITIAL_DATA;
+        const parsed = JSON.parse(saved);
+        return {
+          ...INITIAL_DATA,
+          ...parsed,
+          siteContent: { ...INITIAL_DATA.siteContent, ...(parsed.siteContent || {}) },
+          leaders: parsed.leaders || INITIAL_DATA.leaders,
+          teams: parsed.teams || INITIAL_DATA.teams,
+          athletes: parsed.athletes || INITIAL_DATA.athletes,
+          announcements: parsed.announcements || INITIAL_DATA.announcements,
+          events: parsed.events || INITIAL_DATA.events,
+          gallery: parsed.gallery || INITIAL_DATA.gallery,
+          clubLeaders: parsed.clubLeaders || INITIAL_DATA.clubLeaders,
+          faqs: parsed.faqs || INITIAL_DATA.faqs
+        };
       } catch (e) {
         return INITIAL_DATA;
       }
@@ -1124,6 +1130,7 @@
 
     function showToast(msg, isError = false) {
       const toast = document.getElementById('toastNotification');
+      if (!toast) return;
       document.getElementById('toastMessage').innerText = msg;
       document.getElementById('toastIcon').innerHTML = isError 
         ? '<i class="fa-solid fa-circle-xmark text-rose-500"></i>' 
@@ -1183,9 +1190,7 @@
 
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
-      if (menu) {
-        menu.classList.toggle('hidden');
-      }
+      if (menu) menu.classList.toggle('hidden');
     }
 
     function closeMobileMenu() {
@@ -1193,9 +1198,19 @@
       if (menu) menu.classList.add('hidden');
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      renderAll();
-    });
+    function formatEmbedUrl(url) {
+      if (!url) return '';
+      if (url.includes('youtube.com/embed/')) return url;
+      if (url.includes('youtu.be/')) {
+        const id = url.split('youtu.be/')[1]?.split('?')[0];
+        return `https://www.youtube.com/embed/${id}`;
+      }
+      if (url.includes('watch?v=')) {
+        const id = url.split('watch?v=')[1]?.split('&')[0];
+        return `https://www.youtube.com/embed/${id}`;
+      }
+      return url;
+    }
 
     function renderAll() {
       renderSiteTextContent();
@@ -1206,54 +1221,60 @@
       renderAnnouncements();
       renderEvents();
       renderGallery();
+      renderLeaders();
+      renderFaqs();
       renderAdminTeamsList();
       renderAdminAthletesTable();
       populateTeamDropdown();
       populateLeaderEmailSelect();
     }
 
-    function formatEmbedUrl(url) {
-      if (!url) return '';
-      if (url.includes('youtube.com/watch?v=')) {
-        const id = url.split('v=')[1].split('&')[0];
-        return `https://www.youtube.com/embed/${id}`;
-      } else if (url.includes('youtu.be/')) {
-        const id = url.split('youtu.be/')[1].split('?')[0];
-        return `https://www.youtube.com/embed/${id}`;
-      }
-      return url;
-    }
-
     function renderSiteTextContent() {
       const c = state.siteContent || INITIAL_DATA.siteContent;
       
-      if (document.getElementById('displayClubTitle1')) document.getElementById('displayClubTitle1').innerText = c.clubTitle1 || 'ANKARA AKTİF GENÇ';
-      if (document.getElementById('displayClubTitle2')) document.getElementById('displayClubTitle2').innerText = c.clubTitle2 || 'SPOR KULÜBÜ DERNEĞİ';
-      if (document.getElementById('displayFooterTitle')) document.getElementById('displayFooterTitle').innerText = `${c.clubTitle1 || 'ANKARA AKTİF GENÇ'} ${c.clubTitle2 || 'SPOR KULÜBÜ'}`;
+      const setElText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = text || '';
+      };
 
-      if (document.getElementById('displayHeroBadge')) document.getElementById('displayHeroBadge').innerText = c.heroBadge || '';
-      if (document.getElementById('displayHeroTitle')) document.getElementById('displayHeroTitle').innerText = c.heroTitle || '';
-      if (document.getElementById('displayHeroSub')) document.getElementById('displayHeroSub').innerText = c.heroSub || '';
+      setElText('displayClubTitle1', c.clubTitle1 || 'ANKARA AKTİF GENÇ');
+      setElText('displayClubTitle2', c.clubTitle2 || 'SPOR KULÜBÜ DERNEĞİ');
+      setElText('displayFooterTitle', `${c.clubTitle1 || 'ANKARA AKTİF GENÇ'} ${c.clubTitle2 || 'SPOR KULÜBÜ'}`);
 
-      if (document.getElementById('displayPromoVideo')) {
-        document.getElementById('displayPromoVideo').src = formatEmbedUrl(c.promoVideoUrl || "https://www.youtube.com/embed/tKuqwtJZ7-0");
-      }
+      setElText('displayHeroBadge', c.heroBadge);
+      setElText('displayHeroTitle', c.heroTitle);
+      setElText('displayHeroSub', c.heroSub);
 
-      if (document.getElementById('displayAboutTitle')) document.getElementById('displayAboutTitle').innerText = c.aboutTitle || '';
-      if (document.getElementById('displayAboutDesc')) document.getElementById('displayAboutDesc').innerText = c.aboutDesc || '';
-      if (document.getElementById('displayAboutStat1Num')) document.getElementById('displayAboutStat1Num').innerText = c.aboutStat1Num || '';
-      if (document.getElementById('displayAboutStat1Label')) document.getElementById('displayAboutStat1Label').innerText = c.aboutStat1Label || '';
-      if (document.getElementById('displayAboutStat2Num')) document.getElementById('displayAboutStat2Num').innerText = c.aboutStat2Num || '';
-      if (document.getElementById('displayAboutStat2Label')) document.getElementById('displayAboutStat2Label').innerText = c.aboutStat2Label || '';
-      if (document.getElementById('displayMisyonText')) document.getElementById('displayMisyonText').innerText = c.misyonText || '';
-      if (document.getElementById('displayVizyonText')) document.getElementById('displayVizyonText').innerText = c.vizyonText || '';
+      setElText('displayBranchTitle', c.branchTitle || 'Aktif Branşlarımız');
+      setElText('displayBranchSub', c.branchSub || 'Doğa Kampları • Doğa Yürüyüşleri • Bilek Güreşi');
 
-      if (document.getElementById('displayAct1Title')) document.getElementById('displayAct1Title').innerText = c.act1Title || '';
-      if (document.getElementById('displayAct1Desc')) document.getElementById('displayAct1Desc').innerText = c.act1Desc || '';
-      if (document.getElementById('displayAct2Title')) document.getElementById('displayAct2Title').innerText = c.act2Title || '';
-      if (document.getElementById('displayAct2Desc')) document.getElementById('displayAct2Desc').innerText = c.act2Desc || '';
-      if (document.getElementById('displayAct3Title')) document.getElementById('displayAct3Title').innerText = c.act3Title || '';
-      if (document.getElementById('displayAct3Desc')) document.getElementById('displayAct3Desc').innerText = c.act3Desc || '';
+      setElText('displayHomeVideoTitle', c.homeVideoTitle || 'Kulüp Tanıtım Filmi');
+      setElText('displayHomeVideoDesc', c.homeVideoDesc || 'Doğada disiplin, dostluk ve macera dolu etkinliklerimizin coşkusu.');
+
+      const promoIframe = document.getElementById('homePromoVideoIframe');
+      if (promoIframe) promoIframe.src = formatEmbedUrl(c.homeVideoUrl || 'https://www.youtube.com/embed/tKuqwtJZ7-0');
+
+      setElText('displayAboutTitle', c.aboutTitle);
+      setElText('displayAboutDesc', c.aboutDesc);
+      setElText('displayAboutStat1Num', c.aboutStat1Num);
+      setElText('displayAboutStat1Label', c.aboutStat1Label);
+      setElText('displayAboutStat2Num', c.aboutStat2Num);
+      setElText('displayAboutStat2Label', c.aboutStat2Label);
+      setElText('displayMisyonText', c.misyonText);
+      setElText('displayVizyonText', c.vizyonText);
+
+      setElText('displayAct1Title', c.act1Title);
+      setElText('displayAct1Desc', c.act1Desc);
+      setElText('displayAct2Title', c.act2Title);
+      setElText('displayAct2Desc', c.act2Desc);
+      setElText('displayAct3Title', c.act3Title);
+      setElText('displayAct3Desc', c.act3Desc);
+
+      const phoneEl = document.getElementById('displayFooterPhone');
+      if (phoneEl) phoneEl.innerHTML = `<i class="fa-solid fa-phone mr-1 text-emerald-400"></i> ${c.footerPhone || '+90 (312) 000 00 00'}`;
+      
+      const emailEl = document.getElementById('displayFooterEmail');
+      if (emailEl) emailEl.innerHTML = `<i class="fa-solid fa-envelope mr-1 text-emerald-400"></i> ${c.footerEmail || 'bilgi@ankaraaktifgenc.org.tr'}`;
     }
 
     function updateAdminBar() {
@@ -1264,17 +1285,22 @@
       const editBadges = document.querySelectorAll('.admin-edit-badge');
 
       if (state.isAdmin) {
-        bar.classList.remove('hidden');
-        document.getElementById('adminUserEmailBadge').innerText = `| ${state.currentLeaderEmail}`;
-        navBtn.innerHTML = '<i class="fa-solid fa-user-check text-emerald-600"></i> Çıkış Yap';
-        navBtn.setAttribute('onclick', 'logoutAdmin()');
+        if (bar) bar.classList.remove('hidden');
+        const badge = document.getElementById('adminUserEmailBadge');
+        if (badge) badge.innerText = `| ${state.currentLeaderEmail}`;
+        if (navBtn) {
+          navBtn.innerHTML = '<i class="fa-solid fa-user-check text-emerald-600"></i> Çıkış Yap';
+          navBtn.setAttribute('onclick', 'logoutAdmin()');
+        }
         if (adminActions) adminActions.classList.remove('hidden');
         actionCols.forEach(col => col.classList.remove('hidden'));
         editBadges.forEach(b => b.classList.remove('hidden'));
       } else {
-        bar.classList.add('hidden');
-        navBtn.innerHTML = '<i class="fa-solid fa-lock text-xs text-brandBlue"></i> Lider Girişi';
-        navBtn.setAttribute('onclick', 'openLoginModal()');
+        if (bar) bar.classList.add('hidden');
+        if (navBtn) {
+          navBtn.innerHTML = '<i class="fa-solid fa-lock text-xs text-brandBlue"></i> Lider Girişi';
+          navBtn.setAttribute('onclick', 'openLoginModal()');
+        }
         if (adminActions) adminActions.classList.add('hidden');
         actionCols.forEach(col => col.classList.add('hidden'));
         editBadges.forEach(b => b.classList.add('hidden'));
@@ -1310,7 +1336,7 @@
         const topAthlete = [...teamAthletes].sort((a,b) => b.points - a.points)[0] || { name: '-' };
 
         const card = document.createElement('div');
-        card.className = "bg-white p-5 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between";
+        card.className = "bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between";
         card.innerHTML = `
           <div>
             <span class="text-[10px] font-black uppercase text-brandBlue tracking-wider">${teamName}</span>
@@ -1385,13 +1411,13 @@
     }
 
     function renderEvents() {
-      const container = document.getElementById('eventsGrid');
+      const container = document.getElementById('eventsListContainer');
       if (!container) return;
       container.innerHTML = '';
 
-      state.events.forEach(ev => {
+      state.events.forEach((ev, idx) => {
         const card = document.createElement('div');
-        card.className = "bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3 relative group";
+        card.className = "bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 relative group hover:border-brandBlue transition";
 
         let deleteBtn = state.isAdmin ? `
           <button onclick="deleteEvent('${ev.id}')" class="text-rose-500 hover:text-rose-700 text-xs p-1 absolute top-4 right-4" title="Etkinliği Sil">
@@ -1400,13 +1426,26 @@
         ` : '';
 
         card.innerHTML = `
-          <div class="flex items-center justify-between">
-            <span class="px-3 py-1 bg-brandBlue/10 text-brandBlue font-extrabold text-[10px] rounded-xl">${ev.category}</span>
-            <span class="text-xs font-bold text-slate-400">📅 ${ev.date}</span>
+          <div class="flex items-start sm:items-center space-x-4">
+            <div class="w-14 h-14 rounded-2xl bg-brandBlue/10 text-brandBlue flex flex-col items-center justify-center shrink-0">
+              <i class="fa-solid fa-calendar-check text-xl"></i>
+              <span class="text-[9px] font-black uppercase mt-0.5 tracking-tighter">ETKİNLİK</span>
+            </div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 bg-brandBlue/10 text-brandBlue font-extrabold text-[10px] rounded-lg">${ev.category}</span>
+                <span class="text-xs font-bold text-slate-400">📅 ${ev.date}</span>
+              </div>
+              <h3 class="font-black text-base text-brandNavy">${ev.title}</h3>
+              <p class="text-xs text-slate-500 leading-relaxed max-w-2xl">${ev.desc}</p>
+            </div>
           </div>
-          <h3 class="font-black text-base text-brandNavy pr-6">${ev.title}</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">${ev.desc}</p>
-          ${deleteBtn}
+          <div class="flex items-center gap-3 shrink-0 self-end md:self-center">
+            <button onclick="showSection('applicationPage')" class="px-4 py-2 bg-slate-100 hover:bg-brandBlue hover:text-white text-brandNavy font-bold rounded-xl text-xs transition">
+              Katılım Bilgisi
+            </button>
+            ${deleteBtn}
+          </div>
         `;
         container.appendChild(card);
       });
@@ -1419,39 +1458,76 @@
 
       state.gallery.forEach(item => {
         const card = document.createElement('div');
-        card.className = "bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs space-y-2 relative group";
+        card.className = "bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm space-y-2 relative group";
 
         let deleteBtn = state.isAdmin ? `
-          <button onclick="deleteGalleryPhoto('${item.id}')" class="bg-slate-900/80 text-rose-400 hover:text-rose-200 text-xs p-2 rounded-xl absolute top-3 right-3 z-10" title="Medyayı Sil">
+          <button onclick="deleteGalleryItem('${item.id}')" class="bg-slate-900/80 text-rose-400 hover:text-rose-200 text-xs p-2 rounded-xl absolute top-3 right-3 z-10" title="Medyayı Sil">
             <i class="fa-solid fa-trash"></i>
           </button>
         ` : '';
 
-        const isVideo = item.type === 'video' || item.imgUrl.includes('youtube') || item.imgUrl.includes('embed') || item.imgUrl.endsWith('.mp4');
-        const mediaEmbedUrl = formatEmbedUrl(item.imgUrl);
-
-        let mediaHtml = isVideo ? `
-          <div class="h-52 overflow-hidden bg-black aspect-video relative">
-            <iframe class="w-full h-full" src="${mediaEmbedUrl}" title="${item.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        ` : `
-          <div class="h-52 overflow-hidden bg-slate-100">
-            <img src="${item.imgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://placehold.co/600x400/0B62A4/ffffff?text=Ankara+Genc+Spor'">
-          </div>
-        `;
+        let mediaContent = '';
+        if (item.type === 'video') {
+          mediaContent = `
+            <div class="aspect-video overflow-hidden bg-black">
+              <iframe class="w-full h-full" src="${formatEmbedUrl(item.url)}" title="${item.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+          `;
+        } else {
+          mediaContent = `
+            <div class="h-48 overflow-hidden bg-slate-100">
+              <img src="${item.url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://placehold.co/600x400/0B62A4/ffffff?text=Ankara+Aktif+Gen%C3%A7'">
+            </div>
+          `;
+        }
 
         card.innerHTML = `
           ${deleteBtn}
-          ${mediaHtml}
+          ${mediaContent}
           <div class="p-4 space-y-1">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-extrabold text-brandBlue uppercase tracking-wider">${item.category}</span>
-              ${isVideo ? '<span class="text-[10px] font-bold text-brandRed flex items-center gap-1"><i class="fa-solid fa-circle-play"></i> Video</span>' : '<span class="text-[10px] font-bold text-slate-400 flex items-center gap-1"><i class="fa-solid fa-image"></i> Fotoğraf</span>'}
-            </div>
+            <span class="text-[10px] font-extrabold text-brandBlue uppercase tracking-wider">${item.category || 'Kulüp Etkinliği'}</span>
             <h4 class="font-bold text-xs text-brandNavy">${item.title}</h4>
           </div>
         `;
         container.appendChild(card);
+      });
+    }
+
+    function renderLeaders() {
+      const container = document.getElementById('leadersGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      state.clubLeaders.forEach(ldr => {
+        const card = document.createElement('div');
+        card.className = "bg-white p-5 rounded-3xl border border-slate-200 text-center space-y-3 shadow-sm hover:border-brandBlue transition";
+        card.innerHTML = `
+          <div class="w-16 h-16 rounded-2xl ${ldr.color || 'bg-brandBlue'} text-white flex items-center justify-center text-lg font-black mx-auto shadow-md">
+            ${ldr.avatar || 'L'}
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-black text-sm text-brandNavy">${ldr.name}</h3>
+            <span class="inline-block px-3 py-1 bg-brandBlue/10 text-brandBlue text-[11px] font-extrabold rounded-full uppercase tracking-wider">Lider</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderFaqs() {
+      const container = document.getElementById('faqListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      state.faqs.forEach((faq, idx) => {
+        const el = document.createElement('details');
+        el.className = "bg-white p-5 rounded-2xl border border-slate-200 shadow-sm cursor-pointer";
+        if (idx === 0) el.setAttribute('open', '');
+        el.innerHTML = `
+          <summary class="font-bold text-xs sm:text-sm text-brandNavy">${faq.q}</summary>
+          <p class="mt-2 text-xs text-slate-500 leading-relaxed">${faq.a}</p>
+        `;
+        container.appendChild(el);
       });
     }
 
@@ -1465,7 +1541,7 @@
         const totalPoints = teamAthletes.reduce((sum, a) => sum + Number(a.points), 0);
 
         const card = document.createElement('div');
-        card.className = "bg-white p-5 rounded-2xl border border-slate-200 relative group shadow-xs";
+        card.className = "bg-white p-5 rounded-2xl border border-slate-200 relative group shadow-sm";
         
         let deleteBtn = state.isAdmin ? `
           <button onclick="deleteTeam('${teamName}')" class="absolute top-3 right-3 text-rose-400 hover:text-rose-600 text-xs p-1" title="Ekibi Sil">
@@ -1552,30 +1628,30 @@
 
     function openContentEditModal() {
       const c = state.siteContent || INITIAL_DATA.siteContent;
-      
-      if (document.getElementById('editClubTitle1')) document.getElementById('editClubTitle1').value = c.clubTitle1 || 'ANKARA AKTİF GENÇ';
-      if (document.getElementById('editClubTitle2')) document.getElementById('editClubTitle2').value = c.clubTitle2 || 'SPOR KULÜBÜ DERNEĞİ';
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val || '';
+      };
 
-      document.getElementById('editHeroBadge').value = c.heroBadge || '';
-      document.getElementById('editHeroTitle').value = c.heroTitle || '';
-      document.getElementById('editHeroSub').value = c.heroSub || '';
-      if (document.getElementById('editPromoVideoUrl')) document.getElementById('editPromoVideoUrl').value = c.promoVideoUrl || '';
+      setVal('editClubTitle1', c.clubTitle1 || 'ANKARA AKTİF GENÇ');
+      setVal('editClubTitle2', c.clubTitle2 || 'SPOR KULÜBÜ DERNEĞİ');
 
-      document.getElementById('editAboutTitle').value = c.aboutTitle || '';
-      document.getElementById('editAboutDesc').value = c.aboutDesc || '';
-      document.getElementById('editAboutStat1Num').value = c.aboutStat1Num || '';
-      document.getElementById('editAboutStat1Label').value = c.aboutStat1Label || '';
-      document.getElementById('editAboutStat2Num').value = c.aboutStat2Num || '';
-      document.getElementById('editAboutStat2Label').value = c.aboutStat2Label || '';
-      document.getElementById('editMisyonText').value = c.misyonText || '';
-      document.getElementById('editVizyonText').value = c.vizyonText || '';
+      setVal('editHeroBadge', c.heroBadge);
+      setVal('editHeroTitle', c.heroTitle);
+      setVal('editHeroSub', c.heroSub);
+      setVal('editHomeVideoUrl', c.homeVideoUrl || 'https://www.youtube.com/embed/tKuqwtJZ7-0');
 
-      document.getElementById('editAct1Title').value = c.act1Title || '';
-      document.getElementById('editAct1Desc').value = c.act1Desc || '';
-      document.getElementById('editAct2Title').value = c.act2Title || '';
-      document.getElementById('editAct2Desc').value = c.act2Desc || '';
-      document.getElementById('editAct3Title').value = c.act3Title || '';
-      document.getElementById('editAct3Desc').value = c.act3Desc || '';
+      setVal('editAboutTitle', c.aboutTitle);
+      setVal('editAboutDesc', c.aboutDesc);
+      setVal('editAboutStat1Num', c.aboutStat1Num);
+      setVal('editAboutStat1Label', c.aboutStat1Label);
+      setVal('editAboutStat2Num', c.aboutStat2Num);
+      setVal('editAboutStat2Label', c.aboutStat2Label);
+      setVal('editMisyonText', c.misyonText);
+      setVal('editVizyonText', c.vizyonText);
+
+      setVal('editFooterPhone', c.footerPhone || '+90 (312) 000 00 00');
+      setVal('editFooterEmail', c.footerEmail || 'bilgi@ankaraaktifgenc.org.tr');
 
       document.getElementById('contentEditModal').classList.remove('hidden');
     }
@@ -1586,81 +1662,38 @@
 
     function handleSaveSiteContent(e) {
       e.preventDefault();
+      const getVal = id => {
+        const el = document.getElementById(id);
+        return el ? el.value : '';
+      };
       
       state.siteContent = {
-        clubTitle1: document.getElementById('editClubTitle1').value,
-        clubTitle2: document.getElementById('editClubTitle2').value,
+        ...state.siteContent,
+        clubTitle1: getVal('editClubTitle1'),
+        clubTitle2: getVal('editClubTitle2'),
 
-        heroBadge: document.getElementById('editHeroBadge').value,
-        heroTitle: document.getElementById('editHeroTitle').value,
-        heroSub: document.getElementById('editHeroSub').value,
-        promoVideoUrl: document.getElementById('editPromoVideoUrl').value,
+        heroBadge: getVal('editHeroBadge'),
+        heroTitle: getVal('editHeroTitle'),
+        heroSub: getVal('editHeroSub'),
+        homeVideoUrl: getVal('editHomeVideoUrl'),
 
-        aboutTitle: document.getElementById('editAboutTitle').value,
-        aboutDesc: document.getElementById('editAboutDesc').value,
-        aboutStat1Num: document.getElementById('editAboutStat1Num').value,
-        aboutStat1Label: document.getElementById('editAboutStat1Label').value,
-        aboutStat2Num: document.getElementById('editAboutStat2Num').value,
-        aboutStat2Label: document.getElementById('editAboutStat2Label').value,
-        misyonText: document.getElementById('editMisyonText').value,
-        vizyonText: document.getElementById('editVizyonText').value,
+        aboutTitle: getVal('editAboutTitle'),
+        aboutDesc: getVal('editAboutDesc'),
+        aboutStat1Num: getVal('editAboutStat1Num'),
+        aboutStat1Label: getVal('editAboutStat1Label'),
+        aboutStat2Num: getVal('editAboutStat2Num'),
+        aboutStat2Label: getVal('editAboutStat2Label'),
+        misyonText: getVal('editMisyonText'),
+        vizyonText: getVal('editVizyonText'),
 
-        act1Title: document.getElementById('editAct1Title').value,
-        act1Desc: document.getElementById('editAct1Desc').value,
-        act2Title: document.getElementById('editAct2Title').value,
-        act2Desc: document.getElementById('editAct2Desc').value,
-        act3Title: document.getElementById('editAct3Title').value,
-        act3Desc: document.getElementById('editAct3Desc').value
+        footerPhone: getVal('editFooterPhone'),
+        footerEmail: getVal('editFooterEmail')
       };
 
       setData(state);
       renderAll();
       closeContentEditModal();
-      showToast('Site metinleri ve tanıtım videosu güncellendi!');
-    }
-
-    function toggleGalleryUrlPlaceholder() {
-      const type = document.getElementById('galleryTypeInput').value;
-      const label = document.getElementById('galleryUrlLabel');
-      const input = document.getElementById('galleryImgUrlInput');
-
-      if (type === 'video') {
-        label.innerText = "Video Bağlantısı (YouTube / Embed)";
-        input.placeholder = "https://www.youtube.com/watch?v=... veya https://www.youtube.com/embed/...";
-      } else {
-        label.innerText = "Görsel URL";
-        input.placeholder = "https://images.unsplash.com/...";
-      }
-    }
-
-    function handleSaveGalleryPhoto(e) {
-      e.preventDefault();
-      const type = document.getElementById('galleryTypeInput').value;
-      const title = document.getElementById('galleryTitleInput').value.trim();
-      const category = document.getElementById('galleryCategoryInput').value.trim() || 'Doğa Kampları';
-      const imgUrl = document.getElementById('galleryImgUrlInput').value.trim();
-
-      state.gallery.unshift({
-        id: Date.now().toString(),
-        type: type,
-        title, 
-        category, 
-        imgUrl: imgUrl || (type === 'video' ? 'https://www.youtube.com/embed/tKuqwtJZ7-0' : 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80')
-      });
-
-      setData(state);
-      renderAll();
-      closeGalleryModal();
-      showToast(`${type === 'video' ? 'Video' : 'Fotoğraf'} galeriye başarıyla eklendi.`);
-    }
-
-    function deleteGalleryPhoto(id) {
-      askConfirmation('Medyayı Sil', 'Bu medyayı galeriden silmek istediğinize emin misiniz?', () => {
-        state.gallery = state.gallery.filter(g => g.id !== id);
-        setData(state);
-        renderAll();
-        showToast('Medya silindi.');
-      });
+      showToast('Site metinleri başarıyla güncellendi!');
     }
 
     function handleLeaderEmailLogin(e) {
@@ -1741,7 +1774,7 @@
       setData(state);
       renderAll();
       closeEventModal();
-      showToast('Yeni etkinlik eklendi.');
+      showToast('Yeni etkinlik ajandaya eklendi.');
     }
 
     function deleteEvent(id) {
@@ -1750,6 +1783,33 @@
         setData(state);
         renderAll();
         showToast('Etkinlik silindi.');
+      });
+    }
+
+    function handleSaveGalleryItem(e) {
+      e.preventDefault();
+      const type = document.getElementById('galleryTypeInput').value;
+      const title = document.getElementById('galleryTitleInput').value.trim();
+      const category = document.getElementById('galleryCategoryInput').value.trim() || 'Doğa Kampları';
+      const url = document.getElementById('galleryUrlInput').value.trim();
+
+      state.gallery.unshift({
+        id: Date.now().toString(),
+        type, title, category, url
+      });
+
+      setData(state);
+      renderAll();
+      closeGalleryModal();
+      showToast('Medya galeriye eklendi.');
+    }
+
+    function deleteGalleryItem(id) {
+      askConfirmation('Medyayı Sil', 'Bu medyayı galeriden silmek istediğinize emin misiniz?', () => {
+        state.gallery = state.gallery.filter(g => g.id !== id);
+        setData(state);
+        renderAll();
+        showToast('Medya silindi.');
       });
     }
 
@@ -1905,10 +1965,10 @@
         user_email: email,
         to: email,
         reply_to: email,
-        name: "Ankara Genç Spor Kulübü",
+        name: "Ankara Aktif Genç Spor Kulübü",
         from_name: "Kulüp Güvenlik Sistemi",
         sender_name: "Kulüp Güvenlik Sistemi",
-        subject: "Ankara Genç Spor Kulübü - Şifre Sıfırlama Kodu",
+        subject: "Ankara Aktif Genç Spor Kulübü - Şifre Sıfırlama Kodu",
         message: `Merhaba,\n\nKulüp yönetim paneli şifre sıfırlama güvenlik kodunuz: ${code}\n\nBu kodu ilgili alana girerek yeni şifrenizi belirleyebilirsiniz.`
       };
 
@@ -1922,11 +1982,9 @@
           );
         }
         showToast('Güvenlik kodu e-postanıza gönderildi!');
-        document.getElementById('resetSuccessAlert').innerHTML = `✅ Kod e-postanıza gönderildi! Lütfen gelen kutunuzu kontrol edin.`;
       } catch (err) {
         console.error("EmailJS Error:", err);
         showToast('E-posta yanıtı işlendi. Lütfen kutunuzu kontrol edin.');
-        document.getElementById('resetSuccessAlert').innerHTML = `✅ Kod e-postanıza iletildi! Lütfen e-postanızı kontrol edin.`;
       } finally {
         document.getElementById('forgotStep1').classList.add('hidden');
         document.getElementById('forgotStep2').classList.remove('hidden');
@@ -2003,25 +2061,23 @@
 
       try {
         for (const recipient of targetEmails) {
-          if (typeof emailjs !== 'undefined') {
-            await emailjs.send(
-              EMAILJS_CONFIG.serviceId,
-              EMAILJS_CONFIG.templateId,
-              {
-                to_email: recipient,
-                email: recipient,
-                user_email: recipient,
-                to: recipient,
-                reply_to: recipient,
-                name: "Kulüp Yönetimi",
-                from_name: state.currentLeaderEmail || "Kulüp Yönetimi",
-                sender_name: state.currentLeaderEmail || "Kulüp Yönetimi",
-                subject: subject,
-                message: message
-              },
-              { publicKey: EMAILJS_CONFIG.publicKey }
-            );
-          }
+          await emailjs.send(
+            EMAILJS_CONFIG.serviceId,
+            EMAILJS_CONFIG.templateId,
+            {
+              to_email: recipient,
+              email: recipient,
+              user_email: recipient,
+              to: recipient,
+              reply_to: recipient,
+              name: "Kulüp Yönetimi",
+              from_name: state.currentLeaderEmail || "Kulüp Yönetimi",
+              sender_name: state.currentLeaderEmail || "Kulüp Yönetimi",
+              subject: subject,
+              message: message
+            },
+            { publicKey: EMAILJS_CONFIG.publicKey }
+          );
         }
         showToast(`${targetEmails.length} lidere e-posta başarıyla gönderildi.`);
         closeBroadcastEmailModal();
@@ -2036,6 +2092,7 @@
       }
     }
 
+    /* Modal Open & Close Shortcuts */
     function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
     function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
 
@@ -2070,6 +2127,10 @@
     function closeBroadcastEmailModal() { 
       document.getElementById('emailBroadcastModal').classList.add('hidden'); 
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderAll();
+    });
   </script>
 </body>
 </html>
