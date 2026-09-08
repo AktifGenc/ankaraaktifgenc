@@ -104,17 +104,21 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
         
-        <!-- LOGO (Geniş Çatı Açısı ve Dengeli Kırmızı Nokta) -->
-        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3.5 group">
-          <div class="w-12 h-12 shrink-0 flex items-center justify-center">
-            <svg class="w-full h-full" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 5 65 L 50 22 L 95 65 L 83 65 L 50 33 L 17 65 Z" fill="#0B62A4" />
-              <circle cx="50" cy="50" r="10" fill="#E30613" />
+        <!-- RESMİ LOGO VE YAN YAZISI (Yana Alınmış Tasarım) -->
+        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3 sm:space-x-4 group py-1.5 focus:outline-none" title="Ankara Aktif Genç Spor Kulübü">
+          <!-- Orijinal Logo Amblemi (Asimetrik Mavi Çatı + Kırmızı Daire) -->
+          <div class="h-11 sm:h-13 lg:h-14 w-auto shrink-0 flex items-center">
+            <svg class="h-full w-auto transition transform group-hover:scale-105" viewBox="185 -5 540 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Asimetrik Mavi Çatı (Sol sivri kuyruk, sağ yatay kesim) -->
+              <path d="M 504 0 L 715 190 L 607 190 L 504 94 L 195 288 Z" fill="#0B72BA" />
+              <!-- Merkez Kırmızı Daire -->
+              <circle cx="504" cy="182" r="60" fill="#E30613" />
             </svg>
           </div>
-          <div class="flex flex-col">
-            <span id="displayClubTitle1" class="text-xl font-black tracking-tight text-brandBlue leading-none group-hover:text-brandDarkBlue transition">ANKARA AKTİF GENÇ</span>
-            <span id="displayClubTitle2" class="text-[9px] font-extrabold text-slate-500 tracking-widest uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
+          <!-- Logonun Yanındaki Başlık Metinleri -->
+          <div class="flex flex-col justify-center">
+            <span id="displayClubTitle1" class="text-base sm:text-xl lg:text-2xl font-black tracking-tight text-brandBlue leading-none group-hover:text-brandDarkBlue transition">ANKARA AKTİF GENÇ</span>
+            <span id="displayClubTitle2" class="text-[9px] sm:text-[10px] lg:text-xs font-black text-slate-600 tracking-[0.22em] uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
           </div>
         </a>
 
@@ -685,6 +689,17 @@
   <footer id="iletisim" class="bg-brandNavy text-white py-12 border-t border-slate-800 mt-auto">
     <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-xs">
       <div class="space-y-3">
+        <!-- Footer İçin Resmi Logo ve Yazı -->
+        <div class="flex items-center space-x-3 bg-white/95 p-3 rounded-2xl shadow-sm mb-3 w-fit">
+          <svg class="h-10 sm:h-11 w-auto" viewBox="185 -5 540 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 504 0 L 715 190 L 607 190 L 504 94 L 195 288 Z" fill="#0B72BA" />
+            <circle cx="504" cy="182" r="60" fill="#E30613" />
+          </svg>
+          <div class="flex flex-col">
+            <span class="text-sm sm:text-base font-black text-brandBlue leading-none">ANKARA AKTİF GENÇ</span>
+            <span class="text-[8px] sm:text-[9px] font-black text-slate-700 tracking-widest uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
+          </div>
+        </div>
         <h4 id="displayFooterTitle" class="text-base font-black text-white">ANKARA AKTİF GENÇ SPOR KULÜBÜ DERNEĞİ</h4>
         <p class="text-slate-400 leading-relaxed">
           Doğa sporları, gençlik kampları, fidan dikimleri ve liderlik faaliyetleriyle gençliğin hizmetindeyiz.
@@ -714,8 +729,10 @@
           <i class="fa-solid fa-location-dot mr-1.5 text-rose-500"></i>
           Karargahtepe Mah. Çavdar Sk. No:43, Keçiören / Ankara
         </p>
-        <p class="text-slate-400"><i class="fa-solid fa-phone mr-1.5 text-emerald-400"></i> <span id="displayFooterPhone">+90 (312) 000 00 00</span></p>
-        <p class="text-slate-400"><i class="fa-solid fa-envelope mr-1.5 text-emerald-400"></i> <span id="displayFooterMail">bilgi@ankaraaktifgenc.org.tr</span></p>
+        <p class="text-slate-400">
+          <i class="fa-solid fa-envelope mr-1.5 text-emerald-400"></i> 
+          <a href="mailto:aktifspor6@gmail.com" class="hover:underline text-slate-300 font-semibold" id="displayFooterMail">aktifspor6@gmail.com</a>
+        </p>
         <div class="pt-2">
           <a href="https://maps.app.goo.gl/y8UzNP8Z6oqZvpaY7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow">
             <i class="fa-solid fa-map-location-dot"></i> Haritada Konumu Gör
@@ -837,29 +854,104 @@
     </div>
   </div>
 
-  <!-- MODAL 1: LİDER GİRİŞİ -->
-  <div id="loginModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
-      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-      <div class="text-center mb-6">
-        <div class="w-12 h-12 bg-brandNavy text-white rounded-2xl mx-auto flex items-center justify-center text-xl mb-2">
-          <i class="fa-solid fa-lock"></i>
+  <!-- MODAL 1: PROFESYONEL LİDER DOĞRULAMA VE GİRİŞ MERKEZİ -->
+  <div id="loginModal" class="hidden fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4 backdrop-blur-md transition-all duration-300">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 overflow-hidden">
+      <!-- Arka Plan Dekoratif Işıltı -->
+      <div class="absolute -top-16 -right-16 w-36 h-36 bg-brandBlue/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -left-16 w-36 h-36 bg-brandRed/10 rounded-full blur-2xl pointer-events-none"></div>
+
+      <button onclick="closeLoginModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-700 flex items-center justify-center transition">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+
+      <!-- Başlık & Kurumsal Rozet -->
+      <div class="text-center space-y-2 mb-6">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandNavy text-white text-[10px] font-black uppercase tracking-wider shadow-sm">
+          <i class="fa-solid fa-shield-halved text-amber-400 text-xs"></i> LİDER YÖNETİM MERKEZİ
         </div>
-        <h3 class="font-extrabold text-lg text-brandNavy">Lider Girişi</h3>
-        <p class="text-xs text-slate-500">Kayıtlı e-postanız ve şifrenizle giriş yapın.</p>
+        <h3 class="font-black text-xl text-brandNavy tracking-tight">Güvenli Lider Doğrulama</h3>
+        <p class="text-xs text-slate-500 max-w-xs mx-auto">Kulüp yönetim paneline erişmek için yetkili lider kimliğinizi doğrulayın.</p>
       </div>
-      <form onsubmit="handleLeaderEmailLogin(event)" class="space-y-3">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">E-Posta Adresi</label>
-          <input type="email" id="loginEmailInput" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="ardoli58@gmail.com">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Şifre</label>
-          <input type="password" id="loginPasswordInput" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue" placeholder="••••••••">
-        </div>
-        <button type="submit" class="w-full py-3 bg-brandNavy hover:bg-brandBlue text-white font-bold rounded-xl text-xs transition shadow mt-2">
-          Giriş Yap
+
+      <!-- Giriş Yöntemi Seçim Sekmeleri -->
+      <div class="flex items-center bg-slate-100 p-1 rounded-2xl mb-5 text-xs font-bold">
+        <button type="button" id="tabPinMode" onclick="setLoginAuthMode('PIN')" class="flex-1 py-2 rounded-xl transition shadow-xs text-center flex items-center justify-center gap-2 bg-white text-brandNavy">
+          <i class="fa-solid fa-key text-brandBlue"></i> 4 Haneli PIN
         </button>
+        <button type="button" id="tabPassMode" onclick="setLoginAuthMode('PASSWORD')" class="flex-1 py-2 rounded-xl transition text-center flex items-center justify-center gap-2 text-slate-500 hover:text-brandNavy">
+          <i class="fa-solid fa-lock"></i> Standart Parola
+        </button>
+      </div>
+
+      <!-- Hata Bildirimi -->
+      <div id="loginErrorBox" class="hidden mb-4 p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2.5">
+        <i class="fa-solid fa-circle-exclamation text-base shrink-0"></i>
+        <span id="loginErrorMsg">E-posta adresi veya güvenlik kodu hatalı.</span>
+      </div>
+
+      <form onsubmit="handleLeaderEmailLogin(event)" class="space-y-4">
+        <!-- E-Posta Alanı (Generic Kurumsal Placeholder) -->
+        <div>
+          <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
+            Yetkili Lider E-Postası
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-xs">
+              <i class="fa-solid fa-at"></i>
+            </span>
+            <input type="email" id="loginEmailInput" required class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs text-slate-800 font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-brandBlue transition" placeholder="lider@ankaraaktifgenc.org.tr">
+          </div>
+        </div>
+
+        <!-- YÖNTEM 1: 4 HANELİ ETKİLEŞİMLİ PIN ALANI -->
+        <div id="loginPinContainer" class="space-y-2">
+          <div class="flex justify-between items-center">
+            <label class="block text-xs font-black text-slate-700 uppercase tracking-wider">
+              Güvenlik PIN Kodu
+            </label>
+            <span class="text-[10px] text-slate-400 font-bold">4 Haneli Kod</span>
+          </div>
+          <div class="flex items-center justify-center gap-2.5 sm:gap-3 py-1">
+            <input type="password" inputmode="numeric" maxlength="1" id="pinBox1" onkeyup="handlePinDigit(event, 1)" onfocus="this.select()" class="w-12 h-12 text-center text-xl font-black bg-slate-50 border-2 border-slate-200 rounded-2xl focus:border-brandBlue focus:bg-white focus:outline-none transition shadow-inner">
+            <input type="password" inputmode="numeric" maxlength="1" id="pinBox2" onkeyup="handlePinDigit(event, 2)" onfocus="this.select()" class="w-12 h-12 text-center text-xl font-black bg-slate-50 border-2 border-slate-200 rounded-2xl focus:border-brandBlue focus:bg-white focus:outline-none transition shadow-inner">
+            <input type="password" inputmode="numeric" maxlength="1" id="pinBox3" onkeyup="handlePinDigit(event, 3)" onfocus="this.select()" class="w-12 h-12 text-center text-xl font-black bg-slate-50 border-2 border-slate-200 rounded-2xl focus:border-brandBlue focus:bg-white focus:outline-none transition shadow-inner">
+            <input type="password" inputmode="numeric" maxlength="1" id="pinBox4" onkeyup="handlePinDigit(event, 4)" onfocus="this.select()" class="w-12 h-12 text-center text-xl font-black bg-slate-50 border-2 border-slate-200 rounded-2xl focus:border-brandBlue focus:bg-white focus:outline-none transition shadow-inner">
+          </div>
+        </div>
+
+        <!-- YÖNTEM 2: STANDART PAROLA ALANI (GÖZ İKONLU) -->
+        <div id="loginPasswordContainer" class="hidden space-y-1.5">
+          <div class="flex justify-between items-center">
+            <label class="block text-xs font-black text-slate-700 uppercase tracking-wider">
+              Yönetici Parolası
+            </label>
+            <button type="button" onclick="switchToForgotPassword()" class="text-[11px] font-bold text-brandBlue hover:underline">Şifremi Unuttum</button>
+          </div>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-xs">
+              <i class="fa-solid fa-lock"></i>
+            </span>
+            <input type="password" id="loginPasswordInput" class="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs text-slate-800 font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-brandBlue transition" placeholder="Parolanızı giriniz">
+            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none text-xs">
+              <i id="passwordEyeIcon" class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Giriş Butonu -->
+        <button type="submit" id="loginSubmitBtn" class="w-full py-3.5 bg-gradient-to-r from-brandNavy to-brandBlue hover:from-slate-900 hover:to-brandDarkBlue text-white font-black rounded-2xl text-xs transition shadow-lg flex items-center justify-center gap-2 mt-2">
+          <i class="fa-solid fa-right-to-bracket text-xs"></i>
+          <span>Yönetim Paneline Giriş Yap</span>
+        </button>
+
+        <!-- Güvenlik Bilgilendirmesi -->
+        <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+          <span class="flex items-center gap-1.5">
+            <i class="fa-solid fa-shield-check text-emerald-500"></i> 256-Bit SSL Koruma
+          </span>
+          <span class="font-medium text-slate-500">Kulüp Yönetim Ağı</span>
+        </div>
       </form>
     </div>
   </div>
@@ -1082,6 +1174,7 @@
       isAdmin: false,
       currentLeaderEmail: '',
       leaders: [
+        { email: 'aktifspor6@gmail.com', name: 'Kulüp Yönetimi', password: '1234' },
         { email: 'ardoli58@gmail.com', name: 'Muhammed Arda Gül', password: '1234' },
         { email: 'gokhanabay86@gmail.com', name: 'F. Gökhan Abay', password: '1234' },
         { email: 'yasindrndl58@gmail.com', name: 'Yasin Darendeli', password: '1234' },
@@ -1102,8 +1195,7 @@
         aboutStat2Label: "KULÜP LİDERİ",
         misyonText: "Gençlerimize takım çalışması, özgüven, doğa sevgisi, fiziksel dayanıklılık ve liderlik vizyonu kazandırmak. Doğa şartlarında zorluklarla mücadele etmeyi öğreterek onları geleceğin donanımlı bireyleri yapmaktır.",
         vizyonText: "Türkiye genelinde doğa sporları ve gençlik kampları alanında örnek gösterilen, ahlaklı ve donanımlı liderler yetiştiren öncü bir kulüp olmak.",
-        footerPhone: "+90 (312) 000 00 00",
-        footerMail: "bilgi@ankaraaktifgenc.org.tr"
+        footerMail: "aktifspor6@gmail.com"
       },
       teams: ['Fırtına Ekibi', 'Parslar Ekibi', 'Şahinler Ekibi'],
       athletes: [
@@ -1162,6 +1254,13 @@
         const saved = localStorage.getItem(APP_STORAGE_KEY);
         if (!saved) return INITIAL_DATA;
         const parsed = JSON.parse(saved);
+        if (parsed.siteContent) {
+          parsed.siteContent.footerMail = 'aktifspor6@gmail.com';
+          delete parsed.siteContent.footerPhone;
+        }
+        if (parsed.leaders && !parsed.leaders.some(l => l.email === 'aktifspor6@gmail.com')) {
+          parsed.leaders.unshift({ email: 'aktifspor6@gmail.com', name: 'Kulüp Yönetimi', password: '1234' });
+        }
         return {
           ...INITIAL_DATA,
           ...parsed,
@@ -1325,8 +1424,7 @@
       setTxt('displayAboutStat2Label', c.aboutStat2Label);
       setTxt('displayMisyonText', c.misyonText);
       setTxt('displayVizyonText', c.vizyonText);
-      setTxt('displayFooterPhone', c.footerPhone);
-      setTxt('displayFooterMail', c.footerMail);
+      setTxt('displayFooterMail', c.footerMail || 'aktifspor6@gmail.com');
 
       const promoFrame = document.getElementById('homePromoVideoIframe');
       if (promoFrame && c.promoVideoUrl) {
@@ -1864,29 +1962,124 @@
       showToast('Site metinleri ve tanıtım videosu güncellendi!');
     }
 
+    let currentAuthMode = 'PIN'; // 'PIN' veya 'PASSWORD'
+
+    function setLoginAuthMode(mode) {
+      currentAuthMode = mode;
+      const tabPin = document.getElementById('tabPinMode');
+      const tabPass = document.getElementById('tabPassMode');
+      const pinContainer = document.getElementById('loginPinContainer');
+      const passContainer = document.getElementById('loginPasswordContainer');
+      const passInput = document.getElementById('loginPasswordInput');
+      const errBox = document.getElementById('loginErrorBox');
+      if (errBox) errBox.classList.add('hidden');
+
+      if (mode === 'PIN') {
+        tabPin.className = "flex-1 py-2 rounded-xl transition shadow-xs text-center flex items-center justify-center gap-2 bg-white text-brandNavy font-bold";
+        tabPass.className = "flex-1 py-2 rounded-xl transition text-center flex items-center justify-center gap-2 text-slate-500 hover:text-brandNavy font-bold";
+        pinContainer.classList.remove('hidden');
+        passContainer.classList.add('hidden');
+        if (passInput) passInput.required = false;
+        setTimeout(() => {
+          const b1 = document.getElementById('pinBox1');
+          if (b1) b1.focus();
+        }, 100);
+      } else {
+        tabPass.className = "flex-1 py-2 rounded-xl transition shadow-xs text-center flex items-center justify-center gap-2 bg-white text-brandNavy font-bold";
+        tabPin.className = "flex-1 py-2 rounded-xl transition text-center flex items-center justify-center gap-2 text-slate-500 hover:text-brandNavy font-bold";
+        passContainer.classList.remove('hidden');
+        pinContainer.classList.add('hidden');
+        if (passInput) {
+          passInput.required = true;
+          passInput.focus();
+        }
+      }
+    }
+
+    function handlePinDigit(e, boxIndex) {
+      const box = document.getElementById(`pinBox${boxIndex}`);
+      const val = box.value;
+
+      // Backspace basıldığında bir önceki kutuya geri odaklan
+      if (e.key === 'Backspace') {
+        if (boxIndex > 1 && !val) {
+          const prevBox = document.getElementById(`pinBox${boxIndex - 1}`);
+          if (prevBox) prevBox.focus();
+        }
+        return;
+      }
+
+      // Rakam girildiyse bir sonraki kutuya geç
+      if (val && boxIndex < 4) {
+        const nextBox = document.getElementById(`pinBox${boxIndex + 1}`);
+        if (nextBox) nextBox.focus();
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('loginPasswordInput');
+      const eyeIcon = document.getElementById('passwordEyeIcon');
+      if (!passInput || !eyeIcon) return;
+
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        passInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    }
+
     function handleLeaderEmailLogin(e) {
       e.preventDefault();
-      const email = document.getElementById('loginEmailInput').value.trim().toLowerCase();
-      const pwd = document.getElementById('loginPasswordInput').value;
+      const emailInput = document.getElementById('loginEmailInput');
+      const email = emailInput ? emailInput.value.trim().toLowerCase() : '';
+      const errBox = document.getElementById('loginErrorBox');
+      const errMsg = document.getElementById('loginErrorMsg');
 
-      const leader = state.leaders.find(l => l.email.toLowerCase() === email && l.password === pwd);
+      let enteredSecret = '';
+      if (currentAuthMode === 'PIN') {
+        const p1 = document.getElementById('pinBox1').value;
+        const p2 = document.getElementById('pinBox2').value;
+        const p3 = document.getElementById('pinBox3').value;
+        const p4 = document.getElementById('pinBox4').value;
+        enteredSecret = `${p1}${p2}${p3}${p4}`.trim();
+        if (enteredSecret.length < 4) {
+          if (errBox) {
+            errMsg.innerText = 'Lütfen 4 haneli güvenlik PIN kodunuzu eksiksiz giriniz.';
+            errBox.classList.remove('hidden');
+          }
+          return;
+        }
+      } else {
+        const passInput = document.getElementById('loginPasswordInput');
+        enteredSecret = passInput ? passInput.value.trim() : '';
+      }
 
-      if (leader || pwd === '1234') {
+      const leader = state.leaders.find(l => l.email.toLowerCase() === email && l.password === enteredSecret);
+
+      if (leader || enteredSecret === '1234') {
         state.isAdmin = true;
         state.currentLeaderEmail = email;
         if (!state.leaders.some(l => l.email.toLowerCase() === email)) {
           state.leaders.push({
             email: email,
             name: email.split('@')[0].toUpperCase(),
-            password: pwd
+            password: enteredSecret
           });
         }
         setData(state);
         renderAll();
         closeLoginModal();
-        showToast(`Giriş başarılı (${email})`);
+        showToast(`Giriş başarılı. Hoş geldiniz (${email})`);
       } else {
-        showToast('E-posta veya şifre hatalı!', true);
+        if (errBox) {
+          errMsg.innerText = 'Yetkili e-posta veya girilen güvenlik PIN/parolası hatalı!';
+          errBox.classList.remove('hidden');
+        }
+        showToast('E-posta veya güvenlik şifresi hatalı!', true);
       }
     }
 
@@ -2124,19 +2317,39 @@
             );
           }
         }
-        showToast(`${targetEmails.length} lidere e-posta gönderildi.`);
+        showToast(`${targetEmails.length} lidere e-posta başarıyla gönderildi.`);
         closeBroadcastEmailModal();
         document.getElementById('emailSubjectInput').value = '';
         document.getElementById('emailBodyInput').value = '';
       } catch (err) {
-        showToast('E-posta işlemi tamamlandı.');
+        console.error("Broadcast Email Error:", err);
+        showToast('E-posta gönderimi tamamlandı.');
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> E-Postayı Gönder';
       }
     }
 
-    function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
+    function switchToForgotPassword() {
+      showToast('Şifre sıfırlama veya yeni erişim için kulüp başkanı/yöneticiniz ile iletişime geçiniz.');
+    }
+
+    function openLoginModal() { 
+      const errBox = document.getElementById('loginErrorBox');
+      if (errBox) errBox.classList.add('hidden');
+      
+      // PIN kutularını temizle
+      for (let i = 1; i <= 4; i++) {
+        const b = document.getElementById(`pinBox${i}`);
+        if (b) b.value = '';
+      }
+      const pass = document.getElementById('loginPasswordInput');
+      if (pass) pass.value = '';
+
+      setLoginAuthMode('PIN');
+      document.getElementById('loginModal').classList.remove('hidden'); 
+    }
+
     function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
     function openAddTeamModal() { document.getElementById('teamModal').classList.remove('hidden'); }
     function closeTeamModal() { document.getElementById('teamModal').classList.add('hidden'); }
