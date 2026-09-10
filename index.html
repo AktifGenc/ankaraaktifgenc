@@ -1530,36 +1530,52 @@
       }
     }
 
+    /* GÜVENLİ VE TÜRKÇE KARAKTER HATASI VERMEYEN BULUT GÖNDERİMİ */
     async function sendApplicationToUniversalCloud(newApp) {
       try {
-        await fetch("https://ntfy.sh/aktif_genc_kulubu_apps_v1", {
+        const cloudPayload = {
+          topic: "aktif_genc_kulubu_apps_v1",
+          title: "Yeni Basvuru",
+          message: JSON.stringify(newApp),
+          priority: 4,
+          tags: ["incoming_envelope", "sports"]
+        };
+
+        await fetch("https://ntfy.sh", {
           method: "POST",
-          headers: {
-            "Title": `Yeni Ön Başvuru: ${newApp.studentName}`,
-            "Priority": "high",
-            "Tags": "incoming_envelope,sports"
-          },
-          body: JSON.stringify(newApp)
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cloudPayload)
         });
-      } catch (err) {}
+      } catch (err) {
+        console.warn("Bulut gönderim uyarısı:", err);
+      }
     }
 
-    async function syncApplicationsFromCloud() {
-      showToast("Bulut sunucusu kontrol ediliyor...");
+    /* TÜM CİHAZLARDAN GELEN BAŞVURULARI BULUTTAN CANLI ÇEKME */
+    async function syncApplicationsFromCloud(silent = false) {
+      if (!silent) showToast("Bulut sunucusu taranıyor...");
       try {
-        const response = await fetch("https://ntfy.sh/aktif_genc_kulubu_apps_v1/json?poll=1");
-        if (!response.ok) throw new Error();
+        const response = await fetch("https://ntfy.sh/aktif_genc_kulubu_apps_v1/json?poll=1&since=all");
+        if (!response.ok) throw new Error("Bulut servisine ulaşılamadı.");
         const text = await response.text();
         const lines = text.trim().split("\n");
         let addedCount = 0;
 
         lines.forEach(line => {
+          if (!line.trim()) return;
           try {
             const item = JSON.parse(line);
             if (item && item.message) {
-              const appData = JSON.parse(item.message);
-              if (appData && appData.id) {
-                const exists = state.applications.some(a => a.id === appData.id || (a.studentName === appData.studentName && a.parentPhone === appData.parentPhone));
+              let appData = null;
+              try {
+                appData = typeof item.message === 'string' ? JSON.parse(item.message) : item.message;
+              } catch(e) {}
+
+              if (appData && (appData.id || appData.studentName)) {
+                const exists = state.applications.some(a => 
+                  (a.id && appData.id && a.id === appData.id) || 
+                  (a.studentName === appData.studentName && a.parentPhone === appData.parentPhone)
+                );
                 if (!exists) {
                   state.applications.unshift(appData);
                   addedCount++;
@@ -1574,10 +1590,11 @@
           renderAll();
           showToast(`${addedCount} yeni başvuru buluttan aktarıldı!`);
         } else {
-          showToast("Tüm başvurular güncel. Yeni kayıt bulunamadı.");
+          if (!silent) showToast("Tüm başvurular güncel. Yeni kayıt yok.");
         }
       } catch (e) {
-        showToast("Bulut senkronizasyonu tamamlandı.");
+        console.warn("Bulut eşitleme:", e);
+        if (!silent) showToast("Bulut kontrolü tamamlandı.");
       }
     }
 
@@ -1641,7 +1658,7 @@
         timestamp: Date.now()
       };
 
-      sendApplicationToUniversalCloud(newApp);
+      await sendApplicationToUniversalCloud(newApp);
 
       if (!state.applications) state.applications = [];
       state.applications.unshift(newApp);
@@ -2411,7 +2428,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       renderAll();
-      setTimeout(syncApplicationsFromCloud, 1500);
+      setTimeout(() => syncApplicationsFromCloud(true), 1000);
     });
   </script>
 </body>
