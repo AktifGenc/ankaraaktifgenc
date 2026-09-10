@@ -780,6 +780,9 @@
         </div>
 
         <div class="flex items-center gap-2">
+          <button id="cloudSyncBtn" onclick="fetchCloudApplications(true)" class="px-3 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm shrink-0">
+            <i class="fa-solid fa-rotate text-xs"></i> <span class="hidden sm:inline">Buluttan Yenile</span>
+          </button>
           <input type="text" id="appSearchInput" onkeyup="filterApplications()" placeholder="Öğrenci veya veli ara..." class="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue w-48">
           <select id="appStatusFilter" onchange="filterApplications()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700">
             <option value="ALL">Tüm Durumlar</option>
@@ -1231,6 +1234,7 @@
     ];
 
     const APP_STORAGE_KEY = 'aag_app_data_v42_master';
+    const CLOUD_SYNC_ENDPOINT = 'https://kvdb.io/Wq7KzL98M2xY4pQ1/aag_applications_v1';
 
     const INITIAL_DATA = {
       isAdmin: false,
@@ -1357,6 +1361,8 @@
     window.addEventListener('DOMContentLoaded', () => {
       renderLeadersGrid();
       renderAll();
+      // Sayfa ilk yüklendiğinde arka planda buluttaki başvuruları kontrol et
+      fetchCloudApplications(false);
     });
 
     function renderAll() {
@@ -1486,7 +1492,7 @@
       if (!state.applications) state.applications = [];
 
       const newApp = {
-        id: 'app_' + Date.now(),
+        id: 'app_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
         studentName,
         birthDate,
         education,
@@ -1495,16 +1501,124 @@
         clubLocation,
         referral,
         status: 'Yeni',
-        createdDate: new Date().toLocaleDateString('tr-TR')
+        createdDate: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
       };
 
       state.applications.unshift(newApp);
       setData(state);
       renderAll();
 
+      // Ortak Bulut Veritabanına ve kulüp e-postasına (aktifspor6@gmail.com) arka planda ilet
+      pushApplicationToCloudAndEmail(newApp);
+
       showToast(`Teşekkürler Sayın ${parentName}! ${studentName} için ön başvurunuz başarıyla alındı ve Liderlerimize iletildi.`);
       e.target.reset();
       document.getElementById('otherReferralBox').classList.add('hidden');
+    }
+
+    // Farklı cihazlar arası ortak senkronizasyon ve e-posta bildirimi
+    async function pushApplicationToCloudAndEmail(newApp) {
+      // 1. Resmi Kulüp E-postasına Anında Bildirim Gönder (aktifspor6@gmail.com)
+      try {
+        fetch("https://formsubmit.co/ajax/aktifspor6@gmail.com", {
+          method: "POST",
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            _subject: `Yeni Ön Başvuru: ${newApp.studentName} (${newApp.education})`,
+            "Öğrenci Adı Soyadı": newApp.studentName,
+            "Doğum Tarihi": newApp.birthDate,
+            "Eğitim Kademesi": newApp.education,
+            "Veli Adı Soyadı": newApp.parentName,
+            "Veli Telefonu": newApp.parentPhone,
+            "Katılmak İstediği Yer": newApp.clubLocation,
+            "Haberdar Olma Kaynağı": newApp.referral,
+            "Kayıt Zamanı": newApp.createdDate
+          })
+        }).catch(e => console.warn("Email alert silent fallback:", e));
+      } catch (err) {
+        console.warn("Email dispatch error:", err);
+      }
+
+      // 2. Ortak Bulut Veritabanına (Cloud API) Kaydet
+      try {
+        let existingCloud = [];
+        const res = await fetch(CLOUD_SYNC_ENDPOINT);
+        if (res.ok) {
+          const text = await res.text();
+          if (text) {
+            try { existingCloud = JSON.parse(text); } catch(e){}
+          }
+        }
+        if (!Array.isArray(existingCloud)) existingCloud = [];
+        
+        // Mükerrer kayıt kontrolü
+        if (!existingCloud.some(a => a.id === newApp.id)) {
+          existingCloud.unshift(newApp);
+          await fetch(CLOUD_SYNC_ENDPOINT, {
+            method: "POST",
+            body: JSON.stringify(existingCloud)
+          });
+        }
+      } catch (err) {
+        console.warn("Cloud push error:", err);
+      }
+    }
+
+    // Buluttaki başvuruları diğer cihazlarla eşitle
+    async function fetchCloudApplications(manualTrigger = false) {
+      const syncBtn = document.getElementById('cloudSyncBtn');
+      if (syncBtn && manualTrigger) {
+        syncBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Yenileniyor...</span>';
+      }
+
+      try {
+        const res = await fetch(CLOUD_SYNC_ENDPOINT);
+        if (res.ok) {
+          const text = await res.text();
+          if (text) {
+            const cloudApps = JSON.parse(text);
+            if (Array.isArray(cloudApps)) {
+              // Cihazdaki ve buluttaki kayıtları tek listede birleştir (id'ye göre)
+              const appMap = new Map();
+              (state.applications || []).forEach(a => appMap.set(a.id, a));
+              cloudApps.forEach(a => {
+                // Eğer yerelde durumu değiştiyse yerel durumu koru, yoksa buluttakini al
+                if (!appMap.has(a.id)) {
+                  appMap.set(a.id, a);
+                }
+              });
+
+              state.applications = Array.from(appMap.values()).sort((a, b) => (b.id > a.id ? 1 : -1));
+              setData(state);
+              renderApplicationsList();
+              updateAdminBar();
+              if (manualTrigger) showToast('Buluttaki tüm cihaz başvuruları başarıyla eşitlendi.');
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Cloud fetch error:", err);
+        if (manualTrigger) showToast('Bulut senkronizasyonu sırasında bağlantı kurulamadı.', true);
+      } finally {
+        if (syncBtn) {
+          syncBtn.innerHTML = '<i class="fa-solid fa-rotate text-xs"></i> <span class="hidden sm:inline">Buluttan Yenile</span>';
+        }
+      }
+    }
+
+    // Durum güncellemesini buluta da yansıt
+    async function syncFullApplicationsToCloud() {
+      try {
+        await fetch(CLOUD_SYNC_ENDPOINT, {
+          method: "POST",
+          body: JSON.stringify(state.applications || [])
+        });
+      } catch (e) {
+        console.warn("Full cloud sync error:", e);
+      }
     }
 
     function renderApplicationsList() {
@@ -1594,6 +1708,7 @@
         app.status = newStatus;
         setData(state);
         renderAll();
+        syncFullApplicationsToCloud();
         showToast(`Başvuru durumu '${newStatus}' olarak güncellendi.`);
       }
     }
@@ -1614,6 +1729,7 @@
       app.status = 'Kayıt Yapıldı';
       setData(state);
       renderAll();
+      syncFullApplicationsToCloud();
       showToast(`${app.studentName} başarıyla kulüp kadrosuna (${firstTeam}) eklendi!`);
     }
 
@@ -1622,6 +1738,7 @@
         state.applications = state.applications.filter(a => a.id !== id);
         setData(state);
         renderAll();
+        syncFullApplicationsToCloud();
         showToast('Başvuru kaydı silindi.');
       });
     }
@@ -1659,6 +1776,8 @@
     function openApplicationsModal() {
       renderApplicationsList();
       document.getElementById('applicationsModal').classList.remove('hidden');
+      // Modal her açıldığında buluttaki diğer cihazlardan gelen başvuruları otomatik çek
+      fetchCloudApplications(false);
     }
 
     function closeApplicationsModal() {
