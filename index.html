@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ankara Aktif Genç Spor Kulübü Derneği</title>
+  <title>Ankara Aktif Genç Spor Kulübü</title>
   
   <!-- Tailwind CSS & FontAwesome & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -21,9 +21,9 @@
         extend: {
           fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
           colors: {
-            brandBlue: '#0B62A4',
+            brandBlue: '#0B72BA',
             brandDarkBlue: '#07457A',
-            brandNavy: '#14233C',
+            brandNavy: '#0f172a',
             brandRed: '#E30613',
             brandDarkRed: '#B8050F'
           }
@@ -31,6 +31,11 @@
       }
     }
   </script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col relative selection:bg-brandBlue selection:text-white">
 
@@ -61,7 +66,7 @@
       <div class="flex items-center space-x-2">
         <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
         <span class="font-black tracking-wider">LİDER YÖNETİM MODU</span>
-        <span id="adminUserEmailBadge" class="text-slate-400 font-medium"></span>
+        <span id="adminUserEmailBadge" class="text-sky-300 font-medium"></span>
       </div>
       <div class="flex items-center space-x-1.5 flex-wrap">
         <button onclick="openApplicationsModal()" class="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg transition flex items-center gap-1.5 shadow-sm relative">
@@ -100,30 +105,34 @@
   </div>
 
   <!-- HEADER / NAVBAR -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-100">
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-200/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
         
-        <!-- RESMİ LOGO VE YAN YAZISI (Yana Alınmış Tasarım) -->
-        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3 sm:space-x-4 group py-1.5 focus:outline-none" title="Ankara Aktif Genç Spor Kulübü">
-          <!-- Orijinal Logo Amblemi (Asimetrik Mavi Çatı + Kırmızı Daire) -->
-          <div class="h-11 sm:h-13 lg:h-14 w-auto shrink-0 flex items-center">
-            <svg class="h-full w-auto transition transform group-hover:scale-105" viewBox="185 -5 540 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Asimetrik Mavi Çatı (Sol sivri kuyruk, sağ yatay kesim) -->
-              <path d="M 504 0 L 715 190 L 607 190 L 504 94 L 195 288 Z" fill="#0B72BA" />
-              <!-- Merkez Kırmızı Daire -->
-              <circle cx="504" cy="182" r="60" fill="#E30613" />
-            </svg>
+        <!-- RESMİ LOGO VE YAN YAZISI -->
+        <a href="javascript:showSection('homePage')" class="flex items-center space-x-3 sm:space-x-3.5 group py-1.5 focus:outline-none" title="Ankara Aktif Genç Spor Kulübü">
+          <!-- Logo Görseli (Aktif logo1.1_2.png / Aktif logo1.1.png) -->
+          <div class="relative shrink-0 flex items-center justify-center">
+            <img 
+              src="Aktif logo1.1_2.png" 
+              alt="Ankara Aktif Genç Spor Kulübü Logo" 
+              class="h-11 sm:h-13 w-auto object-contain transition transform group-hover:scale-105"
+              onerror="this.onerror=null; this.src='Aktif logo1.1.png'; this.onerror=()=>this.parentElement.innerHTML='<svg class=\'h-11 sm:h-12 w-auto\' viewBox=\'185 -5 540 300\' fill=\'none\'><path d=\'M 504 0 L 715 190 L 607 190 L 504 94 L 195 288 Z\' fill=\'#0B72BA\'/><circle cx=\'504\' cy=\'182\' r=\'60\' fill=\'#E30613\'/></svg>';"
+            >
           </div>
           <!-- Logonun Yanındaki Başlık Metinleri -->
           <div class="flex flex-col justify-center">
-            <span id="displayClubTitle1" class="text-base sm:text-xl lg:text-2xl font-black tracking-tight text-brandBlue leading-none group-hover:text-brandDarkBlue transition">ANKARA AKTİF GENÇ</span>
-            <span id="displayClubTitle2" class="text-[9px] sm:text-[10px] lg:text-xs font-black text-slate-600 tracking-[0.22em] uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
+            <span id="displayClubTitle1" class="text-xs sm:text-sm lg:text-base font-black tracking-tight text-slate-900 leading-none group-hover:text-brandBlue transition">
+              ANKARA AKTİF GENÇ
+            </span>
+            <span id="displayClubTitle2" class="text-[8px] sm:text-[9px] font-extrabold text-brandBlue tracking-widest uppercase mt-1 leading-none">
+              SPOR KULÜBÜ
+            </span>
           </div>
         </a>
 
         <!-- Masaüstü Menü -->
-        <nav class="hidden lg:flex items-center space-x-5 font-bold text-xs uppercase tracking-wider text-slate-600">
+        <nav class="hidden lg:flex items-center space-x-4 font-bold text-xs uppercase tracking-wider text-slate-600">
           <a href="javascript:showSection('homePage')" class="hover:text-brandBlue transition px-2 py-1">Ana Sayfa</a>
           <a href="javascript:showSection('aboutPage')" class="hover:text-brandBlue transition px-2 py-1">Hakkımızda</a>
           <a href="javascript:showSection('activitiesPage')" class="hover:text-brandBlue transition px-2 py-1">Faaliyetler</a>
@@ -152,7 +161,7 @@
       <a href="javascript:showSection('homePage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Ana Sayfa</a>
       <a href="javascript:showSection('aboutPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Hakkımızda</a>
       <a href="javascript:showSection('activitiesPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Faaliyetler</a>
-      <a href="javascript:showSection('rankingsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Puan Durumu & MVP</a>
+      <a href="javascript:showSection('rankingsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Puan Durumu</a>
       <a href="javascript:showSection('eventsPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Etkinlik Takvimi</a>
       <a href="javascript:showSection('galleryPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Galeri</a>
       <a href="javascript:showSection('teamPage')" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Liderlerimiz</a>
@@ -178,14 +187,14 @@
           </button>
         </div>
         <p id="displayHeroSub" class="text-white/90 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-          Ankara Genç Spor Kulübü olarak gençlerimizi doğa kampları, doğa yürüyüşleri ve gençlik etkinlikleriyle buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.
+          Ankara Aktif Genç Spor Kulübü olarak gençlerimizi doğa kampları, fidan dikimleri ve gençlik buluşmalarıyla buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.
         </p>
         <div class="flex flex-wrap justify-center gap-3 pt-2">
           <button onclick="showSection('applicationPage')" class="px-7 py-3.5 bg-brandRed hover:bg-brandDarkRed text-white rounded-2xl text-xs font-black shadow-lg transition flex items-center gap-2">
             <i class="fa-solid fa-paper-plane"></i> Hemen Ön Başvuru Yap
           </button>
           <button onclick="showSection('rankingsPage')" class="px-6 py-3.5 bg-white/20 hover:bg-white/30 text-white rounded-2xl text-xs font-black border border-white/30 transition flex items-center gap-2">
-            <i class="fa-solid fa-trophy"></i> Puan Durumu & MVP
+            <i class="fa-solid fa-trophy"></i> Puan Durumu
           </button>
           <button onclick="showSection('eventsPage')" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-xs font-black border border-white/20 transition flex items-center gap-2">
             <i class="fa-solid fa-calendar-days"></i> Etkinlik Takvimi
@@ -203,18 +212,18 @@
           </div>
           <div>
             <h4 class="font-black text-sm text-brandNavy">Kulüp Faaliyetlerimiz</h4>
-            <p class="text-[11px] text-slate-400">Doğa Kampları • Trekking • Çevre & Ağaçlandırma</p>
+            <p class="text-[11px] text-slate-400">Doğa Kampları • Fidan Dikimi • Kültür Gezileri • Halısaha</p>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4 w-full md:w-auto">
           <div class="bg-slate-50 border border-slate-200 px-6 py-2.5 rounded-2xl text-center">
-            <span id="statTotalAthletes" class="text-2xl font-black text-brandNavy">5</span>
+            <span id="statTotalAthletes" class="text-2xl font-black text-brandNavy">120+</span>
             <span class="block text-[10px] uppercase font-bold text-slate-400">Kayıtlı Genç</span>
           </div>
           <div class="bg-slate-50 border border-slate-200 px-6 py-2.5 rounded-2xl text-center">
-            <span id="statTotalTeams" class="text-2xl font-black text-brandNavy">3</span>
-            <span class="block text-[10px] uppercase font-bold text-slate-400">Aktif Ekip</span>
+            <span id="statTotalTeams" class="text-2xl font-black text-brandNavy">18</span>
+            <span class="block text-[10px] uppercase font-bold text-slate-400">Kulüp Lideri</span>
           </div>
         </div>
 
@@ -226,45 +235,58 @@
       </div>
     </section>
 
-    <!-- KULÜP TANITIM VİDEOSU -->
-    <section class="py-12 max-w-6xl mx-auto px-4">
-      <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-800">
-        <div class="flex flex-col lg:flex-row items-center gap-8">
-          <div class="lg:w-1/2 space-y-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 bg-brandRed/20 text-brandRed border border-brandRed/30 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
-              <i class="fa-solid fa-play text-[9px]"></i> KULÜP TANITIM FİLMİ
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-black text-white leading-tight">
-              Gençliğin Enerjisi, Doğanın Huzuruyla Buluşuyor!
-            </h2>
-            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
-              Ankara Aktif Genç Spor Kulübü Derneği olarak düzenlediğimiz çadırlı doğa kampları, fidan dikim projeleri ve gençlik buluşmalarımızın coşkusunu izleyin.
-            </p>
-            <div class="pt-2 flex flex-wrap gap-3">
-              <a href="https://www.instagram.com/ankaraaktifspor" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 bg-gradient-to-r from-pink-600 to-rose-600 hover:opacity-90 text-white font-bold rounded-xl text-xs flex items-center gap-2 transition shadow">
-                <i class="fa-brands fa-instagram text-sm"></i> @ankaraaktifspor Takip Et
-              </a>
-            </div>
-          </div>
-          <div class="lg:w-1/2 w-full">
-            <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700 bg-black aspect-video">
-              <iframe id="homePromoVideoIframe" src="https://www.youtube.com/embed/tKuqwtJZ7-0" title="Kulüp Tanıtım Videosu" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          </div>
+    <!-- KULÜP TANITIM FİLMİ (ÇOK YAKINDA VİTRİNİ) -->
+    <section class="py-12 max-w-5xl mx-auto px-4">
+      <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-slate-800 text-center space-y-4">
+        <div class="w-16 h-16 rounded-2xl bg-white/10 text-rose-500 flex items-center justify-center text-3xl mx-auto shadow-inner">
+          <i class="fa-solid fa-clapperboard animate-bounce"></i>
+        </div>
+        <span class="px-3.5 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] font-black rounded-full uppercase tracking-widest inline-block">
+          SİNEMATİK TANITIM
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-black">Kulüp Tanıtım Filmi • Çok Yakında</h3>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
+          Gençlerimizin doğa kampları, fidan dikimleri ve saha etkinliklerindeki unutulmaz anlarını derlediğimiz resmi tanıtım filmimiz kurgu aşamasındadır.
+        </p>
+        <div class="pt-2 flex flex-wrap justify-center gap-3">
+          <a href="https://www.instagram.com/ankaraaktifspor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white rounded-xl text-xs font-bold hover:opacity-90 transition shadow">
+            <i class="fa-brands fa-instagram text-sm"></i> Instagram'dan Bizi Takip Edin
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- DUYURULAR BÖLÜMÜ -->
-    <section class="py-6 max-w-6xl mx-auto px-4">
-      <div class="flex items-center justify-between mb-6">
-        <div>
-          <span class="text-xs font-black uppercase text-brandRed tracking-widest block">GÜNCEL BİLGİLENDİRME</span>
-          <h2 class="text-2xl sm:text-3xl font-black text-brandNavy">Kulüp Duyuruları</h2>
-        </div>
-        <button onclick="showSection('eventsPage')" class="text-xs font-bold text-brandBlue hover:underline">Tümünü Gör →</button>
+    <!-- DUYURULAR BÖLÜMÜ (AFİŞ FOTOĞRAFI VİTRİNİ) -->
+    <section class="py-6 max-w-5xl mx-auto px-4">
+      <div class="text-center space-y-2 mb-8">
+        <span class="text-xs font-black uppercase text-brandRed tracking-widest">KAYIT DÖNEMİ</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-brandNavy">Kulüp Duyuruları</h2>
+        <p class="text-xs text-slate-500">Yeni dönem kayıtlarımız başlamıştır. Detaylı bilgi için afişimizi inceleyebilirsiniz.</p>
       </div>
-      <div id="homeAnnouncementsGrid" class="grid md:grid-cols-2 gap-6"></div>
+
+      <!-- AFİŞ KARTI -->
+      <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-4 sm:p-6 shadow-2xl border border-slate-200 max-w-2xl mx-auto overflow-hidden group">
+        <div class="relative rounded-2xl overflow-hidden cursor-pointer" onclick="showSection('applicationPage')">
+          <img 
+            src="WhatsApp Image 2026-09-09 at 13.45.46_2.jpg" 
+            alt="Kayıtlar Başlıyor - Ankara Aktif Genç Spor Kulübü"
+            onerror="this.onerror=null; this.src='WhatsApp Image 2026-09-09 at 13.45.46.jpg'; this.onerror=()=>this.src='https://placehold.co/900x900/0B72BA/ffffff?text=KAYITLAR+BA%C5%9ELIYO!+Aktif+Gen%C3%A7lik+Seni+Bekliyor';"
+            class="w-full h-auto object-cover rounded-2xl transition duration-500 group-hover:scale-102"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+            <span class="px-4 py-2 bg-brandRed text-white text-xs font-bold rounded-xl shadow">Hemen Başvuru Yap &gt;</span>
+          </div>
+        </div>
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-white">
+          <div>
+            <h3 class="font-extrabold text-base sm:text-lg">Kayıtlar Başlıyor! Aktif Gençlik Seni Bekliyor</h3>
+            <p class="text-xs text-slate-300">Doğada, sahada, hayatın her alanında bizimle ol.</p>
+          </div>
+          <button onclick="showSection('applicationPage')" class="shrink-0 w-full sm:w-auto px-5 py-2.5 bg-brandRed hover:bg-brandDarkRed text-white text-xs font-black rounded-xl transition shadow">
+            <i class="fa-solid fa-paper-plane mr-1"></i> Ön Başvuru Yap
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- ÖNE ÇIKAN KARTLAR -->
@@ -272,7 +294,7 @@
       <div onclick="showSection('aboutPage')" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm cursor-pointer hover:border-brandBlue transition space-y-3">
         <div class="w-12 h-12 rounded-2xl bg-blue-100 text-brandBlue flex items-center justify-center text-xl">ℹ️</div>
         <h3 class="font-black text-base text-brandNavy">Kulübümüz Hakkında</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Gençlerimizi doğayla buluşturan misyonumuz, vizyonumuz ve kulüp değerlerimiz hakkında bilgi edinin.</p>
+        <p class="text-xs text-slate-500 leading-relaxed">Öncelikli hedefimiz, felsefemiz ve kulüp değerlerimiz hakkında bilgi edinin.</p>
         <span class="text-xs font-bold text-brandBlue flex items-center gap-1">Devamını Oku →</span>
       </div>
 
@@ -285,8 +307,8 @@
 
       <div onclick="showSection('rankingsPage')" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm cursor-pointer hover:border-brandBlue transition space-y-3">
         <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl">🏆</div>
-        <h3 class="font-black text-base text-brandNavy">Puan Durumu & MVP</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Haftanın MVP sporcusunu, ekip puan sıralamalarını ve sporcu derecelerini canlı takip edin.</p>
+        <h3 class="font-black text-base text-brandNavy">Puan Durumu</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Yeni sezon hazırlıklarımız ve gençlik puanlama sistemimiz hakkında bilgi edinin.</p>
         <span class="text-xs font-bold text-amber-600 flex items-center gap-1">Sıralamayı Gör →</span>
       </div>
     </section>
@@ -299,7 +321,7 @@
         <span class="text-xs font-black uppercase text-brandRed tracking-widest">KULÜP HAKKINDA</span>
         <h2 id="displayAboutTitle" class="text-3xl sm:text-4xl font-black">Doğada Güçlenen, Disiplinli Gençler</h2>
         <p id="displayAboutDesc" class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-3xl">
-          Ankara Genç Spor Kulübü Derneği; gençlerimizi şehir stresinden, dijital bağımlılıklardan ve pasif yaşam tarzından uzak tutarak doğa sporları, çadır kampları ve doğa yürüyüşleriyle buluşturuyor.
+          Ankara Aktif Genç Spor Kulübü; gençlerimizi şehir stresinden, dijital bağımlılıklardan ve pasif yaşam tarzından uzak tutarak doğa sporları, çadır kampları ve doğa yürüyüşleriyle buluşturuyor.
         </p>
         <button onclick="openContentEditModal()" class="admin-edit-badge hidden absolute top-6 right-6 px-3 py-1 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow cursor-pointer">
           <i class="fa-solid fa-pen"></i> Metinleri Düzenle
@@ -310,22 +332,28 @@
         <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs space-y-2">
           <span id="displayAboutStat1Num" class="text-4xl font-black text-brandBlue">120+</span>
           <h4 id="displayAboutStat1Label" class="font-black text-sm text-brandNavy uppercase">AKTİF GENÇ</h4>
-          <p class="text-xs text-slate-500">Ortaokul, lise ve üniversite çağındaki gençlerimiz kulüp bünyesinde faaliyetlerini sürdürmektedir.</p>
+          <p class="text-xs text-slate-500">İlkokul, ortaokul, lise ve üniversite çağındaki gençlerimiz kulüp bünyesinde faaliyetlerini sürdürmektedir.</p>
         </div>
         <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs space-y-2">
-          <span id="displayAboutStat2Num" class="text-4xl font-black text-brandRed">14+</span>
+          <span id="displayAboutStat2Num" class="text-4xl font-black text-brandRed">18+</span>
           <h4 id="displayAboutStat2Label" class="font-black text-sm text-brandNavy uppercase">KULÜP LİDERİ</h4>
-          <p class="text-xs text-slate-500">Alanında uzman doğa liderleri rehberliğinde gençlik kampları ve açık hava organizasyonları düzenlenir.</p>
+          <p class="text-xs text-slate-500">Alanında uzman liderlerimiz rehberliğinde gençlik kampları ve açık hava organizasyonları düzenlenir.</p>
         </div>
       </div>
 
-      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-        <h3 class="text-xl font-black text-brandNavy flex items-center gap-2">
-          <i class="fa-solid fa-bullseye text-brandBlue"></i> Misyonumuz & Vizyonumuz
-        </h3>
-        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-          <b>Misyonumuz:</b> <span id="displayMisyonText">Gençlerimize takım çalışması, özgüven, doğa sevgisi, fiziksel dayanıklılık ve liderlik vizyonu kazandırmak. Doğa şartlarında zorluklarla mücadele etmeyi öğreterek onları geleceğin donanımlı bireyleri yapmaktır.</span><br><br>
-          <b>Vizyonumuz:</b> <span id="displayVizyonText">Türkiye genelinde doğa sporları ve gençlik kampları alanında örnek gösterilen, ahlaklı ve donanımlı liderler yetiştiren öncü bir kulüp olmak.</span>
+      <!-- ÖNCELİKLİ HEDEFİMİZ (KURUMSAL FELSEFEMİZ) -->
+      <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-800 space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-brandBlue flex items-center justify-center text-xl text-white shadow">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-black uppercase text-sky-400 tracking-wider">KURUMSAL FELSEFEMİZ</span>
+            <h3 class="text-xl sm:text-2xl font-black">Öncelikli Hedefimiz</h3>
+          </div>
+        </div>
+        <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-medium">
+          "Öncelikli hedefimiz, her işinde sağduyulu sevgiyi esas alan, hayatın her alanında var oluş gayesine uygun bir yaşam tarzını içselleştirip yaşamaya gayret eden, her türlü ayrımcılıktan uzak bir şekilde önyargıları kırarak birbirini anlamak için daha fazla çaba sarf etmeye istekli, gönül ve zihinleri açık, sağduyulu, haysiyetli, olumlu nitelikli bireylerin yetişmesidir."
         </p>
       </div>
     </div>
@@ -352,124 +380,75 @@
             <p class="text-xs text-white/90">Faaliyetlerimizi ve anlık kamp hikayelerimizi Instagram'dan takip edin.</p>
           </div>
         </div>
-        <a href="https://www.instagram.com/ankaraaktifspor?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-white text-pink-700 hover:bg-slate-100 rounded-2xl font-black text-xs transition shadow shrink-0 flex items-center gap-2">
+        <a href="https://www.instagram.com/ankaraaktifspor" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-white text-pink-700 hover:bg-slate-100 rounded-2xl font-black text-xs transition shadow shrink-0 flex items-center gap-2">
           Profili Ziyaret Et <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
         </a>
       </div>
 
-      <!-- Son 5 Faaliyet Listesi -->
+      <!-- 5 Faaliyet Listesi -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- 1. Faaliyet -->
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
           <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl">🏕️</div>
           <span class="text-[10px] font-black uppercase text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">KAMP PROGRAMI</span>
           <h3 class="font-black text-base text-brandNavy">Doğa Kampları & Çadırlı Yaşam</h3>
           <p class="text-xs text-slate-500 leading-relaxed">
-            Kızılcahamam Çamkoru ve Ankara çevresi doğal alanlarda hafta sonu çadırlı kamplar, çadır kurma eğitimleri, doğa yürüyüşleri (trekking) ve ateş başı gençlik liderliği hasbihalleri.
+            Hafta sonu doğa kampları, çadır kurma pratikleri, doğa yürüyüşleri (trekking) ve ateş başı gençlik hasbihalleri ile doğayla iç içe yaşam becerileri.
           </p>
         </div>
 
-        <!-- 2. Faaliyet -->
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
           <div class="w-12 h-12 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center text-2xl">🌱</div>
           <span class="text-[10px] font-black uppercase text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full border border-green-200">ÇEVRE SEFERBERLİĞİ</span>
           <h3 class="font-black text-base text-brandNavy">"Dikili Ağacım Var" Fidan Dikimi</h3>
           <p class="text-xs text-slate-500 leading-relaxed">
-            Gençlerimizin çevre ve tabiat bilincini geliştirmek için düzenlediğimiz ağaçlandırma günleri. Gençlerimiz elleriyle fidanları toprakla buluşturup doğaya nefes oluyor.
+            Gençlerimizin çevre bilincini geliştirmek üzere her birinin kendi fidanını toprakla buluşturduğu ağaçlandırma seferberliği.
           </p>
         </div>
 
-        <!-- 3. Faaliyet -->
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
           <div class="w-12 h-12 rounded-2xl bg-blue-100 text-brandBlue flex items-center justify-center text-2xl">🏛️</div>
           <span class="text-[10px] font-black uppercase text-brandBlue bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">TARİH & MEDENİYET</span>
           <h3 class="font-black text-base text-brandNavy">Ankara Kültür ve Tarih Gezileri</h3>
           <p class="text-xs text-slate-500 leading-relaxed">
-            Kardeş kulüplerimiz ve gençlerimizle başkentimizin manevi ve tarihi merkezlerine (Tacettin Dergahı, Hamamönü, Hacı Bayram-ı Veli) yönelik keşif ve medeniyet turları.
+            Kardeş kulüplerimizle Ankara'nın manevi ve tarihi miras duraklarını keşfettiğimiz bilgilendirici medeniyet turları.
           </p>
         </div>
 
-        <!-- 4. Faaliyet -->
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
           <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl">⚽</div>
           <span class="text-[10px] font-black uppercase text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">SPOR & DOSTLUK</span>
-          <h3 class="font-black text-base text-brandNavy">Aktif Ekipler Halısaha Turnuvası</h3>
+          <h3 class="font-black text-base text-brandNavy">Aktif Halısaha Turnuvaları</h3>
           <p class="text-xs text-slate-500 leading-relaxed">
-            Gençlerimizin fiziksel zindeliğini destekleyen, spor ahlakını ve centilmenlik ruhunu pekiştiren kulüp içi ekipler arası dostluk turnuvaları ve spor günleri.
+            Gençlerimizin centilmenlik ve takım ruhunu pekiştirdiği kulüp içi halısaha maçları ve dostluk spor etkinlikleri.
           </p>
         </div>
 
-        <!-- 5. Faaliyet -->
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3 md:col-span-2 lg:col-span-2">
           <div class="w-12 h-12 rounded-2xl bg-rose-100 text-brandRed flex items-center justify-center text-2xl">🤝</div>
           <span class="text-[10px] font-black uppercase text-brandRed bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200">SOSYAL SORUMLULUK & VEFA</span>
           <h3 class="font-black text-base text-brandNavy">"Dedeciğim Ben Geldim" Ziyaretleri</h3>
           <p class="text-xs text-slate-500 leading-relaxed">
-            Büyüklerimize vefa göstermek, dualarını almak ve nesiller arası köprü kurmak amacıyla gençlerimizle gerçekleştirdiğimiz huzurevi ve ulu çınar ziyaretleri.
+            Büyüklerimizin duasını almak, kuşaklar arası bağı kuvvetlendirmek ve vefa bilinci kazanmak üzere gerçekleştirdiğimiz anlamlı sosyal sorumluluk buluşmaları.
           </p>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- SAYFA 4: PUAN DURUMU SAYFASI -->
+  <!-- SAYFA 4: PUAN DURUMU SAYFASI (YENİ DÖNEM BOŞ / ÇOK YAKINDA) -->
   <main id="rankingsPage" class="hidden flex-grow py-12">
-    <div class="max-w-6xl mx-auto px-4 space-y-8">
+    <div class="max-w-5xl mx-auto px-4 space-y-8">
       <div class="text-center space-y-1">
         <span class="text-xs font-black uppercase text-brandRed tracking-widest">PUAN VE PERFORMANS TAKİBİ</span>
         <h2 class="text-3xl font-black text-brandNavy">Kulüp Puan Durumu & Ekip Sıralaması</h2>
-        <p class="text-xs text-slate-500">Etkinlik katılımları, kitap okuma, çevre temizliği ve görev puanları ile güncellenir.</p>
+        <p class="text-xs text-slate-500">Etkinlik katılımları, kitap okuma, çevre temizliği ve takım görev puanları ile güncellenir.</p>
       </div>
 
-      <!-- MVP KARTI -->
-      <div class="bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-3xl p-6 shadow-xl flex items-center justify-between">
-        <div>
-          <span class="px-3 py-1 bg-amber-700/50 text-amber-100 font-extrabold text-[10px] rounded-full uppercase tracking-wider inline-block mb-2">
-            HAFTANIN BİRİNCİSİ (MVP)
-          </span>
-          <h3 id="rankingsMvpName" class="text-3xl font-black">Burak Kaya</h3>
-          <p id="rankingsMvpTeam" class="text-xs text-amber-100 mt-1">Ekip: Fırtına Ekibi</p>
-        </div>
-        <div class="bg-amber-800/40 border border-amber-300/30 px-6 py-4 rounded-2xl text-center shrink-0">
-          <span id="rankingsMvpPoints" class="text-3xl sm:text-4xl font-black text-white">240</span>
-          <span class="block text-[10px] uppercase font-bold text-amber-200">Toplam Puan</span>
-        </div>
-      </div>
-
-      <!-- EKİP SIRALAMASI -->
-      <div class="space-y-3">
-        <h3 class="font-black text-sm text-brandNavy flex items-center gap-2">
-          <i class="fa-solid fa-users text-brandBlue"></i> Ekip Puan Sıralaması
-        </h3>
-        <div id="homeTeamCardsGrid" class="grid sm:grid-cols-2 gap-4"></div>
-      </div>
-
-      <!-- SPORCU SIRALAMA TABLOSU -->
-      <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs space-y-4">
-        <div class="p-6 border-b border-slate-100">
-          <h3 class="font-black text-sm text-brandNavy flex items-center gap-2">
-            <i class="fa-solid fa-list-ol text-brandRed"></i> Gençler Sıralama Tablosu
-          </h3>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-slate-600">
-            <thead class="bg-slate-50 text-slate-700 uppercase tracking-wider border-b border-slate-200 font-bold">
-              <tr>
-                <th class="px-6 py-4">DERECE</th>
-                <th class="px-6 py-4">AD SOYAD</th>
-                <th class="px-6 py-4">EKİP</th>
-                <th class="px-6 py-4 text-center">KATILIM (%)</th>
-                <th class="px-6 py-4 text-center">PUAN</th>
-              </tr>
-            </thead>
-            <tbody id="homeAthletesTableBody" class="divide-y divide-slate-100"></tbody>
-          </table>
-        </div>
-      </div>
+      <div id="rankingsDisplayContainer"></div>
     </div>
   </main>
 
-  <!-- SAYFA 5: ETKİNLİK TAKVİMİ SAYFASI (LİSTE GÖRÜNÜMÜ) -->
+  <!-- SAYFA 5: ETKİNLİK TAKVİMİ SAYFASI (AJANDA) -->
   <main id="eventsPage" class="hidden flex-grow py-12">
     <div class="max-w-5xl mx-auto px-4 space-y-8">
       <div class="text-center space-y-1">
@@ -478,12 +457,11 @@
         <p class="text-xs text-slate-500">Planlanan doğa kampları, fidan dikimleri, turnuvalar ve lider duyuruları.</p>
       </div>
 
-      <!-- Etkinlik Liste Akışı -->
       <div id="eventsListContainer" class="space-y-4"></div>
     </div>
   </main>
 
-  <!-- SAYFA 5.5: GALERİ SAYFASI (VİDEO VE RESİMLER) -->
+  <!-- SAYFA 5.5: GALERİ SAYFASI -->
   <main id="galleryPage" class="hidden flex-grow py-12">
     <div class="max-w-6xl mx-auto px-4 space-y-8">
       <div class="text-center space-y-1">
@@ -496,7 +474,7 @@
     </div>
   </main>
 
-  <!-- SAYFA 6: LİDERLERİMİZ SAYFASI -->
+  <!-- SAYFA 6: LİDERLERİMİZ SAYFASI (18 LİDER) -->
   <main id="teamPage" class="hidden flex-grow py-12">
     <div class="max-w-6xl mx-auto px-4 space-y-8">
       <div class="text-center space-y-1">
@@ -505,19 +483,8 @@
         <p class="text-xs text-slate-500">Gençlerimize rehberlik eden kıymetli lider kadromuz.</p>
       </div>
 
-      <!-- 14 Lider Kartı Izgarası -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <!-- Liderler JS dinamik veya statik -->
-        <script>
-          const LEADERS_NAMES = [
-            "Muhammed Arda Gül", "Yasin Darendeli", "F. Gökhan Abay", "N. Ertan Pişkin",
-            "Davut Arı", "Samet Tosun", "Kerem Kavun", "H. Emir Gürbüz",
-            "Hüsrev Ünal", "Esad Aydemir", "Mustafa Nurettin Arslan", "Saleh Djobsou",
-            "Fatih Çolak", "Ahmet Ziyaüddin Okutan"
-          ];
-        </script>
-        <div id="leadersStaticGrid" class="contents"></div>
-      </div>
+      <!-- 18 Lider Kartı Izgarası -->
+      <div id="leadersStaticGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
     </div>
   </main>
 
@@ -548,7 +515,7 @@
     </div>
   </main>
 
-  <!-- SAYFA 8: GÜNCELLENMİŞ ÖN BAŞVURU SAYFASI -->
+  <!-- SAYFA 8: ÖN BAŞVURU SAYFASI -->
   <main id="applicationPage" class="hidden flex-grow py-12">
     <div class="max-w-2xl mx-auto px-4 space-y-6">
       <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-xl space-y-6">
@@ -556,7 +523,7 @@
           <div class="w-12 h-12 rounded-2xl bg-rose-100 text-brandRed flex items-center justify-center text-2xl mx-auto shadow-xs">
             <i class="fa-solid fa-file-signature"></i>
           </div>
-          <h2 class="text-2xl font-black text-brandNavy">Genç Sporcu Ön Başvuru Formu</h2>
+          <h2 class="text-2xl font-black text-brandNavy">Kulüp Ön Başvuru Formu</h2>
           <p class="text-xs text-slate-500 max-w-md mx-auto">Kulübümüze katılmak için lütfen aşağıdaki bilgileri eksiksiz doldurunuz. Liderlerimiz en kısa sürede sizinle iletişime geçecektir.</p>
         </div>
 
@@ -564,14 +531,14 @@
           <!-- Öğrenci Ad Soyad -->
           <div>
             <label class="block font-bold text-slate-700 uppercase mb-1">Öğrenci Adı Soyadı *</label>
-            <input type="text" id="regStudentName" required placeholder="Örn: Yusuf Emre Demir" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
+            <input type="text" id="regStudentName" required placeholder="Öğrencinin tam adı..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
           </div>
 
           <!-- Doğum Tarihi & Eğitim Kademesi -->
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
               <label class="block font-bold text-slate-700 uppercase mb-1">Doğum Tarihi (Gün/Ay/Yıl) *</label>
-              <input type="date" id="regBirthDate" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
+              <input type="date" id="regBirthDate" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue font-semibold text-slate-700">
             </div>
             <div>
               <label class="block font-bold text-slate-700 uppercase mb-1">Eğitim Kademesi *</label>
@@ -589,19 +556,19 @@
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
               <label class="block font-bold text-slate-700 uppercase mb-1">Veli Adı Soyadı *</label>
-              <input type="text" id="regParentName" required placeholder="Örn: Ali Demir" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
+              <input type="text" id="regParentName" required placeholder="Anne veya Baba Adı..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
             </div>
             <div>
               <label class="block font-bold text-slate-700 uppercase mb-1">Veli Telefon Numarası *</label>
-              <input type="tel" id="regParentPhone" required placeholder="05XX XXX XX XX" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
+              <input type="tel" id="regParentPhone" required placeholder="05XXXXXXXXX" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue font-mono">
             </div>
           </div>
 
-          <!-- Katılmak İstediği Yer -->
+          <!-- Katılmak İstediği Yer (4 Seçenek) -->
           <div>
-            <label class="block font-bold text-slate-700 uppercase mb-1">Katılmak İstediği Kulüp Merkezi *</label>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Katılmak İstediği Yer *</label>
             <select id="regClubLocation" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue font-semibold text-slate-700">
-              <option value="" disabled selected>Kulüp Merkezini Seçiniz</option>
+              <option value="" disabled selected>Katılmak İstediğiniz Yeri Seçiniz</option>
               <option value="Keçiören Aktif Kulüp Merkezi- İlkokul">Keçiören Aktif Kulüp Merkezi- İlkokul</option>
               <option value="Keçiören Aktif Kulüp Merkezi- Ortaokul">Keçiören Aktif Kulüp Merkezi- Ortaokul</option>
               <option value="Keçiören Aktif Kulüp Merkezi- Lise">Keçiören Aktif Kulüp Merkezi- Lise</option>
@@ -612,7 +579,7 @@
           <!-- Nasıl Haberdar Oldunuz -->
           <div>
             <label class="block font-bold text-slate-700 uppercase mb-1">Kulübümüzden Nasıl Haberdar Oldunuz? *</label>
-            <select id="regReferral" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue font-semibold text-slate-700">
+            <select id="regReferral" onchange="handleReferralChange(this)" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue font-semibold text-slate-700">
               <option value="" disabled selected>Bir seçenek belirleyin</option>
               <option value="Sosyal Medya (Instagram / YouTube)">Sosyal Medya (Instagram / YouTube)</option>
               <option value="Arkadaş / Aile Tavsiyesi">Arkadaş / Aile Tavsiyesi</option>
@@ -622,12 +589,18 @@
             </select>
           </div>
 
+          <!-- Diğer Seçildiğinde Açılan Metin Kutusu -->
+          <div id="referralOtherContainer" class="hidden">
+            <label class="block font-bold text-slate-700 uppercase mb-1">Lütfen Belirtiniz *</label>
+            <input type="text" id="regReferralOther" placeholder="Nasıl haberdar olduğunuzu yazınız..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
+          </div>
+
           <div class="pt-2">
             <button type="submit" class="w-full py-4 bg-brandRed hover:bg-brandDarkRed text-white font-black rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2">
               <i class="fa-solid fa-check-circle"></i> Ön Başvuruyu Gönder
             </button>
           </div>
-          <p class="text-[11px] text-slate-400 text-center">Bilgileriniz sadece kulüp liderlerimiz tarafından kayıt ve iletişim amacıyla kullanılacaktır.</p>
+          <p class="text-[11px] text-slate-400 text-center">Bilgileriniz sadece kulüp liderlerimiz tarafından kayıt ve bilgilendirme amacıyla kullanılacaktır.</p>
         </form>
       </div>
     </div>
@@ -690,17 +663,19 @@
     <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-xs">
       <div class="space-y-3">
         <!-- Footer İçin Resmi Logo ve Yazı -->
-        <div class="flex items-center space-x-3 bg-white/95 p-3 rounded-2xl shadow-sm mb-3 w-fit">
-          <svg class="h-10 sm:h-11 w-auto" viewBox="185 -5 540 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 504 0 L 715 190 L 607 190 L 504 94 L 195 288 Z" fill="#0B72BA" />
-            <circle cx="504" cy="182" r="60" fill="#E30613" />
-          </svg>
+        <div class="flex items-center space-x-3 bg-white p-2.5 rounded-2xl shadow-sm mb-3 w-fit">
+          <img 
+            src="Aktif logo1.1_2.png" 
+            alt="Ankara Aktif Genç Spor Kulübü Logo" 
+            class="h-10 sm:h-11 w-auto object-contain"
+            onerror="this.onerror=null; this.src='Aktif logo1.1.png';"
+          >
           <div class="flex flex-col">
-            <span class="text-sm sm:text-base font-black text-brandBlue leading-none">ANKARA AKTİF GENÇ</span>
-            <span class="text-[8px] sm:text-[9px] font-black text-slate-700 tracking-widest uppercase mt-1">SPOR KULÜBÜ DERNEĞİ</span>
+            <span class="text-xs sm:text-sm font-black text-slate-900 leading-tight">ANKARA AKTİF GENÇ</span>
+            <span class="text-[8px] sm:text-[9px] font-extrabold text-brandBlue tracking-widest uppercase mt-0.5">SPOR KULÜBÜ</span>
           </div>
         </div>
-        <h4 id="displayFooterTitle" class="text-base font-black text-white">ANKARA AKTİF GENÇ SPOR KULÜBÜ DERNEĞİ</h4>
+        <h4 id="displayFooterTitle" class="text-base font-black text-white">ANKARA AKTİF GENÇ SPOR KULÜBÜ</h4>
         <p class="text-slate-400 leading-relaxed">
           Doğa sporları, gençlik kampları, fidan dikimleri ve liderlik faaliyetleriyle gençliğin hizmetindeyiz.
         </p>
@@ -716,7 +691,7 @@
           <li><a href="javascript:showSection('homePage')" class="hover:text-white transition">Ana Sayfa</a></li>
           <li><a href="javascript:showSection('aboutPage')" class="hover:text-white transition">Hakkımızda</a></li>
           <li><a href="javascript:showSection('activitiesPage')" class="hover:text-white transition">Faaliyetlerimiz</a></li>
-          <li><a href="javascript:showSection('rankingsPage')" class="hover:text-white transition">Puan Durumu & MVP</a></li>
+          <li><a href="javascript:showSection('rankingsPage')" class="hover:text-white transition">Puan Durumu</a></li>
           <li><a href="javascript:showSection('eventsPage')" class="hover:text-white transition">Etkinlik Takvimi</a></li>
           <li><a href="javascript:showSection('galleryPage')" class="hover:text-white transition">Medya Galerisi</a></li>
           <li><a href="javascript:showSection('teamPage')" class="hover:text-white transition">Liderlerimiz</a></li>
@@ -731,7 +706,7 @@
         </p>
         <p class="text-slate-400">
           <i class="fa-solid fa-envelope mr-1.5 text-emerald-400"></i> 
-          <a href="mailto:aktifspor6@gmail.com" class="hover:underline text-slate-300 font-semibold" id="displayFooterMail">aktifspor6@gmail.com</a>
+          <a href="mailto:aktifspor6@gmail.com" class="hover:underline text-slate-300 font-semibold font-mono" id="displayFooterMail">aktifspor6@gmail.com</a>
         </p>
         <div class="pt-2">
           <a href="https://maps.app.goo.gl/y8UzNP8Z6oqZvpaY7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow">
@@ -741,13 +716,11 @@
       </div>
     </div>
     <div class="max-w-6xl mx-auto px-4 mt-8 pt-6 border-t border-slate-800 text-center text-slate-500 text-[11px]">
-      © 2026 Ankara Aktif Genç Spor Kulübü Derneği. Tüm Hakları Saklıdır.
+      © 2026 Ankara Aktif Genç Spor Kulübü. Tüm Hakları Saklıdır.
     </div>
   </footer>
 
-  <!-- MODALLAR BÖLÜMÜ -->
-
-  <!-- MODAL 10: BAŞVURU YÖNETİMİ & GERİ BİLDİRİM PANELİ -->
+  <!-- MODAL: BAŞVURU YÖNETİMİ & GERİ BİLDİRİM PANELİ -->
   <div id="applicationsModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-3 sm:p-5 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-5xl w-full p-6 shadow-2xl relative max-h-[92vh] flex flex-col">
       <button onclick="closeApplicationsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -784,7 +757,7 @@
             <tr>
               <th class="px-4 py-3.5">Öğrenci & Yaş / Kademe</th>
               <th class="px-4 py-3.5">Veli İletişim</th>
-              <th class="px-4 py-3.5">Tercih Edilen Merkez</th>
+              <th class="px-4 py-3.5">Katılmak İstediği Yer</th>
               <th class="px-4 py-3.5">Haberdar Olma</th>
               <th class="px-4 py-3.5 text-center">Durum</th>
               <th class="px-4 py-3.5 text-center">Hızlı Geri Bildirim & İşlemler</th>
@@ -803,7 +776,7 @@
     </div>
   </div>
 
-  <!-- MODAL 0: SİTE METİNLERİNİ DÜZENLEME -->
+  <!-- MODAL: SİTE METİNLERİNİ DÜZENLEME -->
   <div id="contentEditModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
       <button onclick="closeContentEditModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -813,25 +786,21 @@
         </div>
         <div>
           <h3 class="font-extrabold text-base text-brandNavy">Site Metinleri & İçerik Yönetimi</h3>
-          <p class="text-[11px] text-slate-500">Ana Sayfa Başlığı, Video Bağlantısı ve Açıklamaları Düzenleyin.</p>
+          <p class="text-[11px] text-slate-500">Ana Sayfa Başlığı ve Açıklamaları Düzenleyin.</p>
         </div>
       </div>
       <form onsubmit="handleSaveSiteContent(event)" class="overflow-y-auto space-y-4 pr-1 flex-grow text-xs">
         <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
-          <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">Kulüp İsmi ve Video</h4>
+          <h4 class="font-black text-brandNavy uppercase text-[11px] border-b pb-1">Kulüp İsmi</h4>
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block font-bold text-slate-700 mb-1">KULÜP ANA İSMİ</label>
-              <input type="text" id="editClubTitle1" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
+              <input type="text" id="editClubTitle1" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-bold">
             </div>
             <div>
               <label class="block font-bold text-slate-700 mb-1">KULÜP ALT İSMİ</label>
-              <input type="text" id="editClubTitle2" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
+              <input type="text" id="editClubTitle2" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-bold">
             </div>
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">ANA SAYFA TANITIM VİDEOSU (YouTube Linki)</label>
-            <input type="text" id="editPromoVideoUrl" placeholder="https://youtu.be/... veya https://www.youtube.com/watch?v=..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl">
           </div>
         </div>
 
@@ -854,18 +823,13 @@
     </div>
   </div>
 
-  <!-- MODAL 1: PROFESYONEL LİDER DOĞRULAMA VE GİRİŞ MERKEZİ -->
+  <!-- MODAL: PROFESYONEL LİDER DOĞRULAMA VE GİRİŞ MERKEZİ -->
   <div id="loginModal" class="hidden fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4 backdrop-blur-md transition-all duration-300">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 overflow-hidden">
-      <!-- Arka Plan Dekoratif Işıltı -->
-      <div class="absolute -top-16 -right-16 w-36 h-36 bg-brandBlue/10 rounded-full blur-2xl pointer-events-none"></div>
-      <div class="absolute -bottom-16 -left-16 w-36 h-36 bg-brandRed/10 rounded-full blur-2xl pointer-events-none"></div>
-
       <button onclick="closeLoginModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-700 flex items-center justify-center transition">
         <i class="fa-solid fa-xmark text-sm"></i>
       </button>
 
-      <!-- Başlık & Kurumsal Rozet -->
       <div class="text-center space-y-2 mb-6">
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandNavy text-white text-[10px] font-black uppercase tracking-wider shadow-sm">
           <i class="fa-solid fa-shield-halved text-amber-400 text-xs"></i> LİDER YÖNETİM MERKEZİ
@@ -874,7 +838,6 @@
         <p class="text-xs text-slate-500 max-w-xs mx-auto">Kulüp yönetim paneline erişmek için yetkili lider kimliğinizi doğrulayın.</p>
       </div>
 
-      <!-- Giriş Yöntemi Seçim Sekmeleri -->
       <div class="flex items-center bg-slate-100 p-1 rounded-2xl mb-5 text-xs font-bold">
         <button type="button" id="tabPinMode" onclick="setLoginAuthMode('PIN')" class="flex-1 py-2 rounded-xl transition shadow-xs text-center flex items-center justify-center gap-2 bg-white text-brandNavy">
           <i class="fa-solid fa-key text-brandBlue"></i> 4 Haneli PIN
@@ -884,14 +847,12 @@
         </button>
       </div>
 
-      <!-- Hata Bildirimi -->
       <div id="loginErrorBox" class="hidden mb-4 p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2.5">
         <i class="fa-solid fa-circle-exclamation text-base shrink-0"></i>
         <span id="loginErrorMsg">E-posta adresi veya güvenlik kodu hatalı.</span>
       </div>
 
       <form onsubmit="handleLeaderEmailLogin(event)" class="space-y-4">
-        <!-- E-Posta Alanı (Generic Kurumsal Placeholder) -->
         <div>
           <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
             Yetkili Lider E-Postası
@@ -904,7 +865,6 @@
           </div>
         </div>
 
-        <!-- YÖNTEM 1: 4 HANELİ ETKİLEŞİMLİ PIN ALANI -->
         <div id="loginPinContainer" class="space-y-2">
           <div class="flex justify-between items-center">
             <label class="block text-xs font-black text-slate-700 uppercase tracking-wider">
@@ -920,7 +880,6 @@
           </div>
         </div>
 
-        <!-- YÖNTEM 2: STANDART PAROLA ALANI (GÖZ İKONLU) -->
         <div id="loginPasswordContainer" class="hidden space-y-1.5">
           <div class="flex justify-between items-center">
             <label class="block text-xs font-black text-slate-700 uppercase tracking-wider">
@@ -939,13 +898,11 @@
           </div>
         </div>
 
-        <!-- Giriş Butonu -->
         <button type="submit" id="loginSubmitBtn" class="w-full py-3.5 bg-gradient-to-r from-brandNavy to-brandBlue hover:from-slate-900 hover:to-brandDarkBlue text-white font-black rounded-2xl text-xs transition shadow-lg flex items-center justify-center gap-2 mt-2">
           <i class="fa-solid fa-right-to-bracket text-xs"></i>
           <span>Yönetim Paneline Giriş Yap</span>
         </button>
 
-        <!-- Güvenlik Bilgilendirmesi -->
         <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
           <span class="flex items-center gap-1.5">
             <i class="fa-solid fa-shield-check text-emerald-500"></i> 256-Bit SSL Koruma
@@ -1001,38 +958,7 @@
     </div>
   </div>
 
-  <!-- MODAL: DUYURU EKLE -->
-  <div id="announcementModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
-      <button onclick="closeAnnouncementModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-      <h3 class="font-extrabold text-base text-brandNavy mb-4">Yeni Duyuru Yayınla</h3>
-      <form onsubmit="handleSaveAnnouncement(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="block font-bold text-slate-700 uppercase mb-1">Duyuru Başlığı</label>
-          <input type="text" id="announcementTitleInput" required placeholder="Örn: Hafta Sonu Doğa Kampı Detayları" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block font-bold text-slate-700 uppercase mb-1">Etiket</label>
-            <input type="text" id="announcementTagInput" placeholder="Örn: ÖNEMLİ / KAMPLAR" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 uppercase mb-1">Tarih</label>
-            <input type="text" id="announcementDateInput" placeholder="Örn: 21 Ağustos 2026" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
-          </div>
-        </div>
-        <div>
-          <label class="block font-bold text-slate-700 uppercase mb-1">Duyuru Detayı</label>
-          <textarea id="announcementDescInput" rows="3" required placeholder="Duyurunun açıklaması..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl"></textarea>
-        </div>
-        <button type="submit" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition shadow mt-2">
-          Duyuruyu Yayınla
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL: ETKİNLİK EKLE -->
+  <!-- MODAL: ETKİNLİK EKLE (SERBEST KATEGORİ GİRİŞİ) -->
   <div id="eventModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeEventModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -1044,14 +970,8 @@
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block font-bold text-slate-700 uppercase mb-1">Kategori</label>
-            <select id="eventCategoryInput" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
-              <option value="DOĞA KAMPI">DOĞA KAMPI</option>
-              <option value="DOĞA YÜRÜYÜŞÜ">DOĞA YÜRÜYÜŞÜ</option>
-              <option value="ÇEVRE & FİDAN">ÇEVRE & FİDAN</option>
-              <option value="KÜLTÜR GEZİSİ">KÜLTÜR GEZİSİ</option>
-              <option value="TURNUVA">TURNUVA</option>
-            </select>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Kategori (Kendiniz Yazınız)</label>
+            <input type="text" id="eventCategoryInput" required placeholder="Örn: DOĞA KAMPI, ATÖLYE..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
           </div>
           <div>
             <label class="block font-bold text-slate-700 uppercase mb-1">Tarih</label>
@@ -1069,7 +989,38 @@
     </div>
   </div>
 
-  <!-- MODAL: GALERİ FOTOĞRAFI/VİDEOSU EKLE -->
+  <!-- MODAL: DUYURU EKLE -->
+  <div id="announcementModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeAnnouncementModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 class="font-extrabold text-base text-brandNavy mb-4">Yeni Duyuru Yayınla</h3>
+      <form onsubmit="handleSaveAnnouncement(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Duyuru Başlığı</label>
+          <input type="text" id="announcementTitleInput" required placeholder="Örn: Hafta Sonu Doğa Kampı Detayları" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Etiket</label>
+            <input type="text" id="announcementTagInput" placeholder="Örn: ÖNEMLİ" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Tarih</label>
+            <input type="text" id="announcementDateInput" placeholder="Örn: 21 Ağustos 2026" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+          </div>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Duyuru Detayı</label>
+          <textarea id="announcementDescInput" rows="3" required placeholder="Duyurunun açıklaması..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition shadow mt-2">
+          Duyuruyu Yayınla
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: GALERİ MEDYA EKLE -->
   <div id="galleryModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeGalleryModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -1092,7 +1043,7 @@
             <input type="text" id="galleryCategoryInput" placeholder="Örn: Doğa Kampı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
           </div>
           <div>
-            <label class="block font-bold text-slate-700 uppercase mb-1">URL (Görsel veya Video)</label>
+            <label class="block font-bold text-slate-700 uppercase mb-1">URL</label>
             <input type="url" id="galleryImgUrlInput" required placeholder="https://..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
           </div>
         </div>
@@ -1168,43 +1119,53 @@
       try { emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey }); } catch(e){}
     }
 
-    const APP_STORAGE_KEY = 'aag_app_data_v32';
+    /* 18 Lider Kadrosu (İlk sırada Yasin Darendeli) */
+    const LEADERS_DATA = [
+      { name: "Yasin Darendeli", email: "yasindrndl58@gmail.com", role: "Lider" },
+      { name: "Muhammed Arda Gül", email: "ardoli58@gmail.com", role: "Lider" },
+      { name: "F. Gökhan Abay", email: "gokhanabay86@gmail.com", role: "Lider" },
+      { name: "N. Ertan Pişkin", email: "ertan@aktifspor.org", role: "Lider" },
+      { name: "Davut Arı", email: "davut@aktifspor.org", role: "Lider" },
+      { name: "Samet Tosun", email: "samet@aktifspor.org", role: "Lider" },
+      { name: "Kerem Kavun", email: "kerem@aktifspor.org", role: "Lider" },
+      { name: "H. Emir Gürbüz", email: "emir@aktifspor.org", role: "Lider" },
+      { name: "Hüsrev Ünal", email: "husrev@aktifspor.org", role: "Lider" },
+      { name: "Esad Aydemir", email: "esad@aktifspor.org", role: "Lider" },
+      { name: "Mustafa Nurettin Arslan", email: "mustafa@aktifspor.org", role: "Lider" },
+      { name: "Saleh Djobsou", email: "saleh@aktifspor.org", role: "Lider" },
+      { name: "Fatih Çolak", email: "fatih@aktifspor.org", role: "Lider" },
+      { name: "Ahmet Ziyaüddin Okutan", email: "ziya@aktifspor.org", role: "Lider" },
+      { name: "Eyüphan Kaşukçu", email: "eyuphan@aktifspor.org", role: "Lider" },
+      { name: "Arif Çakmak", email: "arif@aktifspor.org", role: "Lider" },
+      { name: "Musa Uysal", email: "musa@aktifspor.org", role: "Lider" },
+      { name: "Önder Öz", email: "onder@aktifspor.org", role: "Lider" }
+    ];
+
+    const APP_STORAGE_KEY = 'aag_app_data_v41_clean';
 
     const INITIAL_DATA = {
       isAdmin: false,
       currentLeaderEmail: '',
       leaders: [
         { email: 'aktifspor6@gmail.com', name: 'Kulüp Yönetimi', password: '1234' },
-        { email: 'ardoli58@gmail.com', name: 'Muhammed Arda Gül', password: '1234' },
-        { email: 'gokhanabay86@gmail.com', name: 'F. Gökhan Abay', password: '1234' },
-        { email: 'yasindrndl58@gmail.com', name: 'Yasin Darendeli', password: '1234' },
-        { email: 'enesfazilejder01@gmail.com', name: 'Enes Fazıl Ejder', password: '1234' }
+        ...LEADERS_DATA.map(l => ({ email: l.email, name: l.name, password: '1234' }))
       ],
       siteContent: {
         clubTitle1: "ANKARA AKTİF GENÇ",
-        clubTitle2: "SPOR KULÜBÜ DERNEĞİ",
+        clubTitle2: "SPOR KULÜBÜ",
         heroBadge: "🏕️ DOĞA SPORLARI & GENÇLİK KAMPLARI KULÜBÜ",
         heroTitle: "Doğayla Buluş, Azminle Geleceğe Adım At!",
-        heroSub: "Ankara Genç Spor Kulübü olarak gençlerimizi doğa kampları, doğa yürüyüşleri ve gençlik etkinlikleriyle buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.",
-        promoVideoUrl: "https://www.youtube.com/embed/tKuqwtJZ7-0",
+        heroSub: "Ankara Aktif Genç Spor Kulübü olarak gençlerimizi doğa kampları, fidan dikimleri ve gençlik buluşmalarıyla buluşturuyor; liderlik ruhu, çevre bilinci ve takım dayanışması kazandırıyoruz.",
         aboutTitle: "Doğada Güçlenen, Disiplinli Gençler",
-        aboutDesc: "Ankara Genç Spor Kulübü Derneği; gençlerimizi şehir stresinden, dijital bağımlılıklardan ve pasif yaşam tarzından uzak tutarak doğa sporları, çadır kampları ve doğa yürüyüşleriyle buluşturuyor.",
+        aboutDesc: "Ankara Aktif Genç Spor Kulübü; gençlerimizi şehir stresinden, dijital bağımlılıklardan ve pasif yaşam tarzından uzak tutarak doğa sporları, çadır kampları ve doğa yürüyüşleriyle buluşturuyor.",
         aboutStat1Num: "120+",
         aboutStat1Label: "AKTİF GENÇ",
-        aboutStat2Num: "14+",
+        aboutStat2Num: "18+",
         aboutStat2Label: "KULÜP LİDERİ",
-        misyonText: "Gençlerimize takım çalışması, özgüven, doğa sevgisi, fiziksel dayanıklılık ve liderlik vizyonu kazandırmak. Doğa şartlarında zorluklarla mücadele etmeyi öğreterek onları geleceğin donanımlı bireyleri yapmaktır.",
-        vizyonText: "Türkiye genelinde doğa sporları ve gençlik kampları alanında örnek gösterilen, ahlaklı ve donanımlı liderler yetiştiren öncü bir kulüp olmak.",
         footerMail: "aktifspor6@gmail.com"
       },
       teams: ['Fırtına Ekibi', 'Parslar Ekibi', 'Şahinler Ekibi'],
-      athletes: [
-        { id: '1', name: 'Burak Kaya', team: 'Fırtına Ekibi', points: 240, attendance: 95 },
-        { id: '2', name: 'Zeynep Çelik', team: 'Parslar Ekibi', points: 215, attendance: 90 },
-        { id: '3', name: 'Mert Öztürk', team: 'Fırtına Ekibi', points: 190, attendance: 85 },
-        { id: '4', name: 'Ahmet Can', team: 'Şahinler Ekibi', points: 175, attendance: 80 },
-        { id: '5', name: 'Elif Yılmaz', team: 'Parslar Ekibi', points: 160, attendance: 75 }
-      ],
+      athletes: [], // Yeni sezon hazırlığı için boş başlar
       applications: [
         {
           id: 'app_sample_1',
@@ -1216,37 +1177,12 @@
           clubLocation: 'Keçiören Aktif Kulüp Merkezi- Ortaokul',
           referral: 'Sosyal Medya (Instagram / YouTube)',
           status: 'Yeni',
-          createdDate: '05.09.2026'
-        },
-        {
-          id: 'app_sample_2',
-          studentName: 'Kerem Yıldırım',
-          birthDate: '2010-09-20',
-          education: 'Lise',
-          parentName: 'Hasan Yıldırım',
-          parentPhone: '05329876543',
-          clubLocation: 'Keçiören Aktif Kulüp Merkezi- Lise',
-          referral: 'Arkadaş / Aile Tavsiyesi',
-          status: 'Arandı',
-          createdDate: '04.09.2026'
+          createdDate: '10.09.2026'
         }
       ],
-      announcements: [
-        { id: 'a1', title: '2026 Bahar Sezonu Kamp Kayıtları', desc: 'Kızılcahamam Çamkoru Doğa Kampı için ekip liderlerinize isim yazdırmayı unutmayınız. Kontenjanlar sınırlıdır.', tag: 'ÖNEMLİ', date: '21 Ağustos 2026' },
-        { id: 'a2', title: 'Haftalık Ekip Değerlendirme Toplantısı', desc: 'Hafta sonu faaliyetlerimizin planlaması Cumartesi günü kulüp merkezinde gerçekleştirilecektir.', tag: 'BİLGİLENDİRME', date: '18 Ağustos 2026' }
-      ],
-      events: [
-        { id: 'e1', title: 'Kızılcahamam Çamkoru Doğa Kampı', desc: 'Çadır kurma, doğada oryantiring, ateş başı liderlik sohbetleri ve 2 günlük açık hava disiplini.', category: 'DOĞA KAMPI', date: '15 Kasım 2026' },
-        { id: 'e2', title: 'Fidan Dikimi & Çevre Seferberliği', desc: '"Dikili Ağacım Var" projesi kapsamında ağaçlandırma ve fidan dikim faaliyeti.', category: 'ÇEVRE & FİDAN', date: '22 Kasım 2026' },
-        { id: 'e3', title: 'Ankara Kültür ve Tarih Gezisi', desc: 'Hacı Bayram-ı Veli, Tacettin Dergahı ve Hamamönü keşif ve medeniyet gezisi.', category: 'KÜLTÜR GEZİSİ', date: '29 Kasım 2026' },
-        { id: 'e4', title: 'Aktif Ekipler Halısaha Turnuvası', desc: 'Gençlerimizin kaynaşması ve spor ahlakını geliştiren kulüp içi dostluk ligi.', category: 'TURNUVA', date: '06 Aralık 2026' }
-      ],
-      gallery: [
-        { id: 'g1', type: 'VIDEO', title: 'Aktif Ünite Kayıtları Başladı', category: 'Tanıtım Videosu', imgUrl: 'https://www.youtube.com/embed/tKuqwtJZ7-0' },
-        { id: 'g2', type: 'IMAGE', title: 'Çamkoru Doğa Kampı Ateş Başı', category: 'Doğa Kampı', imgUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80' },
-        { id: 'g3', type: 'IMAGE', title: 'Kızılcahamam Yürüyüş Parkuru', category: 'Doğa Yürüyüşü', imgUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=600&q=80' },
-        { id: 'g4', type: 'IMAGE', title: 'Fidan Dikimi ve Toprak Sevgisi', category: 'Çevre Etkinliği', imgUrl: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80' }
-      ]
+      announcements: [],
+      events: [], // Sezon başlangıcı için boş başlar
+      gallery: [] // Yeni dönem için boş başlar
     };
 
     function getData() {
@@ -1254,23 +1190,10 @@
         const saved = localStorage.getItem(APP_STORAGE_KEY);
         if (!saved) return INITIAL_DATA;
         const parsed = JSON.parse(saved);
-        if (parsed.siteContent) {
-          parsed.siteContent.footerMail = 'aktifspor6@gmail.com';
-          delete parsed.siteContent.footerPhone;
-        }
-        if (parsed.leaders && !parsed.leaders.some(l => l.email === 'aktifspor6@gmail.com')) {
-          parsed.leaders.unshift({ email: 'aktifspor6@gmail.com', name: 'Kulüp Yönetimi', password: '1234' });
-        }
         return {
           ...INITIAL_DATA,
           ...parsed,
-          siteContent: { ...INITIAL_DATA.siteContent, ...(parsed.siteContent || {}) },
-          applications: parsed.applications || INITIAL_DATA.applications,
-          athletes: parsed.athletes || INITIAL_DATA.athletes,
-          teams: parsed.teams || INITIAL_DATA.teams,
-          events: parsed.events || INITIAL_DATA.events,
-          announcements: parsed.announcements || INITIAL_DATA.announcements,
-          gallery: parsed.gallery || INITIAL_DATA.gallery
+          siteContent: { ...INITIAL_DATA.siteContent, ...(parsed.siteContent || {}) }
         };
       } catch (e) {
         return INITIAL_DATA;
@@ -1278,7 +1201,11 @@
     }
 
     function setData(data) {
-      localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(data));
+      try {
+        localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(data));
+      } catch(e) {
+        console.warn('LocalStorage save error:', e);
+      }
     }
 
     let state = getData();
@@ -1366,10 +1293,7 @@
     function renderAll() {
       renderSiteTextContent();
       updateAdminBar();
-      renderHomeMVP();
-      renderHomeTeams();
-      renderHomeAthletesTable();
-      renderAnnouncements();
+      renderRankings();
       renderEventsList();
       renderGallery();
       renderAdminTeamsList();
@@ -1384,8 +1308,8 @@
       if (!container) return;
       container.innerHTML = '';
 
-      LEADERS_NAMES.forEach(name => {
-        const initials = name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
+      LEADERS_DATA.forEach(ldr => {
+        const initials = ldr.name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
         const card = document.createElement('div');
         card.className = "bg-white p-5 rounded-3xl border border-slate-200 shadow-xs text-center space-y-3 hover:border-brandBlue transition";
         card.innerHTML = `
@@ -1393,7 +1317,7 @@
             ${initials}
           </div>
           <div>
-            <h4 class="font-extrabold text-sm text-brandNavy leading-snug">${name}</h4>
+            <h4 class="font-extrabold text-sm text-brandNavy leading-snug">${ldr.name}</h4>
             <span class="inline-block mt-1 px-3 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-full border border-slate-200">
               Lider
             </span>
@@ -1422,152 +1346,89 @@
       setTxt('displayAboutStat1Label', c.aboutStat1Label);
       setTxt('displayAboutStat2Num', c.aboutStat2Num);
       setTxt('displayAboutStat2Label', c.aboutStat2Label);
-      setTxt('displayMisyonText', c.misyonText);
-      setTxt('displayVizyonText', c.vizyonText);
       setTxt('displayFooterMail', c.footerMail || 'aktifspor6@gmail.com');
-
-      const promoFrame = document.getElementById('homePromoVideoIframe');
-      if (promoFrame && c.promoVideoUrl) {
-        promoFrame.src = formatEmbedUrl(c.promoVideoUrl);
-      }
     }
 
-    function updateAdminBar() {
-      const bar = document.getElementById('adminHeaderBar');
-      const navBtn = document.getElementById('loginNavBtn');
-      const adminActions = document.getElementById('athletePageAdminActions');
-      const actionCols = document.querySelectorAll('.admin-action-col');
-      const editBadges = document.querySelectorAll('.admin-edit-badge');
-      const badgeCount = document.getElementById('appBadgeCount');
-
-      if (!state.applications) state.applications = [];
-      const newPendingCount = state.applications.filter(a => a.status === 'Yeni').length;
-      if (badgeCount) badgeCount.innerText = newPendingCount;
-
-      if (state.isAdmin) {
-        bar.classList.remove('hidden');
-        document.getElementById('adminUserEmailBadge').innerText = `| ${state.currentLeaderEmail}`;
-        navBtn.innerHTML = '<i class="fa-solid fa-user-check text-emerald-600"></i> Çıkış Yap';
-        navBtn.setAttribute('onclick', 'logoutAdmin()');
-        if (adminActions) adminActions.classList.remove('hidden');
-        actionCols.forEach(col => col.classList.remove('hidden'));
-        editBadges.forEach(b => b.classList.remove('hidden'));
-      } else {
-        bar.classList.add('hidden');
-        navBtn.innerHTML = '<i class="fa-solid fa-lock text-xs text-brandBlue"></i> Lider Girişi';
-        navBtn.setAttribute('onclick', 'openLoginModal()');
-        if (adminActions) adminActions.classList.add('hidden');
-        actionCols.forEach(col => col.classList.add('hidden'));
-        editBadges.forEach(b => b.classList.add('hidden'));
-      }
-    }
-
-    function renderHomeMVP() {
-      const sorted = [...state.athletes].sort((a, b) => b.points - a.points);
-      const mvp = sorted[0] || { name: 'Burak Kaya', team: 'Fırtına Ekibi', points: 240 };
-      
-      const rMvpName = document.getElementById('rankingsMvpName');
-      const rMvpTeam = document.getElementById('rankingsMvpTeam');
-      const rMvpPoints = document.getElementById('rankingsMvpPoints');
-
-      if (rMvpName) rMvpName.innerText = mvp.name;
-      if (rMvpTeam) rMvpTeam.innerText = `Ekip: ${mvp.team}`;
-      if (rMvpPoints) rMvpPoints.innerText = mvp.points;
-
-      const statAthletes = document.getElementById('statTotalAthletes');
-      const statTeams = document.getElementById('statTotalTeams');
-      if (statAthletes) statAthletes.innerText = state.athletes.length;
-      if (statTeams) statTeams.innerText = state.teams.length;
-    }
-
-    function renderHomeTeams() {
-      const grid = document.getElementById('homeTeamCardsGrid');
-      if (!grid) return;
-      grid.innerHTML = '';
-
-      state.teams.forEach(teamName => {
-        const teamAthletes = state.athletes.filter(a => a.team === teamName);
-        const totalPoints = teamAthletes.reduce((sum, a) => sum + Number(a.points), 0);
-        const topAthlete = [...teamAthletes].sort((a,b) => b.points - a.points)[0] || { name: '-' };
-
-        const card = document.createElement('div');
-        card.className = "bg-white p-5 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between";
-        card.innerHTML = `
-          <div>
-            <span class="text-[10px] font-black uppercase text-brandBlue tracking-wider">${teamName}</span>
-            <div class="mt-2 text-2xl font-black text-brandNavy">${totalPoints} <span class="text-xs font-bold text-slate-400">Puan</span></div>
-          </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex justify-between">
-            <span>${teamAthletes.length} Genç</span>
-            <span>En Yüksek: <b>${topAthlete.name}</b></span>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function renderHomeAthletesTable() {
-      const tbody = document.getElementById('homeAthletesTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-
-      const sorted = [...state.athletes].sort((a, b) => b.points - a.points);
-
-      sorted.forEach((ath, idx) => {
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-50";
-
-        let rank = `<span class="font-bold text-slate-500">#${idx + 1}</span>`;
-        if (idx === 0) rank = '🥇';
-        if (idx === 1) rank = '🥈';
-        if (idx === 2) rank = '🥉';
-
-        tr.innerHTML = `
-          <td class="px-6 py-4 font-black">${rank}</td>
-          <td class="px-6 py-4 font-bold text-slate-800">${ath.name}</td>
-          <td class="px-6 py-4"><span class="px-2.5 py-1 bg-slate-100 border border-slate-200 rounded-lg text-slate-700 font-semibold">${ath.team}</span></td>
-          <td class="px-6 py-4 text-center font-bold text-emerald-600">%${ath.attendance || 85}</td>
-          <td class="px-6 py-4 text-center font-black text-brandNavy">${ath.points}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function renderAnnouncements() {
-      const container = document.getElementById('homeAnnouncementsGrid');
+    function renderRankings() {
+      const container = document.getElementById('rankingsDisplayContainer');
       if (!container) return;
-      container.innerHTML = '';
 
-      state.announcements.forEach(ann => {
-        const card = document.createElement('div');
-        card.className = "bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex items-start gap-4 hover:border-brandBlue transition relative group";
-        
-        let deleteBtn = state.isAdmin ? `
-          <button onclick="deleteAnnouncement('${ann.id}')" class="text-rose-500 hover:text-rose-700 text-xs p-1 absolute top-4 right-4" title="Duyuruyu Sil">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        ` : '';
-
-        card.innerHTML = `
-          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl shrink-0 font-bold">📢</div>
-          <div class="space-y-1 flex-grow pr-6">
-            <div class="flex items-center gap-2">
-              <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">${ann.tag || 'DUYURU'}</span>
-              <span class="text-[10px] font-bold text-slate-400">${ann.date || ''}</span>
+      if (!state.athletes || state.athletes.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-3xl p-8 sm:p-12 border border-dashed border-slate-300 text-center space-y-4 max-w-2xl mx-auto shadow-xs">
+            <div class="w-16 h-16 rounded-3xl bg-amber-50 text-amber-600 flex items-center justify-center text-3xl mx-auto shadow-inner">
+              <i class="fa-solid fa-trophy animate-pulse"></i>
             </div>
-            <h4 class="font-black text-base text-brandNavy">${ann.title}</h4>
-            <p class="text-xs text-slate-500 leading-relaxed">${ann.desc}</p>
+            <div class="space-y-1.5">
+              <span class="px-3.5 py-1 bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-black rounded-full uppercase tracking-widest inline-block">
+                YENİ DÖNEM SEZONU
+              </span>
+              <h3 class="text-xl sm:text-2xl font-black text-slate-900 pt-1">Puan Durumu & Ekip Sıralaması Çok Yakında!</h3>
+              <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+                Yeni dönem faaliyetlerimizin başlamasıyla birlikte doğa kampları, fidan dikimleri ve takım görevlerinden kazanılan puanlar liderlerimizce buraya işlenecektir.
+              </p>
+            </div>
+            <div class="pt-2 flex justify-center">
+              <button onclick="showSection('applicationPage')" class="px-6 py-3 bg-brandRed hover:bg-brandDarkRed text-white rounded-xl text-xs font-black transition shadow flex items-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i> Hemen Ön Başvuru Yap
+              </button>
+            </div>
           </div>
-          ${deleteBtn}
         `;
-        container.appendChild(card);
-      });
+        return;
+      }
+
+      const sorted = [...state.athletes].sort((a, b) => b.points - a.points);
+      container.innerHTML = `
+        <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-slate-700 uppercase font-bold border-b">
+              <tr>
+                <th class="p-4">Sıra</th>
+                <th class="p-4">İsim</th>
+                <th class="p-4">Ekip</th>
+                <th class="p-4 text-center">Puan</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              ${sorted.map((ath, idx) => `
+                <tr>
+                  <td class="p-4 font-black">#${idx + 1}</td>
+                  <td class="p-4 font-bold text-slate-900">${ath.name}</td>
+                  <td class="p-4">${ath.team}</td>
+                  <td class="p-4 text-center font-black text-brandNavy">${ath.points}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
     }
 
     function renderEventsList() {
       const container = document.getElementById('eventsListContainer');
       if (!container) return;
       container.innerHTML = '';
+
+      if (!state.events || state.events.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-3xl p-8 sm:p-12 border border-dashed border-slate-300 text-center space-y-4 max-w-2xl mx-auto shadow-xs">
+            <div class="w-16 h-16 rounded-3xl bg-blue-50 text-brandBlue flex items-center justify-center text-3xl mx-auto shadow-inner">
+              <i class="fa-solid fa-calendar-days"></i>
+            </div>
+            <div class="space-y-1.5">
+              <span class="px-3.5 py-1 bg-blue-50 text-brandBlue border border-blue-200 text-[10px] font-black rounded-full uppercase tracking-widest inline-block">
+                SEZON ETKİNLİK TAKVİMİ
+              </span>
+              <h3 class="text-xl sm:text-2xl font-black text-slate-900 pt-1">Etkinlik Takvimi Çok Yakında!</h3>
+              <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+                Yeni dönem doğa kampları, fidan dikimleri, halısaha maçları ve kültür gezilerimizin tarihleri liderlerimizce hazırlandığında burada liste halinde yayınlanacaktır.
+              </p>
+            </div>
+          </div>
+        `;
+        return;
+      }
 
       state.events.forEach(ev => {
         const item = document.createElement('div');
@@ -1609,6 +1470,31 @@
       if (!container) return;
       container.innerHTML = '';
 
+      if (!state.gallery || state.gallery.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full bg-white rounded-3xl p-8 sm:p-12 border border-dashed border-slate-300 text-center space-y-4 max-w-2xl mx-auto shadow-xs w-full">
+            <div class="w-16 h-16 rounded-3xl bg-teal-50 text-teal-600 flex items-center justify-center text-3xl mx-auto shadow-inner">
+              <i class="fa-solid fa-photo-film"></i>
+            </div>
+            <div class="space-y-1.5">
+              <span class="px-3.5 py-1 bg-teal-50 text-teal-700 border border-teal-200 text-[10px] font-black rounded-full uppercase tracking-widest inline-block">
+                KULÜP MEDYA ARŞİVİ
+              </span>
+              <h3 class="text-xl sm:text-2xl font-black text-slate-900 pt-1">Medya Galerisi Çok Yakında!</h3>
+              <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+                Yeni dönem doğa kamplarımızdan, fidan dikimlerimizden ve açık hava etkinliklerimizden fotoğraf ve video kareleri liderlerimizce buraya yüklenecektir.
+              </p>
+            </div>
+            <div class="pt-2 flex justify-center">
+              <a href="https://www.instagram.com/ankaraaktifspor" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white rounded-xl text-xs font-bold hover:opacity-90 transition shadow inline-flex items-center gap-2">
+                <i class="fa-brands fa-instagram text-sm"></i> Güncel Fotoğraflar İçin Instagram'a Göz Atın
+              </a>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
       state.gallery.forEach(item => {
         const card = document.createElement('div');
         card.className = "bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs space-y-2 relative group";
@@ -1630,7 +1516,7 @@
         } else {
           mediaHtml = `
             <div class="h-48 overflow-hidden bg-slate-100">
-              <img src="${item.imgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://placehold.co/600x400/0B62A4/ffffff?text=Ankara+Aktif+Genc'">
+              <img src="${item.imgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://placehold.co/600x400/0B72BA/ffffff?text=Ankara+Aktif+Genc'">
             </div>
           `;
         }
@@ -1710,6 +1596,22 @@
       });
     }
 
+    function handleReferralChange(selectEl) {
+      const otherContainer = document.getElementById('referralOtherContainer');
+      const otherInput = document.getElementById('regReferralOther');
+      if (!otherContainer || !otherInput) return;
+
+      if (selectEl.value === 'Diğer') {
+        otherContainer.classList.remove('hidden');
+        otherInput.required = true;
+        otherInput.focus();
+      } else {
+        otherContainer.classList.add('hidden');
+        otherInput.required = false;
+        otherInput.value = '';
+      }
+    }
+
     function handlePreRegister(e) {
       e.preventDefault();
       const studentName = document.getElementById('regStudentName').value.trim();
@@ -1718,7 +1620,12 @@
       const parentName = document.getElementById('regParentName').value.trim();
       const parentPhone = document.getElementById('regParentPhone').value.trim();
       const clubLocation = document.getElementById('regClubLocation').value;
-      const referral = document.getElementById('regReferral').value;
+      
+      let referral = document.getElementById('regReferral').value;
+      if (referral === 'Diğer') {
+        const otherDetail = (document.getElementById('regReferralOther').value || '').trim();
+        referral = otherDetail ? `Diğer (${otherDetail})` : 'Diğer';
+      }
 
       if (!state.applications) state.applications = [];
 
@@ -1739,8 +1646,10 @@
       setData(state);
       renderAll();
 
-      showToast(`Teşekkürler Sayın ${parentName}! ${studentName} için ön başvurunuz başarıyla alındı ve Liderlerimize iletildi.`);
+      showToast(`Teşekkürler Sayın ${parentName}! ${studentName} için ön başvurunuz başarıyla alındı.`);
       e.target.reset();
+      const otherContainer = document.getElementById('referralOtherContainer');
+      if (otherContainer) otherContainer.classList.add('hidden');
     }
 
     function renderApplicationsList() {
@@ -1770,7 +1679,7 @@
         tr.dataset.status = app.status;
 
         const cleanPhone = app.parentPhone.replace(/[^0-9]/g, '').replace(/^0/, '');
-        const whatsappMsg = `Merhaba Sayın ${app.parentName},\n\nAnkara Aktif Genç Spor Kulübü Derneği olarak ${app.studentName} için yapmış olduğunuz ön başvuru kulüp yönetimimize ulaştı.\n\nSeçtiğiniz Merkez: ${app.clubLocation}\nKayıt ve tanışma toplantımız ile ilgili bilgi vermek için sizinle iletişime geçtik. Müsait olduğunuzda görüşmek isteriz.\n\nİyi günler dileriz.\nAnkara Aktif Genç Spor Kulübü Derneği`;
+        const whatsappMsg = `Merhaba Sayın ${app.parentName},\n\nAnkara Aktif Genç Spor Kulübü olarak ${app.studentName} için yapmış olduğunuz ön başvuru kulüp yönetimimize ulaştı.\n\nSeçtiğiniz Yer: ${app.clubLocation}\nKayıt ve faaliyet süreçlerimiz hakkında bilgi vermek için sizinle iletişime geçtik. Müsait olduğunuzda görüşmek isteriz.\n\nİyi günler dileriz.\nAnkara Aktif Genç Spor Kulübü`;
         const whatsappUrl = `https://wa.me/90${cleanPhone}?text=${encodeURIComponent(whatsappMsg)}`;
 
         let statusClass = "bg-amber-100 text-amber-800 border-amber-200";
@@ -1879,7 +1788,7 @@
         return;
       }
 
-      let csv = "Ogrenci Adi;Dogum Tarihi;Egitim Kademesi;Veli Adi;Veli Telefonu;Merkez;Haberdar Olma;Durum\n";
+      let csv = "Ogrenci Adi;Dogum Tarihi;Egitim Kademesi;Veli Adi;Veli Telefonu;Katilmak Istedigi Yer;Haberdar Olma;Durum\n";
       state.applications.forEach(a => {
         csv += `"${a.studentName}";"${a.birthDate}";"${a.education}";"${a.parentName}";"${a.parentPhone}";"${a.clubLocation}";"${a.referral}";"${a.status}"\n`;
       });
@@ -1932,37 +1841,37 @@
       });
     }
 
-    function openContentEditModal() {
-      const c = state.siteContent || INITIAL_DATA.siteContent;
-      if (document.getElementById('editClubTitle1')) document.getElementById('editClubTitle1').value = c.clubTitle1 || '';
-      if (document.getElementById('editClubTitle2')) document.getElementById('editClubTitle2').value = c.clubTitle2 || '';
-      if (document.getElementById('editPromoVideoUrl')) document.getElementById('editPromoVideoUrl').value = c.promoVideoUrl || '';
-      if (document.getElementById('editHeroTitle')) document.getElementById('editHeroTitle').value = c.heroTitle || '';
-      if (document.getElementById('editHeroSub')) document.getElementById('editHeroSub').value = c.heroSub || '';
-      document.getElementById('contentEditModal').classList.remove('hidden');
+    function updateAdminBar() {
+      const bar = document.getElementById('adminHeaderBar');
+      const navBtn = document.getElementById('loginNavBtn');
+      const adminActions = document.getElementById('athletePageAdminActions');
+      const actionCols = document.querySelectorAll('.admin-action-col');
+      const editBadges = document.querySelectorAll('.admin-edit-badge');
+      const badgeCount = document.getElementById('appBadgeCount');
+
+      if (!state.applications) state.applications = [];
+      const newPendingCount = state.applications.filter(a => a.status === 'Yeni').length;
+      if (badgeCount) badgeCount.innerText = newPendingCount;
+
+      if (state.isAdmin) {
+        bar.classList.remove('hidden');
+        document.getElementById('adminUserEmailBadge').innerText = `| ${state.currentLeaderEmail}`;
+        navBtn.innerHTML = '<i class="fa-solid fa-user-check text-emerald-600"></i> Çıkış Yap';
+        navBtn.setAttribute('onclick', 'logoutAdmin()');
+        if (adminActions) adminActions.classList.remove('hidden');
+        actionCols.forEach(col => col.classList.remove('hidden'));
+        editBadges.forEach(b => b.classList.remove('hidden'));
+      } else {
+        bar.classList.add('hidden');
+        navBtn.innerHTML = '<i class="fa-solid fa-lock text-xs text-brandBlue"></i> Lider Girişi';
+        navBtn.setAttribute('onclick', 'openLoginModal()');
+        if (adminActions) adminActions.classList.add('hidden');
+        actionCols.forEach(col => col.classList.add('hidden'));
+        editBadges.forEach(b => b.classList.add('hidden'));
+      }
     }
 
-    function closeContentEditModal() {
-      document.getElementById('contentEditModal').classList.add('hidden');
-    }
-
-    function handleSaveSiteContent(e) {
-      e.preventDefault();
-      state.siteContent = {
-        ...state.siteContent,
-        clubTitle1: document.getElementById('editClubTitle1').value,
-        clubTitle2: document.getElementById('editClubTitle2').value,
-        promoVideoUrl: document.getElementById('editPromoVideoUrl').value,
-        heroTitle: document.getElementById('editHeroTitle').value,
-        heroSub: document.getElementById('editHeroSub').value
-      };
-      setData(state);
-      renderAll();
-      closeContentEditModal();
-      showToast('Site metinleri ve tanıtım videosu güncellendi!');
-    }
-
-    let currentAuthMode = 'PIN'; // 'PIN' veya 'PASSWORD'
+    let currentAuthMode = 'PIN';
 
     function setLoginAuthMode(mode) {
       currentAuthMode = mode;
@@ -2000,7 +1909,6 @@
       const box = document.getElementById(`pinBox${boxIndex}`);
       const val = box.value;
 
-      // Backspace basıldığında bir önceki kutuya geri odaklan
       if (e.key === 'Backspace') {
         if (boxIndex > 1 && !val) {
           const prevBox = document.getElementById(`pinBox${boxIndex - 1}`);
@@ -2009,7 +1917,6 @@
         return;
       }
 
-      // Rakam girildiyse bir sonraki kutuya geç
       if (val && boxIndex < 4) {
         const nextBox = document.getElementById(`pinBox${boxIndex + 1}`);
         if (nextBox) nextBox.focus();
@@ -2058,22 +1965,17 @@
         enteredSecret = passInput ? passInput.value.trim() : '';
       }
 
-      const leader = state.leaders.find(l => l.email.toLowerCase() === email && l.password === enteredSecret);
+      const isOfficialMail = email === 'aktifspor6@gmail.com';
+      const isRegisteredLeader = state.leaders.some(l => l.email.toLowerCase() === email);
 
-      if (leader || enteredSecret === '1234') {
+      if ((isOfficialMail || isRegisteredLeader) && enteredSecret === '1234') {
         state.isAdmin = true;
-        state.currentLeaderEmail = email;
-        if (!state.leaders.some(l => l.email.toLowerCase() === email)) {
-          state.leaders.push({
-            email: email,
-            name: email.split('@')[0].toUpperCase(),
-            password: enteredSecret
-          });
-        }
+        const lObj = state.leaders.find(l => l.email.toLowerCase() === email);
+        state.currentLeaderEmail = lObj ? lObj.name : email;
         setData(state);
         renderAll();
         closeLoginModal();
-        showToast(`Giriş başarılı. Hoş geldiniz (${email})`);
+        showToast(`Giriş başarılı. Hoş geldiniz (${state.currentLeaderEmail})`);
       } else {
         if (errBox) {
           errMsg.innerText = 'Yetkili e-posta veya girilen güvenlik PIN/parolası hatalı!';
@@ -2089,6 +1991,49 @@
       setData(state);
       renderAll();
       showToast('Oturum kapatıldı.');
+    }
+
+    function switchToForgotPassword() {
+      showToast('Şifre sıfırlama için kulüp yönetimi ile iletişime geçiniz.');
+    }
+
+    function openLoginModal() { 
+      const errBox = document.getElementById('loginErrorBox');
+      if (errBox) errBox.classList.add('hidden');
+      for (let i = 1; i <= 4; i++) {
+        const b = document.getElementById(`pinBox${i}`);
+        if (b) b.value = '';
+      }
+      const pass = document.getElementById('loginPasswordInput');
+      if (pass) pass.value = '';
+      setLoginAuthMode('PIN');
+      document.getElementById('loginModal').classList.remove('hidden'); 
+    }
+    function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
+
+    function openContentEditModal() {
+      const c = state.siteContent || INITIAL_DATA.siteContent;
+      if (document.getElementById('editClubTitle1')) document.getElementById('editClubTitle1').value = c.clubTitle1 || '';
+      if (document.getElementById('editClubTitle2')) document.getElementById('editClubTitle2').value = c.clubTitle2 || '';
+      if (document.getElementById('editHeroTitle')) document.getElementById('editHeroTitle').value = c.heroTitle || '';
+      if (document.getElementById('editHeroSub')) document.getElementById('editHeroSub').value = c.heroSub || '';
+      document.getElementById('contentEditModal').classList.remove('hidden');
+    }
+    function closeContentEditModal() { document.getElementById('contentEditModal').classList.add('hidden'); }
+
+    function handleSaveSiteContent(e) {
+      e.preventDefault();
+      state.siteContent = {
+        ...state.siteContent,
+        clubTitle1: document.getElementById('editClubTitle1').value,
+        clubTitle2: document.getElementById('editClubTitle2').value,
+        heroTitle: document.getElementById('editHeroTitle').value,
+        heroSub: document.getElementById('editHeroSub').value
+      };
+      setData(state);
+      renderAll();
+      closeContentEditModal();
+      showToast('Site metinleri başarıyla güncellendi!');
     }
 
     function handleCreateTeam(e) {
@@ -2171,7 +2116,7 @@
       e.preventDefault();
       const title = document.getElementById('announcementTitleInput').value.trim();
       const tag = document.getElementById('announcementTagInput').value.trim() || 'DUYURU';
-      const date = document.getElementById('announcementDateInput').value.trim() || '21 Ağustos 2026';
+      const date = document.getElementById('announcementDateInput').value.trim() || new Date().toLocaleDateString('tr-TR');
       const desc = document.getElementById('announcementDescInput').value.trim();
 
       state.announcements.unshift({
@@ -2185,19 +2130,10 @@
       showToast('Yeni duyuru yayınlandı.');
     }
 
-    function deleteAnnouncement(id) {
-      askConfirmation('Duyuruyu Sil', 'Bu duyuruyu kaldırmak istediğinize emin misiniz?', () => {
-        state.announcements = state.announcements.filter(a => a.id !== id);
-        setData(state);
-        renderAll();
-        showToast('Duyuru kaldırıldı.');
-      });
-    }
-
     function handleSaveEvent(e) {
       e.preventDefault();
       const title = document.getElementById('eventTitleInput').value.trim();
-      const category = document.getElementById('eventCategoryInput').value;
+      const category = document.getElementById('eventCategoryInput').value.trim().toUpperCase();
       const date = document.getElementById('eventDateInput').value.trim();
       const desc = document.getElementById('eventDescInput').value.trim();
 
@@ -2253,29 +2189,31 @@
       if (!list) return;
       list.innerHTML = '';
 
-      state.athletes.forEach(ath => {
-        const row = document.createElement('div');
-        row.className = "py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2";
-        row.innerHTML = `
-          <div>
-            <span class="font-bold text-xs text-brandNavy">${ath.name}</span>
-            <span class="text-[10px] text-slate-400 block">${ath.team} • Mevcut Puan: <b>${ath.points}</b></span>
-          </div>
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <button onclick="addQuickPoints('${ath.id}', 10, 'Katılım')" class="px-2 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-[10px] rounded-lg border border-emerald-200 transition">+10 Katılım</button>
-            <button onclick="addQuickPoints('${ath.id}', 15, 'Kamp / Görev')" class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-[10px] rounded-lg border border-blue-200 transition">+15 Kamp</button>
-            <button onclick="addQuickPoints('${ath.id}', 20, 'Fidan Dikimi')" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold text-[10px] rounded-lg border border-amber-200 transition">+20 Fidan</button>
-          </div>
-        `;
-        list.appendChild(row);
-      });
+      if (state.athletes.length === 0) {
+        list.innerHTML = `<div class="p-6 text-center text-xs text-slate-400">Henüz puan verilecek sporcu bulunmamaktadır. Kadro sayfasından sporcu ekleyebilirsiniz.</div>`;
+      } else {
+        state.athletes.forEach(ath => {
+          const row = document.createElement('div');
+          row.className = "py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2";
+          row.innerHTML = `
+            <div>
+              <span class="font-bold text-xs text-brandNavy">${ath.name}</span>
+              <span class="text-[10px] text-slate-400 block">${ath.team} • Mevcut Puan: <b>${ath.points}</b></span>
+            </div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <button onclick="addQuickPoints('${ath.id}', 10, 'Katılım')" class="px-2 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-[10px] rounded-lg border border-emerald-200 transition">+10 Katılım</button>
+              <button onclick="addQuickPoints('${ath.id}', 15, 'Kamp / Görev')" class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-[10px] rounded-lg border border-blue-200 transition">+15 Kamp</button>
+              <button onclick="addQuickPoints('${ath.id}', 20, 'Fidan Dikimi')" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold text-[10px] rounded-lg border border-amber-200 transition">+20 Fidan</button>
+            </div>
+          `;
+          list.appendChild(row);
+        });
+      }
 
       document.getElementById('weeklyTrackingModal').classList.remove('hidden');
     }
 
-    function closeWeeklyTrackingModal() {
-      document.getElementById('weeklyTrackingModal').classList.add('hidden');
-    }
+    function closeWeeklyTrackingModal() { document.getElementById('weeklyTrackingModal').classList.add('hidden'); }
 
     function addQuickPoints(athId, amount, reason) {
       const ath = state.athletes.find(a => a.id === athId);
@@ -2330,27 +2268,6 @@
       }
     }
 
-    function switchToForgotPassword() {
-      showToast('Şifre sıfırlama veya yeni erişim için kulüp başkanı/yöneticiniz ile iletişime geçiniz.');
-    }
-
-    function openLoginModal() { 
-      const errBox = document.getElementById('loginErrorBox');
-      if (errBox) errBox.classList.add('hidden');
-      
-      // PIN kutularını temizle
-      for (let i = 1; i <= 4; i++) {
-        const b = document.getElementById(`pinBox${i}`);
-        if (b) b.value = '';
-      }
-      const pass = document.getElementById('loginPasswordInput');
-      if (pass) pass.value = '';
-
-      setLoginAuthMode('PIN');
-      document.getElementById('loginModal').classList.remove('hidden'); 
-    }
-
-    function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
     function openAddTeamModal() { document.getElementById('teamModal').classList.remove('hidden'); }
     function closeTeamModal() { document.getElementById('teamModal').classList.add('hidden'); }
     function openAddAthleteModal() { populateTeamDropdown(); document.getElementById('athleteModal').classList.remove('hidden'); }
