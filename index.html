@@ -1382,6 +1382,27 @@
       confirmCallback = null;
     }
 
+    function openRegSuccessModal(studentName, parentName, location, parentPhone) {
+      const modal = document.getElementById('regSuccessModal');
+      if (!modal) return;
+      document.getElementById('regSuccessStudent').innerText = studentName;
+      document.getElementById('regSuccessLocation').innerText = location;
+      const msg = `Merhaba Sayın ${parentName}, ${studentName} için kulübümüze yaptığınız ön başvuru başarıyla alındı.`;
+      document.getElementById('regSuccessMessage').innerText = msg;
+      
+      const cleanPhone = (parentPhone || '').replace(/[^0-9]/g, '');
+      const waBtn = document.getElementById('regSuccessWhatsappBtn');
+      if (waBtn) {
+        waBtn.href = `https://wa.me/905320000000?text=${encodeURIComponent(`Merhaba, ${studentName} için ön başvuru yaptım. Bilgi alabilir miyim?`)}`;
+      }
+      modal.classList.remove('hidden');
+    }
+
+    function closeRegSuccessModal() {
+      const modal = document.getElementById('regSuccessModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
     document.getElementById('dialogConfirmBtn').addEventListener('click', () => {
       if (confirmCallback) confirmCallback();
       closeCustomDialog();
@@ -1593,7 +1614,8 @@
         }).catch(() => {});
       } catch (e) {}
 
-      showToast(`Teşekkürler Sayın ${parentName}! ${studentName} için ön başvurunuz alındı ve sisteme iletildi.`);
+      showToast(`Teşekkürler Sayın ${parentName}! ${studentName} için ön başvurunuz alındı.`);
+      openRegSuccessModal(studentName, parentName, clubLocation, parentPhone);
       e.target.reset();
       document.getElementById('otherReferralBox').classList.add('hidden');
     }
@@ -2466,6 +2488,7 @@
     // Global Fonksiyonları Window'a Tanımla (HTML onclick/onsubmit erişimi için)
     Object.assign(window, {
       closeCustomDialog,
+      closeRegSuccessModal,
       openApplicationsModal,
       closeApplicationsModal,
       openContentEditModal,
