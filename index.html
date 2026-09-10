@@ -794,8 +794,8 @@
         </div>
 
         <div class="flex items-center gap-2 flex-wrap">
-          <button onclick="syncApplicationsFromCloud()" class="px-3 py-2 bg-brandBlue hover:bg-brandDarkBlue text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-            <i class="fa-solid fa-rotate text-xs"></i> <span>Buluttan Çek</span>
+          <button id="cloudSyncBtn" onclick="syncApplicationsFromCloud()" class="px-3 py-2 bg-brandBlue hover:bg-brandDarkBlue text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+            <i id="cloudSyncIcon" class="fa-solid fa-rotate text-xs"></i> <span id="cloudSyncBtnText">Buluttan Çek</span>
           </button>
           <button onclick="openPasteEmailModal()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
             <i class="fa-solid fa-paste text-brandBlue"></i> <span>E-Postadan Aktar</span>
@@ -1532,69 +1532,87 @@
 
     /* GÜVENLİ VE TÜRKÇE KARAKTER HATASI VERMEYEN BULUT GÖNDERİMİ */
     async function sendApplicationToUniversalCloud(newApp) {
-      try {
-        const cloudPayload = {
-          topic: "aktif_genc_kulubu_apps_v1",
-          title: "Yeni Basvuru",
-          message: JSON.stringify(newApp),
-          priority: 4,
-          tags: ["incoming_envelope", "sports"]
-        };
-
-        await fetch("https://ntfy.sh", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(cloudPayload)
-        });
-      } catch (err) {
-        console.warn("Bulut gönderim uyarısı:", err);
+      const endpoints = [
+        "https://ntfy.sh/aktif_genc_kulubu_apps_v1",
+        "https://ntfy.sh/ankara_aktif_genc_kayitlar_2026"
+      ];
+      
+      const payload = JSON.stringify(newApp);
+      
+      for (const endpoint of endpoints) {
+        try {
+          await fetch(endpoint, {
+            method: "POST",
+            body: payload,
+            mode: "cors"
+          });
+        } catch (err) {
+          console.warn("Bulut gönderim noktası uyarısı:", endpoint, err);
+        }
       }
     }
 
     /* TÜM CİHAZLARDAN GELEN BAŞVURULARI BULUTTAN CANLI ÇEKME */
     async function syncApplicationsFromCloud(silent = false) {
+      const syncBtn = document.getElementById('cloudSyncBtnText');
+      const syncIcon = document.getElementById('cloudSyncIcon');
+      if (syncIcon) syncIcon.classList.add('fa-spin');
+      if (syncBtn && !silent) syncBtn.innerText = "Taranıyor...";
+      
       if (!silent) showToast("Bulut sunucusu taranıyor...");
-      try {
-        const response = await fetch("https://ntfy.sh/aktif_genc_kulubu_apps_v1/json?poll=1&since=all");
-        if (!response.ok) throw new Error("Bulut servisine ulaşılamadı.");
-        const text = await response.text();
-        const lines = text.trim().split("\n");
-        let addedCount = 0;
+      
+      const endpoints = [
+        "https://ntfy.sh/aktif_genc_kulubu_apps_v1/json?poll=1",
+        "https://ntfy.sh/ankara_aktif_genc_kayitlar_2026/json?poll=1"
+      ];
+      
+      let addedCount = 0;
+      
+      for (const url of endpoints) {
+        try {
+          const response = await fetch(url, { mode: "cors" });
+          if (!response.ok) continue;
+          const text = await response.text();
+          const lines = text.trim().split("\n");
 
-        lines.forEach(line => {
-          if (!line.trim()) return;
-          try {
-            const item = JSON.parse(line);
-            if (item && item.message) {
-              let appData = null;
-              try {
-                appData = typeof item.message === 'string' ? JSON.parse(item.message) : item.message;
-              } catch(e) {}
+          lines.forEach(line => {
+            if (!line.trim()) return;
+            try {
+              const item = JSON.parse(line);
+              if (item && item.message) {
+                let appData = null;
+                try {
+                  appData = typeof item.message === 'string' ? JSON.parse(item.message) : item.message;
+                } catch(e) {}
 
-              if (appData && (appData.id || appData.studentName)) {
-                const exists = state.applications.some(a => 
-                  (a.id && appData.id && a.id === appData.id) || 
-                  (a.studentName === appData.studentName && a.parentPhone === appData.parentPhone)
-                );
-                if (!exists) {
-                  state.applications.unshift(appData);
-                  addedCount++;
+                if (appData && (appData.id || appData.studentName)) {
+                  if (!state.applications) state.applications = [];
+                  const exists = state.applications.some(a => 
+                    (a.id && appData.id && a.id === appData.id) || 
+                    (a.studentName === appData.studentName && a.parentPhone === appData.parentPhone)
+                  );
+                  if (!exists) {
+                    state.applications.unshift(appData);
+                    addedCount++;
+                  }
                 }
               }
-            }
-          } catch (e) {}
-        });
-
-        if (addedCount > 0) {
-          setData(state);
-          renderAll();
-          showToast(`${addedCount} yeni başvuru buluttan aktarıldı!`);
-        } else {
-          if (!silent) showToast("Tüm başvurular güncel. Yeni kayıt yok.");
+            } catch (e) {}
+          });
+        } catch (e) {
+          console.warn("Bulut eşitleme hatası:", url, e);
         }
-      } catch (e) {
-        console.warn("Bulut eşitleme:", e);
-        if (!silent) showToast("Bulut kontrolü tamamlandı.");
+      }
+
+      if (syncIcon) syncIcon.classList.remove('fa-spin');
+      if (syncBtn) syncBtn.innerText = "Buluttan Çek";
+
+      if (addedCount > 0) {
+        setData(state);
+        renderAll();
+        showToast(`🎉 ${addedCount} yeni başvuru buluttan aktarıldı!`);
+      } else {
+        if (!silent) showToast("Bulut kontrol edildi. Bekleyen yeni başvuru yok.");
       }
     }
 
@@ -2428,7 +2446,13 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       renderAll();
-      setTimeout(() => syncApplicationsFromCloud(true), 1000);
+      setTimeout(() => syncApplicationsFromCloud(true), 1200);
+      /* Lider paneli açıkken arka planda her 15 saniyede bir otomatik kontrol */
+      setInterval(() => {
+        if (state.isAdmin) {
+          syncApplicationsFromCloud(true);
+        }
+      }, 15000);
     });
   </script>
 </body>
