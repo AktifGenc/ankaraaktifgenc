@@ -780,8 +780,8 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <button id="cloudSyncBtn" onclick="fetchCloudApplications(true)" class="px-3 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm shrink-0">
-            <i class="fa-solid fa-rotate text-xs"></i> <span class="hidden sm:inline">Buluttan Yenile</span>
+          <button id="cloudSyncBtn" onclick="fetchCloudApplications(true)" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm shrink-0">
+            <i class="fa-solid fa-cloud text-xs"></i> <span class="hidden sm:inline">Bulut Eşitle</span>
           </button>
           <input type="text" id="appSearchInput" onkeyup="filterApplications()" placeholder="Öğrenci veya veli ara..." class="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brandBlue w-48">
           <select id="appStatusFilter" onchange="filterApplications()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700">
@@ -1211,7 +1211,11 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
     const LEADERS_DATA = [
       { name: "Yasin Darendeli", email: "yasindrndl58@gmail.com" },
       { name: "Eyüphan Kaşukçu", email: "eyuphankasukcu@gmail.com" },
@@ -1234,7 +1238,6 @@
     ];
 
     const APP_STORAGE_KEY = 'aag_app_data_v42_master';
-    const CLOUD_SYNC_ENDPOINT = 'https://kvdb.io/Wq7KzL98M2xY4pQ1/aag_applications_v1';
 
     const INITIAL_DATA = {
       isAdmin: false,
@@ -1278,7 +1281,7 @@
         return {
           ...INITIAL_DATA,
           ...parsed,
-          isAdmin: false, // Sayfa yenilendiğinde lider güvenliği için varsayılan false
+          isAdmin: false,
           siteContent: { ...INITIAL_DATA.siteContent, ...(parsed.siteContent || {}) },
           leaders: parsed.leaders && parsed.leaders.length > 0 ? parsed.leaders : INITIAL_DATA.leaders,
           applications: parsed.applications || [],
@@ -1298,6 +1301,59 @@
 
     let state = getData();
     let confirmCallback = null;
+
+    // --- BULUT VERİTABANI (FIRESTORE) ENTEGRASYONU ---
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'ankara-aktif-genc';
+    let db = null;
+    let auth = null;
+    let isCloudConnected = false;
+
+    async function initCloudDatabase() {
+      try {
+        if (typeof __firebase_config !== 'undefined') {
+          const firebaseConfig = JSON.parse(__firebase_config);
+          const app = initializeApp(firebaseConfig);
+          auth = getAuth(app);
+          db = getFirestore(app);
+
+          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+          } else {
+            await signInAnonymously(auth);
+          }
+
+          if (auth.currentUser) {
+            isCloudConnected = true;
+            listenToCloudApplications();
+          }
+        }
+      } catch (err) {
+        console.warn("Cloud DB init note:", err);
+      }
+    }
+
+    function listenToCloudApplications() {
+      if (!db || !auth?.currentUser) return;
+      try {
+        const appsColl = collection(db, 'artifacts', appId, 'public', 'data', 'applications');
+        onSnapshot(appsColl, (snapshot) => {
+          const cloudApps = [];
+          snapshot.forEach((docSnap) => {
+            cloudApps.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          // RULE 2: Bellekte sıralama
+          cloudApps.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+          state.applications = cloudApps;
+          setData(state);
+          renderApplicationsList();
+          updateAdminBar();
+        }, (error) => {
+          console.warn("Firestore snapshot error:", error);
+        });
+      } catch (e) {
+        console.warn("Firestore listen error:", e);
+      }
+    }
 
     function showToast(msg, isError = false) {
       const toast = document.getElementById('toastNotification');
@@ -1359,10 +1415,9 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      initCloudDatabase();
       renderLeadersGrid();
       renderAll();
-      // Sayfa ilk yüklendiğinde arka planda buluttaki başvuruları kontrol et
-      fetchCloudApplications(false);
     });
 
     function renderAll() {
@@ -1477,7 +1532,7 @@
       }
     }
 
-    function handlePreRegister(e) {
+    async function handlePreRegister(e) {
       e.preventDefault();
       const studentName = document.getElementById('regStudentName').value.trim();
       const birthDate = document.getElementById('regBirthDate').value;
@@ -1489,10 +1544,8 @@
       const referralOther = document.getElementById('regReferralOther').value.trim();
       const referral = referralSelect === 'Diğer' ? `Diğer (${referralOther})` : referralSelect;
 
-      if (!state.applications) state.applications = [];
-
+      const docId = 'app_' + Date.now();
       const newApp = {
-        id: 'app_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
         studentName,
         birthDate,
         education,
@@ -1501,123 +1554,56 @@
         clubLocation,
         referral,
         status: 'Yeni',
-        createdDate: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+        createdDate: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+        timestamp: Date.now()
       };
 
-      state.applications.unshift(newApp);
+      // 1. Bulut Veritabanına Yaz (Canlı tüm cihazlar için)
+      if (db && auth?.currentUser) {
+        try {
+          const appDoc = doc(db, 'artifacts', appId, 'public', 'data', 'applications', docId);
+          await setDoc(appDoc, newApp);
+        } catch (err) {
+          console.warn("Buluta yazma notu:", err);
+        }
+      }
+
+      // 2. Yerel Yedeğe Ekle
+      if (!state.applications) state.applications = [];
+      state.applications.unshift({ id: docId, ...newApp });
       setData(state);
       renderAll();
 
-      // Ortak Bulut Veritabanına ve kulüp e-postasına (aktifspor6@gmail.com) arka planda ilet
-      pushApplicationToCloudAndEmail(newApp);
+      // 3. E-Posta Bildirimi Gönder (aktifspor6@gmail.com)
+      try {
+        fetch("https://formsubmit.co/ajax/aktifspor6@gmail.com", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: `Yeni Ön Başvuru: ${studentName} (${education})`,
+            "Öğrenci Adı": studentName,
+            "Doğum Tarihi": birthDate,
+            "Eğitim Kademesi": education,
+            "Veli Adı": parentName,
+            "Veli Telefonu": parentPhone,
+            "Merkez": clubLocation,
+            "Kaynak": referral,
+            "Tarih": newApp.createdDate
+          })
+        }).catch(() => {});
+      } catch (e) {}
 
-      showToast(`Teşekkürler Sayın ${parentName}! ${studentName} için ön başvurunuz başarıyla alındı ve Liderlerimize iletildi.`);
+      showToast(`Teşekkürler Sayın ${parentName}! ${studentName} için ön başvurunuz alındı ve sisteme iletildi.`);
       e.target.reset();
       document.getElementById('otherReferralBox').classList.add('hidden');
     }
 
-    // Farklı cihazlar arası ortak senkronizasyon ve e-posta bildirimi
-    async function pushApplicationToCloudAndEmail(newApp) {
-      // 1. Resmi Kulüp E-postasına Anında Bildirim Gönder (aktifspor6@gmail.com)
-      try {
-        fetch("https://formsubmit.co/ajax/aktifspor6@gmail.com", {
-          method: "POST",
-          headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            _subject: `Yeni Ön Başvuru: ${newApp.studentName} (${newApp.education})`,
-            "Öğrenci Adı Soyadı": newApp.studentName,
-            "Doğum Tarihi": newApp.birthDate,
-            "Eğitim Kademesi": newApp.education,
-            "Veli Adı Soyadı": newApp.parentName,
-            "Veli Telefonu": newApp.parentPhone,
-            "Katılmak İstediği Yer": newApp.clubLocation,
-            "Haberdar Olma Kaynağı": newApp.referral,
-            "Kayıt Zamanı": newApp.createdDate
-          })
-        }).catch(e => console.warn("Email alert silent fallback:", e));
-      } catch (err) {
-        console.warn("Email dispatch error:", err);
+    function fetchCloudApplications(manualTrigger = false) {
+      if (!isCloudConnected) {
+        initCloudDatabase();
       }
-
-      // 2. Ortak Bulut Veritabanına (Cloud API) Kaydet
-      try {
-        let existingCloud = [];
-        const res = await fetch(CLOUD_SYNC_ENDPOINT);
-        if (res.ok) {
-          const text = await res.text();
-          if (text) {
-            try { existingCloud = JSON.parse(text); } catch(e){}
-          }
-        }
-        if (!Array.isArray(existingCloud)) existingCloud = [];
-        
-        // Mükerrer kayıt kontrolü
-        if (!existingCloud.some(a => a.id === newApp.id)) {
-          existingCloud.unshift(newApp);
-          await fetch(CLOUD_SYNC_ENDPOINT, {
-            method: "POST",
-            body: JSON.stringify(existingCloud)
-          });
-        }
-      } catch (err) {
-        console.warn("Cloud push error:", err);
-      }
-    }
-
-    // Buluttaki başvuruları diğer cihazlarla eşitle
-    async function fetchCloudApplications(manualTrigger = false) {
-      const syncBtn = document.getElementById('cloudSyncBtn');
-      if (syncBtn && manualTrigger) {
-        syncBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Yenileniyor...</span>';
-      }
-
-      try {
-        const res = await fetch(CLOUD_SYNC_ENDPOINT);
-        if (res.ok) {
-          const text = await res.text();
-          if (text) {
-            const cloudApps = JSON.parse(text);
-            if (Array.isArray(cloudApps)) {
-              // Cihazdaki ve buluttaki kayıtları tek listede birleştir (id'ye göre)
-              const appMap = new Map();
-              (state.applications || []).forEach(a => appMap.set(a.id, a));
-              cloudApps.forEach(a => {
-                // Eğer yerelde durumu değiştiyse yerel durumu koru, yoksa buluttakini al
-                if (!appMap.has(a.id)) {
-                  appMap.set(a.id, a);
-                }
-              });
-
-              state.applications = Array.from(appMap.values()).sort((a, b) => (b.id > a.id ? 1 : -1));
-              setData(state);
-              renderApplicationsList();
-              updateAdminBar();
-              if (manualTrigger) showToast('Buluttaki tüm cihaz başvuruları başarıyla eşitlendi.');
-            }
-          }
-        }
-      } catch (err) {
-        console.warn("Cloud fetch error:", err);
-        if (manualTrigger) showToast('Bulut senkronizasyonu sırasında bağlantı kurulamadı.', true);
-      } finally {
-        if (syncBtn) {
-          syncBtn.innerHTML = '<i class="fa-solid fa-rotate text-xs"></i> <span class="hidden sm:inline">Buluttan Yenile</span>';
-        }
-      }
-    }
-
-    // Durum güncellemesini buluta da yansıt
-    async function syncFullApplicationsToCloud() {
-      try {
-        await fetch(CLOUD_SYNC_ENDPOINT, {
-          method: "POST",
-          body: JSON.stringify(state.applications || [])
-        });
-      } catch (e) {
-        console.warn("Full cloud sync error:", e);
+      if (manualTrigger) {
+        showToast('Bulut veritabanı eşitlemesi aktif.');
       }
     }
 
@@ -1647,7 +1633,7 @@
         tr.dataset.search = `${app.studentName} ${app.parentName} ${app.clubLocation} ${app.parentPhone}`.toLowerCase();
         tr.dataset.status = app.status;
 
-        const cleanPhone = app.parentPhone.replace(/[^0-9]/g, '').replace(/^0/, '');
+        const cleanPhone = (app.parentPhone || '').replace(/[^0-9]/g, '').replace(/^0/, '');
         const whatsappMsg = `Merhaba Sayın ${app.parentName},\n\nAnkara Aktif Genç Spor Kulübü olarak ${app.studentName} için yapmış olduğunuz ön başvuru bize ulaştı.\n\nSeçtiğiniz Merkez: ${app.clubLocation}\nKayıt ve tanışma toplantımız ile ilgili bilgi vermek için sizinle iletişime geçtik. Müsait olduğunuzda görüşmek isteriz.\n\nİyi günler dileriz.\nAnkara Aktif Genç Spor Kulübü`;
         const whatsappUrl = `https://wa.me/90${cleanPhone}?text=${encodeURIComponent(whatsappMsg)}`;
 
@@ -1702,19 +1688,27 @@
       });
     }
 
-    function updateApplicationStatus(id, newStatus) {
+    async function updateApplicationStatus(id, newStatus) {
       const app = state.applications.find(a => a.id === id);
       if (app) {
         app.status = newStatus;
         setData(state);
         renderAll();
-        syncFullApplicationsToCloud();
+
+        if (db && auth?.currentUser) {
+          try {
+            const appDoc = doc(db, 'artifacts', appId, 'public', 'data', 'applications', id);
+            await updateDoc(appDoc, { status: newStatus });
+          } catch (e) {
+            console.warn("Bulutta durum güncelleme hatası:", e);
+          }
+        }
         showToast(`Başvuru durumu '${newStatus}' olarak güncellendi.`);
       }
     }
 
-    function convertApplicationToAthlete(appId) {
-      const app = state.applications.find(a => a.id === appId);
+    function convertApplicationToAthlete(appIdParam) {
+      const app = state.applications.find(a => a.id === appIdParam);
       if (!app) return;
 
       const firstTeam = state.teams[0] || 'Fırtına Ekibi';
@@ -1726,19 +1720,24 @@
         attendance: 100
       });
 
-      app.status = 'Kayıt Yapıldı';
-      setData(state);
-      renderAll();
-      syncFullApplicationsToCloud();
+      updateApplicationStatus(appIdParam, 'Kayıt Yapıldı');
       showToast(`${app.studentName} başarıyla kulüp kadrosuna (${firstTeam}) eklendi!`);
     }
 
     function deleteApplication(id) {
-      askConfirmation('Başvuruyu Sil', 'Bu başvuru kaydını kaldırmak istediğinize emin misiniz?', () => {
+      askConfirmation('Başvuruyu Sil', 'Bu başvuru kaydını kaldırmak istediğinize emin misiniz?', async () => {
         state.applications = state.applications.filter(a => a.id !== id);
         setData(state);
         renderAll();
-        syncFullApplicationsToCloud();
+
+        if (db && auth?.currentUser) {
+          try {
+            const appDoc = doc(db, 'artifacts', appId, 'public', 'data', 'applications', id);
+            await deleteDoc(appDoc);
+          } catch (e) {
+            console.warn("Buluttan silme hatası:", e);
+          }
+        }
         showToast('Başvuru kaydı silindi.');
       });
     }
@@ -1776,8 +1775,6 @@
     function openApplicationsModal() {
       renderApplicationsList();
       document.getElementById('applicationsModal').classList.remove('hidden');
-      // Modal her açıldığında buluttaki diğer cihazlardan gelen başvuruları otomatik çek
-      fetchCloudApplications(false);
     }
 
     function closeApplicationsModal() {
@@ -2465,6 +2462,62 @@
     function closeEventModal() { document.getElementById('eventModal').classList.add('hidden'); }
     function openGalleryModal() { document.getElementById('galleryModal').classList.remove('hidden'); }
     function closeGalleryModal() { document.getElementById('galleryModal').classList.add('hidden'); }
+
+    // Global Fonksiyonları Window'a Tanımla (HTML onclick/onsubmit erişimi için)
+    Object.assign(window, {
+      closeCustomDialog,
+      openApplicationsModal,
+      closeApplicationsModal,
+      openContentEditModal,
+      closeContentEditModal,
+      handleSaveSiteContent,
+      openLeadersManagementModal,
+      closeLeadersManagementModal,
+      handleAddNewLeader,
+      removeAuthorizedLeader,
+      openBackupModal,
+      closeBackupModal,
+      exportSiteBackup,
+      importSiteBackup,
+      openWeeklyTrackingModal,
+      closeWeeklyTrackingModal,
+      addQuickPoints,
+      openEventModal,
+      closeEventModal,
+      handleSaveEvent,
+      deleteEvent,
+      openGalleryModal,
+      closeGalleryModal,
+      handleSaveGalleryPhoto,
+      deleteGalleryPhoto,
+      showSection,
+      toggleMobileMenu,
+      logoutAdmin,
+      openLoginModal,
+      closeLoginModal,
+      setLoginAuthMode,
+      handlePinDigit,
+      togglePasswordVisibility,
+      handleLeaderEmailLogin,
+      handlePreRegister,
+      handleReferralChange,
+      filterApplications,
+      updateApplicationStatus,
+      convertApplicationToAthlete,
+      deleteApplication,
+      exportApplicationsToCSV,
+      openAddTeamModal,
+      closeTeamModal,
+      handleCreateTeam,
+      deleteTeam,
+      openAddAthleteModal,
+      closeAthleteModal,
+      handleSaveAthlete,
+      editAthlete,
+      deleteAthlete,
+      filterAthletesTable,
+      fetchCloudApplications
+    });
   </script>
 </body>
 </html>
