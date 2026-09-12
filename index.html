@@ -591,15 +591,18 @@
           <div class="w-12 h-12 rounded-2xl bg-rose-100 text-brandRed flex items-center justify-center text-2xl mx-auto shadow-xs">
             <i class="fa-solid fa-file-signature"></i>
           </div>
-          <h2 class="text-2xl font-black text-brandNavy">Genç Sporcu Ön Başvuru Formu</h2>
-          <p class="text-xs text-slate-500 max-w-md mx-auto">Kulübümüze katılmak için lütfen aşağıdaki bilgileri eksiksiz doldurunuz. Liderlerimiz en kısa sürede sizinle iletişime geçecektir.</p>
+          <span class="px-3 py-1 bg-brandBlue/10 text-brandBlue font-extrabold text-[11px] rounded-full uppercase tracking-wider inline-block mb-1">
+            👦 Faaliyetlerimiz Erkek Öğrencilere Yöneliktir
+          </span>
+          <h2 class="text-2xl font-black text-brandNavy">Erkek Sporcu Ön Başvuru Formu</h2>
+          <p class="text-xs text-slate-500 max-w-md mx-auto">Kulübümüzün erkek öğrencilere yönelik faaliyetlerine katılmak için lütfen aşağıdaki bilgileri eksiksiz doldurunuz.</p>
         </div>
 
         <form onsubmit="handlePreRegister(event)" class="space-y-4 text-xs">
           <!-- Öğrenci Ad Soyad -->
           <div>
-            <label class="block font-bold text-slate-700 uppercase mb-1">Öğrenci Adı Soyadı *</label>
-            <input type="text" id="regStudentName" required placeholder="Örn: Yusuf Emre Demir" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
+            <label class="block font-bold text-slate-700 uppercase mb-1">Öğrencinin Adı ve Soyadı *</label>
+            <input type="text" id="regStudentName" required placeholder="Öğrencinin adı ve soyadı..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
           </div>
 
           <!-- Doğum Tarihi & Eğitim Kademesi -->
@@ -623,8 +626,8 @@
           <!-- Veli Ad Soyad & Telefon -->
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
-              <label class="block font-bold text-slate-700 uppercase mb-1">Veli Adı Soyadı *</label>
-              <input type="text" id="regParentName" required placeholder="Örn: Ali Demir" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
+              <label class="block font-bold text-slate-700 uppercase mb-1">Velinin Adı ve Soyadı *</label>
+              <input type="text" id="regParentName" required placeholder="Velinin adı ve soyadı..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brandBlue">
             </div>
             <div>
               <label class="block font-bold text-slate-700 uppercase mb-1">Veli Telefon Numarası *</label>
@@ -1305,35 +1308,24 @@
     </div>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+  <script>
+    const APP_STORAGE_KEY = 'aag_app_data_v60';
 
-    const APP_STORAGE_KEY = 'aag_app_data_v52';
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'ankara-aktif-spor';
-    
-    let db = null;
-    let auth = null;
-    let cloudUser = null;
-    let isCloudReady = false;
-
-    /* YÜKLENEN 5 GERÇEK KULÜP FOTOĞRAFININ YEREL VE YEDEK LİSTESİ */
+    /* PAYLAŞTIĞINIZ 5 GERÇEK KULÜP FOTOĞRAFI */
     const DEFAULT_HERO_PHOTOS = [
-      "IMG-20260614-WA0013_7.jpg",
-      "IMG_20260519_110139_1_6.jpg",
-      "IMG-20251130-WA0014_6.jpg",
-      "20251111_151655_6.jpg",
-      "1763809463247 (1)_4.jpg"
+      "IMG-20260614-WA0013_8.jpg",
+      "IMG_20260519_110139_1_7.jpg",
+      "IMG-20251130-WA0014_7.jpg",
+      "20251111_151655_7.jpg",
+      "1763809463247 (1)_5.jpg"
     ];
 
-    /* Yerel dosya önizleme ortamında henüz okunmamışsa devreye giren zarif sanatsal temalar */
     const THEMATIC_HERO_SVGS = [
-      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23052e16'/%3E%3Cstop offset='50%25' stop-color='%23064e3b'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g1)'/%3E%3Ccircle cx='800' cy='450' r='380' fill='%2310b981' opacity='0.08'/%3E%3Ctext x='50%25' y='46%25' fill='%2334d399' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🏕️ DOĞA VE GÖLET KAMPI%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E",
-      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23082f49'/%3E%3Cstop offset='50%25' stop-color='%230369a1'/%3E%3Cstop offset='100%25' stop-color='%230284c7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g2)'/%3E%3Ccircle cx='800' cy='450' r='380' fill='%2338bdf8' opacity='0.08'/%3E%3Ctext x='50%25' y='46%25' fill='%237dd3fc' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🌊 ŞELALE DOĞA YÜRÜYÜŞÜ%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E",
-      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2303254c'/%3E%3Cstop offset='50%25' stop-color='%23113f67'/%3E%3Cstop offset='100%25' stop-color='%231e293b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g3)'/%3E%3Ccircle cx='800' cy='450' r='380' fill='%2360a5fa' opacity='0.08'/%3E%3Ctext x='50%25' y='46%25' fill='%2393c5fd' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🎖️ KULÜP LİDER EKİBİ%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E",
-      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g4' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2314532d'/%3E%3Cstop offset='50%25' stop-color='%2315803d'/%3E%3Cstop offset='100%25' stop-color='%23166534'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g4)'/%3E%3Ccircle cx='800' cy='450' r='380' fill='%234ade80' opacity='0.08'/%3E%3Ctext x='50%25' y='46%25' fill='%2386efac' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🌱 MİLLİ FİDAN DİKİMİ%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E",
-      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g5' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2378350f'/%3E%3Cstop offset='50%25' stop-color='%23b45309'/%3E%3Cstop offset='100%25' stop-color='%23d97706'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g5)'/%3E%3Ccircle cx='800' cy='450' r='380' fill='%23fde047' opacity='0.08'/%3E%3Ctext x='50%25' y='46%25' fill='%23fef08a' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🏛️ MACERA ADASI GENÇLİK BULUŞMASI%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E"
+      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23052e16'/%3E%3Cstop offset='50%25' stop-color='%23064e3b'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g1)'/%3E%3Ctext x='50%25' y='46%25' fill='%2334d399' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🏕️ DOĞA VE GÖLET KAMPI%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E",
+      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23082f49'/%3E%3Cstop offset='50%25' stop-color='%230369a1'/%3E%3Cstop offset='100%25' stop-color='%230284c7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g2)'/%3E%3Ctext x='50%25' y='46%25' fill='%237dd3fc' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🌊 ŞELALE DOĞA YÜRÜYÜŞÜ%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E",
+      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2303254c'/%3E%3Cstop offset='50%25' stop-color='%23113f67'/%3E%3Cstop offset='100%25' stop-color='%231e293b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g3)'/%3E%3Ctext x='50%25' y='46%25' fill='%2393c5fd' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🎖️ KULÜP LİDER EKİBİ%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E",
+      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g4' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2314532d'/%3E%3Cstop offset='50%25' stop-color='%2315803d'/%3E%3Cstop offset='100%25' stop-color='%23166534'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g4)'/%3E%3Ctext x='50%25' y='46%25' fill='%2386efac' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🌱 MİLLİ FİDAN DİKİMİ%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E",
+      "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g5' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2378350f'/%3E%3Cstop offset='50%25' stop-color='%23b45309'/%3E%3Cstop offset='100%25' stop-color='%23d97706'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g5)'/%3E%3Ctext x='50%25' y='46%25' fill='%23fef08a' font-family='sans-serif' font-weight='900' font-size='38' text-anchor='middle' letter-spacing='4'%3E🏛️ MACERA ADASI GENÇLİK BULUŞMASI%3C/text%3E%3Ctext x='50%25' y='53%25' fill='%23ffffff' font-family='sans-serif' font-weight='600' font-size='20' text-anchor='middle' opacity='0.8'%3EANKARA AKTİF GENÇ SPOR KULÜBÜ%3C/text%3E%3C/svg%3E"
     ];
 
     const INITIAL_DATA = {
@@ -1422,94 +1414,6 @@
     let currentAuthMode = 'PIN';
     let heroCurrentIndex = 0;
     let heroSliderTimer = null;
-
-    /* BULUT VERİTABANI SENKRONİZASYONU (TÜM CİHAZLAR İÇİN) */
-    async function syncStateToCloud(changes = {}) {
-      if (!db || !cloudUser) return;
-      try {
-        const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'siteConfig', 'global');
-        const payload = {
-          siteContent: state.siteContent || {},
-          heroSlides: state.heroSlides || [],
-          teams: state.teams || [],
-          athletes: state.athletes || [],
-          updatedAt: Date.now(),
-          ...changes
-        };
-        await setDoc(configDocRef, payload, { merge: true });
-      } catch (err) {
-        console.warn("Cloud save warning:", err);
-      }
-    }
-
-    async function initCloudDatabase() {
-      if (typeof __firebase_config === 'undefined') {
-        console.info("Standart yerel modda başlatıldı.");
-        return;
-      }
-      try {
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        db = getFirestore(app);
-        auth = getAuth(app);
-
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-          await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-          await signInAnonymously(auth);
-        }
-
-        cloudUser = auth.currentUser;
-        if (!cloudUser) return;
-
-        isCloudReady = true;
-
-        /* 1. Genel Site Ayarları & Fotoğrafları Dinle (Her Cihazda Anında Güncellenir) */
-        const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'siteConfig', 'global');
-        onSnapshot(configDocRef, (docSnap) => {
-          if (docSnap.exists()) {
-            const cloudData = docSnap.data();
-            if (cloudData.siteContent) {
-              state.siteContent = { ...state.siteContent, ...cloudData.siteContent };
-            }
-            if (cloudData.heroSlides && cloudData.heroSlides.length > 0) {
-              state.heroSlides = cloudData.heroSlides;
-            }
-            if (cloudData.teams && cloudData.teams.length > 0) {
-              state.teams = cloudData.teams;
-            }
-            if (cloudData.athletes && cloudData.athletes.length > 0) {
-              state.athletes = cloudData.athletes;
-            }
-            setData(state);
-            renderAll();
-          } else {
-            /* İlk defa açılıyorsa yerel veriyi buluta aktar */
-            syncStateToCloud();
-          }
-        }, (err) => console.warn("Config listener:", err));
-
-        /* 2. Başvuruları Canlı Dinle */
-        const appsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'applications');
-        onSnapshot(appsColRef, (querySnap) => {
-          const list = [];
-          querySnap.forEach(d => {
-            list.push(d.data());
-          });
-          if (list.length > 0) {
-            /* En yeniden eskiye sırala */
-            list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-            state.applications = list;
-            setData(state);
-            renderApplicationsList();
-            updateAdminBar();
-          }
-        }, (err) => console.warn("Apps listener:", err));
-
-      } catch (e) {
-        console.warn("Cloud connection error:", e);
-      }
-    }
 
     /* DİNAMİK FOTOĞRAF SLAYT MOTORU */
     function getHeroSlidesList() {
@@ -1606,7 +1510,7 @@
       }, 4500);
     }
 
-    /* GÖRSELLERİ BULUT & DEPOLAMA İÇİN OTOMATİK OPTİMİZE ETME */
+    /* GÖRSELLERİ YEREL DEPOLAMA İÇİN OPTİMİZE ETME */
     function compressImageForStorage(file) {
       return new Promise((resolve) => {
         const reader = new FileReader();
@@ -1643,18 +1547,14 @@
       const files = Array.from(event.target.files);
       if (!files || files.length === 0) return;
 
-      showToast('Görseller optimize ediliyor ve buluta yükleniyor...');
+      showToast('Görseller optimize ediliyor ve slayta ekleniyor...');
       try {
         const dataUrls = await Promise.all(files.map(f => compressImageForStorage(f)));
         state.heroSlides = dataUrls;
         setData(state);
         heroCurrentIndex = 0;
         renderHeroSlider();
-        
-        /* Bulut veritabanına gönder -> Diğer tüm cihazlarda aynı anda değişir! */
-        await syncStateToCloud({ heroSlides: dataUrls });
-        
-        showToast(`🎉 ${dataUrls.length} fotoğraf tüm cihazlar için başarıyla güncellendi!`);
+        showToast(`🎉 ${dataUrls.length} fotoğraf başarıyla arka plana yüklendi!`);
       } catch (err) {
         console.error('Fotoğraf yükleme hatası:', err);
         showToast('Fotoğraflar işlenirken bir hata oluştu.', true);
@@ -1777,7 +1677,7 @@
       const file = event.target.files[0];
       if (!file) return;
 
-      showToast("Afiş optimize ediliyor ve buluta yükleniyor...");
+      showToast("Afiş optimize ediliyor...");
       const dataUrl = await compressImageForStorage(file);
       if (!state.siteContent) state.siteContent = {};
       state.siteContent.posterDataUrl = dataUrl;
@@ -1785,16 +1685,7 @@
       
       const posterImg = document.getElementById('announcementPosterImg');
       if (posterImg) posterImg.src = dataUrl;
-      
-      if (db && cloudUser) {
-        try {
-          const posterDoc = doc(db, 'artifacts', appId, 'public', 'data', 'siteMedia', 'announcementPoster');
-          await setDoc(posterDoc, { url: dataUrl, updatedAt: Date.now() });
-        } catch(e) {
-          console.warn("Poster cloud error:", e);
-        }
-      }
-      showToast("Afiş görseli tüm cihazlar için başarıyla güncellendi!");
+      showToast("Afiş görseli başarıyla güncellendi!");
     }
 
     function updateAdminBar() {
@@ -1827,97 +1718,6 @@
         actionCols.forEach(col => col.classList.add('hidden'));
         editBadges.forEach(b => b.classList.add('hidden'));
         if (heroPhotoBtn) heroPhotoBtn.classList.add('hidden');
-      }
-    }
-
-    /* GÜVENLİ VE TÜRKÇE KARAKTER HATASI VERMEYEN BULUT GÖNDERİMİ */
-    async function sendApplicationToUniversalCloud(newApp) {
-      /* 1. Firestore Cloud Kaydı */
-      if (db && cloudUser) {
-        try {
-          const appDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'applications', newApp.id);
-          await setDoc(appDocRef, newApp);
-        } catch (e) {
-          console.warn("Firestore save application error:", e);
-        }
-      }
-
-      /* 2. Yedek Dağıtım Kanalları */
-      const endpoints = [
-        "https://ntfy.sh/aktif_genc_kulubu_apps_v1",
-        "https://ntfy.sh/ankara_aktif_genc_kayitlar_2026"
-      ];
-      const payload = JSON.stringify(newApp);
-      for (const endpoint of endpoints) {
-        try {
-          await fetch(endpoint, { method: "POST", body: payload, mode: "cors" });
-        } catch (err) {
-          console.warn("Bulut gönderim noktası uyarısı:", endpoint, err);
-        }
-      }
-    }
-
-    /* TÜM CİHAZLARDAN GELEN BAŞVURULARI BULUTTAN ÇEKME */
-    async function syncApplicationsFromCloud(silent = false) {
-      const syncBtn = document.getElementById('cloudSyncBtnText');
-      const syncIcon = document.getElementById('cloudSyncIcon');
-      if (syncIcon) syncIcon.classList.add('fa-spin');
-      if (syncBtn && !silent) syncBtn.innerText = "Taranıyor...";
-      
-      if (!silent) showToast("Bulut sunucusu taranıyor...");
-      
-      const endpoints = [
-        "https://ntfy.sh/aktif_genc_kulubu_apps_v1/json?poll=1",
-        "https://ntfy.sh/ankara_aktif_genc_kayitlar_2026/json?poll=1"
-      ];
-      
-      let addedCount = 0;
-      
-      for (const url of endpoints) {
-        try {
-          const response = await fetch(url, { mode: "cors" });
-          if (!response.ok) continue;
-          const text = await response.text();
-          const lines = text.trim().split("\n");
-
-          lines.forEach(line => {
-            if (!line.trim()) return;
-            try {
-              const item = JSON.parse(line);
-              if (item && item.message) {
-                let appData = null;
-                try {
-                  appData = typeof item.message === 'string' ? JSON.parse(item.message) : item.message;
-                } catch(e) {}
-
-                if (appData && (appData.id || appData.studentName)) {
-                  if (!state.applications) state.applications = [];
-                  const exists = state.applications.some(a => 
-                    (a.id && appData.id && a.id === appData.id) || 
-                    (a.studentName === appData.studentName && a.parentPhone === appData.parentPhone)
-                  );
-                  if (!exists) {
-                    state.applications.unshift(appData);
-                    addedCount++;
-                  }
-                }
-              }
-            } catch (e) {}
-          });
-        } catch (e) {
-          console.warn("Bulut eşitleme hatası:", url, e);
-        }
-      }
-
-      if (syncIcon) syncIcon.classList.remove('fa-spin');
-      if (syncBtn) syncBtn.innerText = "Buluttan Çek";
-
-      if (addedCount > 0) {
-        setData(state);
-        renderAll();
-        showToast(`🎉 ${addedCount} yeni başvuru buluttan aktarıldı!`);
-      } else {
-        if (!silent) showToast("Bulut kontrol edildi. Bekleyen yeni başvuru yok.");
       }
     }
 
@@ -1954,7 +1754,7 @@
       document.getElementById('regSuccessModal').classList.add('hidden');
     }
 
-    async function handlePreRegister(e) {
+    function handlePreRegister(e) {
       e.preventDefault();
       const studentName = document.getElementById('regStudentName').value.trim();
       const birthDate = document.getElementById('regBirthDate').value;
@@ -1981,30 +1781,10 @@
         timestamp: Date.now()
       };
 
-      await sendApplicationToUniversalCloud(newApp);
-
       if (!state.applications) state.applications = [];
       state.applications.unshift(newApp);
       setData(state);
       renderAll();
-
-      try {
-        fetch("https://formsubmit.co/ajax/aktifspor6@gmail.com", {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            _subject: `Yeni Ön Başvuru: ${studentName} (${education})`,
-            "Öğrenci Adı": studentName,
-            "Doğum Tarihi": birthDate,
-            "Eğitim Kademesi": education,
-            "Veli Adı": parentName,
-            "Veli Telefonu": parentPhone,
-            "Katılmak İstediği Yer": clubLocation,
-            "Kaynak": referral,
-            "Tarih": newApp.createdDate
-          })
-        }).catch(() => {});
-      } catch (e) {}
 
       showToast(`Teşekkürler Sayın ${parentName}! ${studentName} için ön başvurunuz alındı.`);
       openRegSuccessModal(studentName, parentName, clubLocation, parentPhone, education, birthDate);
@@ -2093,22 +1873,17 @@
       });
     }
 
-    async function updateApplicationStatus(id, newStatus) {
+    function updateApplicationStatus(id, newStatus) {
       const app = state.applications.find(a => a.id === id);
       if (app) {
         app.status = newStatus;
         setData(state);
         renderAll();
-        if (db && cloudUser) {
-          try {
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'applications', id), app, { merge: true });
-          } catch(e) {}
-        }
         showToast(`Başvuru durumu '${newStatus}' olarak güncellendi.`);
       }
     }
 
-    async function convertApplicationToAthlete(appIdParam) {
+    function convertApplicationToAthlete(appIdParam) {
       const app = state.applications.find(a => a.id === appIdParam);
       if (!app) return;
 
@@ -2124,21 +1899,14 @@
       app.status = 'Kayıt Yapıldı';
       setData(state);
       renderAll();
-      await syncStateToCloud({ athletes: state.athletes });
       showToast(`${app.studentName} başarıyla kulüp kadrosuna (${firstTeam}) eklendi!`);
     }
 
-    async function deleteApplication(id) {
-      askConfirmation('Başvuruyu Sil', 'Bu başvuru kaydını kaldırmak istediğinize emin misiniz?', async () => {
+    function deleteApplication(id) {
+      askConfirmation('Başvuruyu Sil', 'Bu başvuru kaydını kaldırmak istediğinize emin misiniz?', () => {
         state.applications = state.applications.filter(a => a.id !== id);
         setData(state);
         renderAll();
-        if (db && cloudUser) {
-          try {
-            const { deleteDoc } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
-            await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'applications', id));
-          } catch(e) {}
-        }
         showToast('Başvuru kaydı silindi.');
       });
     }
@@ -2176,7 +1944,6 @@
     function openApplicationsModal() {
       renderApplicationsList();
       document.getElementById('applicationsModal').classList.remove('hidden');
-      syncApplicationsFromCloud();
     }
 
     function closeApplicationsModal() {
@@ -2191,7 +1958,7 @@
       document.getElementById('pasteEmailModal').classList.add('hidden');
     }
 
-    async function handleParseEmailSubmit(e) {
+    function handleParseEmailSubmit(e) {
       e.preventDefault();
       const text = document.getElementById('pasteEmailTextarea').value;
       if (!text.trim()) return;
@@ -2231,7 +1998,6 @@
         timestamp: Date.now()
       };
 
-      await sendApplicationToUniversalCloud(newApp);
       state.applications.unshift(newApp);
       setData(state);
       renderAll();
@@ -2248,7 +2014,7 @@
       document.getElementById('manualAppModal').classList.add('hidden');
     }
 
-    async function handleManualAppSubmit(e) {
+    function handleManualAppSubmit(e) {
       e.preventDefault();
       const studentName = document.getElementById('manStudentName').value.trim();
       const birthDate = document.getElementById('manBirthDate').value;
@@ -2271,7 +2037,6 @@
         timestamp: Date.now()
       };
 
-      await sendApplicationToUniversalCloud(newApp);
       state.applications.unshift(newApp);
       setData(state);
       renderAll();
@@ -2304,16 +2069,15 @@
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = async function(e) {
+      reader.onload = function(e) {
         try {
           const imported = JSON.parse(e.target.result);
           if (imported && (imported.siteContent || imported.leaders || imported.athletes)) {
             state = { ...INITIAL_DATA, ...imported };
             setData(state);
             renderAll();
-            await syncStateToCloud();
             closeBackupRestoreModal();
-            showToast("Site yedeği başarıyla geri yüklendi ve tüm cihazlara gönderildi!");
+            showToast("Site yedeği başarıyla geri yüklendi!");
           } else {
             showToast("Geçersiz yedek dosyası yapısı!", true);
           }
@@ -2373,7 +2137,6 @@
       });
       setData(state);
       renderLeaderAccountsList();
-      syncStateToCloud({ leaders: state.leaders });
       document.getElementById('newLeaderEmailInput').value = '';
       showToast(`${email} sisteme lider olarak eklendi.`);
     }
@@ -2382,7 +2145,6 @@
       state.leaders = state.leaders.filter(l => l.email !== email);
       setData(state);
       renderLeaderAccountsList();
-      syncStateToCloud({ leaders: state.leaders });
       showToast("Lider yetkisi silindi.");
     }
 
@@ -2511,7 +2273,7 @@
       document.getElementById('contentEditModal').classList.add('hidden');
     }
 
-    async function handleSaveSiteContent(e) {
+    function handleSaveSiteContent(e) {
       e.preventDefault();
       state.siteContent = {
         ...state.siteContent,
@@ -2531,10 +2293,7 @@
       setData(state);
       renderAll();
       closeContentEditModal();
-      
-      /* Buluta kaydet -> Tüm cihazlarda anında güncellenir */
-      await syncStateToCloud({ siteContent: state.siteContent });
-      showToast('Tüm site metinleri tüm cihazlar için güncellendi!');
+      showToast('Tüm site metinleri güncellendi!');
     }
 
     function renderAdminTeamsList() {
@@ -2619,7 +2378,7 @@
       });
     }
 
-    async function handleCreateTeam(e) {
+    function handleCreateTeam(e) {
       e.preventDefault();
       const name = document.getElementById('newTeamNameInput').value.trim();
       if (!name) return;
@@ -2631,13 +2390,12 @@
       setData(state);
       renderAll();
       closeTeamModal();
-      await syncStateToCloud({ teams: state.teams });
       document.getElementById('newTeamNameInput').value = '';
-      showToast(`'${name}' ekibi oluşturuldu ve tüm cihazlarda yayınlandı.`);
+      showToast(`'${name}' ekibi oluşturuldu.`);
     }
 
-    async function deleteTeam(teamName) {
-      askConfirmation('Ekibi Sil', `'${teamName}' ekibini silmek istediğinize emin misiniz?`, async () => {
+    function deleteTeam(teamName) {
+      askConfirmation('Ekibi Sil', `'${teamName}' ekibini silmek istediğinize emin misiniz?`, () => {
         state.teams = state.teams.filter(t => t !== teamName);
         state.athletes.forEach(a => {
           if (a.team === teamName) a.team = 'Bağımsız';
@@ -2645,12 +2403,11 @@
         if (!state.teams.includes('Bağımsız')) state.teams.push('Bağımsız');
         setData(state);
         renderAll();
-        await syncStateToCloud({ teams: state.teams, athletes: state.athletes });
         showToast('Ekip silindi.');
       });
     }
 
-    async function handleSaveAthlete(e) {
+    function handleSaveAthlete(e) {
       e.preventDefault();
       const editId = document.getElementById('athleteEditId').value;
       const name = document.getElementById('athleteNameInput').value.trim();
@@ -2674,8 +2431,7 @@
       setData(state);
       renderAll();
       closeAthleteModal();
-      await syncStateToCloud({ athletes: state.athletes });
-      showToast('Sporcu kaydedildi ve tüm cihazlarda güncellendi.');
+      showToast('Sporcu kaydedildi.');
     }
 
     function editAthlete(id) {
@@ -2689,12 +2445,11 @@
       openAddAthleteModal();
     }
 
-    async function deleteAthlete(id) {
-      askConfirmation('Sporcuyu Sil', 'Bu genci listeden kaldırmak istediğinize emin misiniz?', async () => {
+    function deleteAthlete(id) {
+      askConfirmation('Sporcuyu Sil', 'Bu genci listeden kaldırmak istediğinize emin misiniz?', () => {
         state.athletes = state.athletes.filter(a => a.id !== id);
         setData(state);
         renderAll();
-        await syncStateToCloud({ athletes: state.athletes });
         showToast('Sporcu kaydı silindi.');
       });
     }
@@ -2754,14 +2509,13 @@
 
     function closeWeeklyTrackingModal() { document.getElementById('weeklyTrackingModal').classList.add('hidden'); }
     
-    async function addQuickPoints(athId, amount, reason) {
+    function addQuickPoints(athId, amount, reason) {
       const ath = state.athletes.find(a => a.id === athId);
       if (!ath) return;
       ath.points = Number(ath.points) + Number(amount);
       setData(state);
       renderAll();
       openWeeklyTrackingModal();
-      await syncStateToCloud({ athletes: state.athletes });
       showToast(`${ath.name} gencimize +${amount} puan eklendi (${reason}).`);
     }
 
@@ -2829,7 +2583,7 @@
       openWeeklyTrackingModal,
       closeWeeklyTrackingModal,
       addQuickPoints,
-      syncApplicationsFromCloud,
+      syncApplicationsFromCloud: () => showToast('Yerel mod aktif.'),
       handlePinDigit,
       setLoginAuthMode,
       handleLeaderEmailLogin,
@@ -2844,13 +2598,6 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       renderAll();
-      initCloudDatabase();
-      setTimeout(() => syncApplicationsFromCloud(true), 1200);
-      setInterval(() => {
-        if (state.isAdmin) {
-          syncApplicationsFromCloud(true);
-        }
-      }, 15000);
     });
   </script>
 </body>
