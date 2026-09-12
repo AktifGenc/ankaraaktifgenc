@@ -34,9 +34,6 @@
   <style>
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .hero-slide {
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col relative selection:bg-brandBlue selection:text-white">
@@ -87,10 +84,6 @@
         <button onclick="openWeeklyTrackingModal()" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-sm">
           <i class="fa-solid fa-clipboard-check text-xs"></i> Yoklama & Puan
         </button>
-        <label class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-sm cursor-pointer" title="Ana sayfa arka plan slayt fotoğraflarını cihazdan seç">
-          <i class="fa-solid fa-camera text-xs"></i> 📷 Slayt Fotoğrafları
-          <input type="file" multiple accept="image/*" onchange="handleHeroPhotosUpload(event)" class="hidden">
-        </label>
         <button onclick="showSection('athletesPage')" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-sm">
           <i class="fa-solid fa-users text-xs"></i> Kadro & Ekip
         </button>
@@ -159,63 +152,42 @@
 
   <!-- SAYFA 1: ANA SAYFA -->
   <main id="homePage" class="flex-grow">
-    <!-- HERO BÖLÜMÜ: 5 KULÜP FOTOĞRAFLI DİNAMİK ARKA PLAN GEÇİŞLİ SLIDER -->
-    <section class="relative text-white py-16 lg:py-24 text-center px-4 overflow-hidden min-h-[520px] flex items-center justify-center bg-slate-950">
+    <!-- HERO BÖLÜMÜ: MODERN KULÜP DEGRADE ARKA PLANI (FOTOĞRAF SİSTEMİ KALDIRILDI) -->
+    <section class="relative text-white py-20 lg:py-28 text-center px-4 overflow-hidden min-h-[460px] flex items-center justify-center bg-gradient-to-br from-brandNavy via-brandDarkBlue to-slate-950">
       
-      <!-- DİNAMİK ARKA PLAN SLIDER KATMANI -->
-      <div id="heroBackgroundSlides" class="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
-        <!-- JavaScript ile fotoğraflar eklenir -->
-      </div>
-
-      <!-- FOTOĞRAFLARIN CANLI VE NET GÖRÜNMESİ İÇİN ŞEFFAF FİLTRE -->
-      <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-slate-950/30 to-black/75 z-[1]"></div>
-
-      <!-- SOL / SAĞ HIZLI GEÇİŞ OKLARI -->
-      <button onclick="prevHeroSlide()" aria-label="Önceki Fotoğraf" class="absolute left-3 sm:left-6 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-md transition border border-white/20 shadow-xl cursor-pointer">
-        <i class="fa-solid fa-chevron-left text-sm"></i>
-      </button>
-      <button onclick="nextHeroSlide()" aria-label="Sonraki Fotoğraf" class="absolute right-3 sm:right-6 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-md transition border border-white/20 shadow-xl cursor-pointer">
-        <i class="fa-solid fa-chevron-right text-sm"></i>
-      </button>
-
-      <!-- FOTOĞRAFLARI CİHAZDAN SEÇME BUTONU (SADECE LİDER GİRİŞİ YAPILDIĞINDA GÖRÜNÜR) -->
-      <div id="heroPhotoUploadContainer" class="hidden absolute top-4 right-4 z-30 flex items-center gap-2">
-        <label class="px-3 py-1.5 bg-black/70 hover:bg-black/90 text-white text-[10px] sm:text-xs font-bold rounded-xl border border-amber-400/60 backdrop-blur-md transition cursor-pointer shadow-lg flex items-center gap-1.5 group">
-          <i class="fa-solid fa-camera text-amber-400 group-hover:scale-110 transition"></i>
-          <span>📷 Slayt Fotoğraflarını Değiştir</span>
-          <input type="file" multiple accept="image/*" onchange="handleHeroPhotosUpload(event)" class="hidden">
-        </label>
+      <!-- Dekoratif Geometrik ve Işıltı Katmanları -->
+      <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-brandBlue/30 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-brandRed/20 rounded-full blur-3xl"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:28px_28px] opacity-10"></div>
       </div>
 
       <div class="max-w-4xl mx-auto space-y-6 relative z-10">
-        <span id="displayHeroBadge" class="px-4 py-1.5 rounded-full bg-white/20 text-white font-extrabold text-xs uppercase tracking-widest border border-white/30 inline-block shadow-xs drop-shadow">
+        <span id="displayHeroBadge" class="px-4 py-1.5 rounded-full bg-white/10 text-white font-extrabold text-xs uppercase tracking-widest border border-white/20 inline-block shadow-sm">
           🏕️ DOĞA SPORLARI & GENÇLİK KAMPLARI KULÜBÜ
         </span>
         <div class="relative">
-          <h1 id="displayHeroTitle" class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+          <h1 id="displayHeroTitle" class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight drop-shadow-md">
             AKTİF'Lİ OL, AKTİF KAL!
           </h1>
           <button onclick="openContentEditModal()" class="admin-edit-badge hidden absolute -top-4 -right-2 px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-white font-bold text-[10px] rounded-lg shadow cursor-pointer">
             <i class="fa-solid fa-pen"></i> Düzenle
           </button>
         </div>
-        <p id="displayHeroSub" class="text-white text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+        <p id="displayHeroSub" class="text-slate-200 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal">
           Ankara Aktif Genç Spor Kulübü olarak gençlerimizi doğa kampları, fidan dikimleri, dostluk turnuvaları ve açık hava faaliyetleriyle buluşturuyor; liderlik ruhu ve takım dayanışması kazandırıyoruz.
         </p>
         <div class="flex flex-wrap justify-center gap-3 pt-2">
           <button onclick="showSection('applicationPage')" class="px-7 py-3.5 bg-brandRed hover:bg-brandDarkRed text-white rounded-2xl text-xs font-black shadow-lg transition flex items-center gap-2 border border-red-500/30">
             <i class="fa-solid fa-paper-plane"></i> Hemen Ön Başvuru Yap
           </button>
-          <button onclick="showSection('rankingsPage')" class="px-6 py-3.5 bg-white/20 hover:bg-white/30 text-white rounded-2xl text-xs font-black border border-white/30 transition flex items-center gap-2 backdrop-blur-md">
+          <button onclick="showSection('rankingsPage')" class="px-6 py-3.5 bg-white/15 hover:bg-white/25 text-white rounded-2xl text-xs font-black border border-white/25 transition flex items-center gap-2 backdrop-blur-md">
             <i class="fa-solid fa-trophy"></i> Puan Durumu
           </button>
-          <button onclick="showSection('eventsPage')" class="px-6 py-3.5 bg-white/15 hover:bg-white/25 text-white rounded-2xl text-xs font-black border border-white/20 transition flex items-center gap-2 backdrop-blur-md">
+          <button onclick="showSection('eventsPage')" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-xs font-black border border-white/15 transition flex items-center gap-2 backdrop-blur-md">
             <i class="fa-solid fa-calendar-days"></i> Etkinlik Takvimi
           </button>
         </div>
-
-        <!-- SLAYT GÖSTERGE ÇİZGİLERİ -->
-        <div id="heroIndicatorsContainer" class="flex items-center justify-center gap-2 pt-2"></div>
       </div>
     </section>
 
@@ -746,7 +718,6 @@
     </div>
   </div>
 
-  <!-- Yardımcı Modallar -->
   <div id="pasteEmailModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative"><button onclick="closePasteEmailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button><h3 class="font-extrabold text-base text-brandNavy mb-2">Gelen E-Postadan Aktar</h3><form onsubmit="handleParseEmailSubmit(event)" class="space-y-3"><textarea id="pasteEmailTextarea" rows="6" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs"></textarea><button type="submit" class="w-full py-3 bg-brandBlue text-white font-bold rounded-xl text-xs">Ayıkla ve Ekle</button></form></div>
   </div>
@@ -789,18 +760,9 @@
   <div id="weeklyTrackingModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm"><div class="bg-white rounded-3xl max-w-2xl w-full p-6 relative"><button onclick="closeWeeklyTrackingModal()" class="absolute top-4 right-4"><i class="fa-solid fa-xmark"></i></button><h3 class="font-extrabold mb-4">Yoklama & Puan</h3><div id="weeklyAthletesList" class="space-y-2 text-xs h-64 overflow-y-auto"></div></div></div>
 
   <script>
-    const APP_STORAGE_KEY = 'aag_app_data_v56';
+    const APP_STORAGE_KEY = 'aag_app_data_v57';
     /* Gerçek zamanlı sunucusuz senkronizasyon */
     const SYNC_CHANNEL = "https://ntfy.sh/ankara_aktif_genc_config_2026_v2";
-
-    /* Yüklenen 5 gerçek kulüp fotoğrafı */
-    const DEFAULT_HERO_PHOTOS = [
-      "IMG-20260614-WA0013_8.jpg",
-      "IMG_20260519_110139_1_7.jpg",
-      "IMG-20251130-WA0014_7.jpg",
-      "20251111_151655_7.jpg",
-      "1763809463247 (1)_5.jpg"
-    ];
 
     const INITIAL_DATA = {
       isAdmin: false,
@@ -829,7 +791,6 @@
         footerMail: "aktifspor6@gmail.com",
         footerAddress: "Karargahtepe Mah. Çavdar Sk. No:43, Keçiören / Ankara"
       },
-      heroSlides: DEFAULT_HERO_PHOTOS,
       teams: ['Fırtına Ekibi', 'Parslar Ekibi', 'Şahinler Ekibi'],
       athletes: [
         { id: '1', name: 'Burak Kaya', team: 'Fırtına Ekibi', points: 240, attendance: 95 },
@@ -851,7 +812,6 @@
             ...(parsed.siteContent || {}),
             heroTitle: (parsed.siteContent && parsed.siteContent.heroTitle) ? parsed.siteContent.heroTitle : "AKTİF'Lİ OL, AKTİF KAL!"
           },
-          heroSlides: (parsed.heroSlides && parsed.heroSlides.length > 0) ? parsed.heroSlides : DEFAULT_HERO_PHOTOS,
           applications: parsed.applications || [],
           athletes: parsed.athletes || INITIAL_DATA.athletes,
           teams: parsed.teams || INITIAL_DATA.teams
@@ -871,8 +831,6 @@
 
     let state = getData();
     let confirmCallback = null;
-    let heroCurrentIndex = 0;
-    let heroSliderTimer = null;
 
     async function syncStateToCloud() {
       const payload = {
@@ -942,132 +900,6 @@
       }
     }
 
-    function renderHeroSlider() {
-      const container = document.getElementById('heroBackgroundSlides');
-      const indicators = document.getElementById('heroIndicatorsContainer');
-      if (!container || !indicators) return;
-
-      const slides = (state.heroSlides && state.heroSlides.length > 0) ? state.heroSlides : DEFAULT_HERO_PHOTOS;
-      container.innerHTML = '';
-      indicators.innerHTML = '';
-
-      slides.forEach((src, idx) => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.className = `hero-slide absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out ${idx === heroCurrentIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`;
-        
-        img.onerror = function() {
-          this.onerror = null;
-          this.src = "https://placehold.co/1920x1080/1e293b/ffffff?text=Ankara+Aktif+Genc";
-        };
-        container.appendChild(img);
-
-        const dot = document.createElement('button');
-        dot.className = `hero-indicator h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === heroCurrentIndex ? 'w-8 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'}`;
-        dot.onclick = () => setHeroSlide(idx);
-        indicators.appendChild(dot);
-      });
-
-      startHeroAutoPlay();
-    }
-
-    function updateHeroSlideDisplay() {
-      const slides = document.querySelectorAll('.hero-slide');
-      const dots = document.querySelectorAll('.hero-indicator');
-      const total = slides.length;
-      if (total === 0) return;
-
-      if (heroCurrentIndex >= total) heroCurrentIndex = 0;
-      if (heroCurrentIndex < 0) heroCurrentIndex = total - 1;
-
-      slides.forEach((slide, idx) => {
-        if (idx === heroCurrentIndex) {
-          slide.classList.remove('opacity-0', 'scale-105');
-          slide.classList.add('opacity-100', 'scale-100');
-        } else {
-          slide.classList.remove('opacity-100', 'scale-100');
-          slide.classList.add('opacity-0', 'scale-105');
-        }
-      });
-
-      dots.forEach((dot, idx) => {
-        if (idx === heroCurrentIndex) {
-          dot.className = "hero-indicator w-8 h-2 rounded-full bg-white transition-all duration-300 cursor-pointer shadow";
-        } else {
-          dot.className = "hero-indicator w-2 h-2 rounded-full bg-white/40 hover:bg-white/70 transition-all duration-300 cursor-pointer";
-        }
-      });
-    }
-
-    function nextHeroSlide() {
-      heroCurrentIndex = (heroCurrentIndex + 1) % getHeroSlidesList().length;
-      updateHeroSlideDisplay();
-      startHeroAutoPlay();
-    }
-
-    function prevHeroSlide() {
-      const len = getHeroSlidesList().length;
-      heroCurrentIndex = (heroCurrentIndex - 1 + len) % len;
-      updateHeroSlideDisplay();
-      startHeroAutoPlay();
-    }
-
-    function setHeroSlide(idx) {
-      heroCurrentIndex = idx;
-      updateHeroSlideDisplay();
-      startHeroAutoPlay();
-    }
-
-    function getHeroSlidesList() {
-      return (state.heroSlides && state.heroSlides.length > 0) ? state.heroSlides : DEFAULT_HERO_PHOTOS;
-    }
-
-    function startHeroAutoPlay() {
-      if (heroSliderTimer) clearInterval(heroSliderTimer);
-      heroSliderTimer = setInterval(() => { nextHeroSlide(); }, 4500);
-    }
-
-    function compressImageForStorage(file) {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            let w = img.width; let h = img.height;
-            const maxDimension = 1920; 
-            if (w > maxDimension || h > maxDimension) {
-              if (w > h) { h = Math.round((h * maxDimension) / w); w = maxDimension; } 
-              else { w = Math.round((w * maxDimension) / h); h = maxDimension; }
-            }
-            canvas.width = w; canvas.height = h;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, w, h);
-            resolve(canvas.toDataURL('image/jpeg', 0.85));
-          };
-          img.onerror = () => resolve(e.target.result);
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    async function handleHeroPhotosUpload(event) {
-      const files = Array.from(event.target.files);
-      if (!files || files.length === 0) return;
-      showToast('Görseller yükleniyor...');
-      try {
-        const dataUrls = await Promise.all(files.map(f => compressImageForStorage(f)));
-        state.heroSlides = dataUrls;
-        setData(state);
-        heroCurrentIndex = 0;
-        renderHeroSlider();
-        showToast(`🎉 ${dataUrls.length} fotoğraf yerel olarak güncellendi!`);
-      } catch (err) {
-        showToast('Fotoğraflar işlenirken hata oluştu.', true);
-      }
-    }
-
     function showToast(msg, isError = false) {
       const toast = document.getElementById('toastNotification');
       if (!toast) return;
@@ -1095,7 +927,7 @@
       confirmCallback = null;
     }
 
-    /* Section Routing: teamPage çıkarıldı */
+    /* Section Routing */
     const ALL_SECTIONS = ['homePage', 'aboutPage', 'activitiesPage', 'rankingsPage', 'eventsPage', 'galleryPage', 'faqPage', 'applicationPage', 'athletesPage'];
     function showSection(sectionId) {
       ALL_SECTIONS.forEach(id => { const s = document.getElementById(id); if (s) s.classList.add('hidden'); });
@@ -1134,7 +966,6 @@
       const adminActions = document.getElementById('athletePageAdminActions');
       const actionCols = document.querySelectorAll('.admin-action-col');
       const editBadges = document.querySelectorAll('.admin-edit-badge');
-      const heroPhotoBtn = document.getElementById('heroPhotoUploadContainer');
 
       if (state.isAdmin) {
         bar.classList.remove('hidden');
@@ -1144,7 +975,6 @@
         if (adminActions) adminActions.classList.remove('hidden');
         actionCols.forEach(col => col.classList.remove('hidden'));
         editBadges.forEach(b => b.classList.remove('hidden'));
-        if (heroPhotoBtn) heroPhotoBtn.classList.remove('hidden');
       } else {
         bar.classList.add('hidden');
         navBtn.innerHTML = '<i class="fa-solid fa-lock text-xs text-brandBlue"></i> Lider Girişi';
@@ -1152,7 +982,6 @@
         if (adminActions) adminActions.classList.add('hidden');
         actionCols.forEach(col => col.classList.add('hidden'));
         editBadges.forEach(b => b.classList.add('hidden'));
-        if (heroPhotoBtn) heroPhotoBtn.classList.add('hidden');
       }
     }
 
@@ -1382,7 +1211,8 @@
     function closeAthleteModal() { document.getElementById('athleteModal').classList.add('hidden'); }
     function handleSaveAthlete(e) { e.preventDefault(); state.athletes.push({ id: Date.now().toString(), name: document.getElementById('athleteNameInput').value, team: document.getElementById('athleteTeamDropdown').value, points: Number(document.getElementById('athletePointsInput').value) }); setData(state); renderAll(); closeAthleteModal(); syncStateToCloud(); }
 
-    function openLeaderAccountsModal() {} function closeLeaderAccountsModal() {}
+    function openLeaderAccountsModal() {} 
+    function closeLeaderAccountsModal() {}
     function openBackupRestoreModal() { document.getElementById('backupRestoreModal').classList.remove('hidden'); }
     function closeBackupRestoreModal() { document.getElementById('backupRestoreModal').classList.add('hidden'); }
     function exportSiteBackupJSON() {
@@ -1395,7 +1225,6 @@
 
     function renderAll() {
       renderSiteTextContent();
-      renderHeroSlider();
       updateAdminBar();
       renderAdminTeamsList();
       renderAdminAthletesTable();
@@ -1404,20 +1233,22 @@
 
     Object.assign(window, {
       showSection, toggleMobileMenu, closeMobileMenu, openLoginModal, closeLoginModal, logoutAdmin,
-      nextHeroSlide, prevHeroSlide, setHeroSlide, handleHeroPhotosUpload, handlePreRegister, closeRegSuccessModal,
-      openApplicationsModal, closeApplicationsModal, openPasteEmailModal, closePasteEmailModal, handleParseEmailSubmit,
-      openManualAppModal, closeManualAppModal, handleManualAppSubmit, openContentEditModal, closeContentEditModal,
-      handleSaveSiteContent, openBackupRestoreModal, closeBackupRestoreModal, exportSiteBackupJSON, importSiteBackupJSON,
-      openAddTeamModal, closeTeamModal, handleCreateTeam, openAddAthleteModal, closeAthleteModal, handleSaveAthlete, deleteAthlete,
-      filterAthletesTable, openWeeklyTrackingModal, closeWeeklyTrackingModal, addQuickPoints, handlePinDigit, handleLeaderEmailLogin,
-      updateApplicationStatus, convertApplicationToAthlete, deleteApplication, filterApplications, handleReferralChange, closeCustomDialog,
-      openLeaderAccountsModal, closeLeaderAccountsModal, syncApplicationsFromCloud
+      handlePreRegister, closeRegSuccessModal, openApplicationsModal, closeApplicationsModal, 
+      openPasteEmailModal, closePasteEmailModal, handleParseEmailSubmit, openManualAppModal, 
+      closeManualAppModal, handleManualAppSubmit, openContentEditModal, closeContentEditModal,
+      handleSaveSiteContent, openBackupRestoreModal, closeBackupRestoreModal, exportSiteBackupJSON, 
+      importSiteBackupJSON, openAddTeamModal, closeTeamModal, handleCreateTeam, openAddAthleteModal, 
+      closeAthleteModal, handleSaveAthlete, deleteAthlete, filterAthletesTable, openWeeklyTrackingModal, 
+      closeWeeklyTrackingModal, addQuickPoints, handlePinDigit, handleLeaderEmailLogin,
+      updateApplicationStatus, convertApplicationToAthlete, deleteApplication, filterApplications, 
+      handleReferralChange, closeCustomDialog, openLeaderAccountsModal, closeLeaderAccountsModal, 
+      syncApplicationsFromCloud
     });
 
     window.addEventListener('DOMContentLoaded', () => {
       renderAll();
       setTimeout(() => syncApplicationsFromCloud(true), 1200);
-      /* Sunucusuz Canlı State Dinleyici */
+      /* Canlı State Dinleyici */
       setInterval(() => {
         try {
           fetch(SYNC_CHANNEL + "/json?poll=1")
