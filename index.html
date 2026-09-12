@@ -1777,6 +1777,7 @@
       const file = event.target.files[0];
       if (!file) return;
 
+      showToast("Afiş optimize ediliyor ve buluta yükleniyor...");
       const dataUrl = await compressImageForStorage(file);
       if (!state.siteContent) state.siteContent = {};
       state.siteContent.posterDataUrl = dataUrl;
@@ -1785,8 +1786,15 @@
       const posterImg = document.getElementById('announcementPosterImg');
       if (posterImg) posterImg.src = dataUrl;
       
-      await syncStateToCloud({ siteContent: state.siteContent });
-      showToast("Afiş görseli tüm cihazlar için güncellendi!");
+      if (db && cloudUser) {
+        try {
+          const posterDoc = doc(db, 'artifacts', appId, 'public', 'data', 'siteMedia', 'announcementPoster');
+          await setDoc(posterDoc, { url: dataUrl, updatedAt: Date.now() });
+        } catch(e) {
+          console.warn("Poster cloud error:", e);
+        }
+      }
+      showToast("Afiş görseli tüm cihazlar için başarıyla güncellendi!");
     }
 
     function updateAdminBar() {
